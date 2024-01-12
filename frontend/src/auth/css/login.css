@@ -1,0 +1,46 @@
+:root {
+    --grey-50: #F3F6F9;
+    --grey-100: #E5EAF2;
+    --grey-200: #DAE2ED;
+    --grey-300: #C7D0DD;
+    --grey-400: #B0B8C4;
+    --grey-500: #9DA8B7;
+    --grey-600: #6B7A90;
+    --grey-700: #434D5B;
+    --grey-800: #303740;
+    --grey-900: #1C2025;
+}
+
+.phone-container {
+    height: 52px;
+    padding: 0 16px;
+    background: #e6e8ed;
+    border-radius: 12px;
+    transition: all .15s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    margin-right: 8px;
+    font-size: 1.5rem;
+}
+
+.phone-container:hover {
+    background: #dee0e5;
+}
+
+.login-button {
+    width: 100%;
+    border-radius: 12px !important;
+    background-color: #2BBDE9 !important;
+    font-weight: 600 !important;
+}
+
+.login-wrapper {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
