@@ -1,3 +1,6 @@
+*{
+    font-family: Inter, serif;
+}
 :root {
     --grey-50: #F3F6F9;
     --grey-100: #E5EAF2;
