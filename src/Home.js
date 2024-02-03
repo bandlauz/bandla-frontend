@@ -2,7 +2,6 @@ import * as React from "react";
 import './Home.css';
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Home() {
     return (
@@ -12,9 +11,9 @@ function Home() {
                     <div class="col-auto">
                         <h4>
                             <Link to="/login" style={{ textDecoration: 'none' }}>
-                                <span id="swagger" className="p-1 mb-1 text-white rounded"
+                                <span className="p-1 mb-1 text-white rounded"
                                     style={{ textDecoration: 'none', backgroundColor: 'rgba(127,0,127,0.81)' }}>
-                                    <i className="bi bi-link-45deg"></i>Войти
+                                    Войти
                                 </span>
                             </Link>
                         </h4>
@@ -28,7 +27,7 @@ function Home() {
                 <div className="image-container">
                     <img className="centered-image"
                         src="https://github.com/bandlauz/.github/assets/109890132/8aa4d947-9b71-45ed-b923-bce64d06df08"
-                        alt="Web Designer Image" />
+                        alt="Bandla image"/>
                 </div>
                 <h5>Jamoamizga Web-dizayner kerak🔎</h5>
                 <h5>В нашу команду нужен Веб-дизайнер🔎</h5>
