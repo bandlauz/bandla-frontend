@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    font-family: Inter,
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #8A2BE2FF !important;
+}
+h5 {
+    text-align: center;
+}
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.centered-image {
+    margin-bottom: 10px;
+    max-width: 100%;
+    max-height: 100%;
+}
