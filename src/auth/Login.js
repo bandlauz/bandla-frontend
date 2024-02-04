@@ -1,9 +1,9 @@
 import * as React from 'react';
 import './css/login.css';
 import InputMask from 'react-input-mask';
-import {styled} from '@mui/system';
-import {Card, CardContent, Button, Typography, Alert, AlertTitle} from '@mui/material';
-import {useState} from "react";
+import { styled } from '@mui/system';
+import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
+import { useState } from "react";
 import Request from "../Requests";
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
@@ -36,12 +36,12 @@ function Login() {
         }));
     };
 
-    const startTimer = (phone) => {
+    const startTimer = (phone, time) => {
         const startTime = new Date().getTime();
         updateInterval = setInterval(() => {
             const currentTime = new Date().getTime();
             const elapsedTime = currentTime - startTime;
-            const remainingTime = Math.max(0, 60000 - elapsedTime);
+            const remainingTime = Math.max(0, time * 1000 - elapsedTime);
             const remainingSeconds = Math.ceil(remainingTime / 1000);
 
             handleTimerUpdate(phone, remainingSeconds);
@@ -67,20 +67,16 @@ function Login() {
             const response = await Request(API_URL, "postWithParam", fullPhoneNumber);
             if (response.data.data === true) {
                 const response = await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
-                if (response.data.message === "SUCCESS") {
-                    setVerificationFormVisible(true);
-                    startTimer(fullPhoneNumber);
-                    clearInterval(updateInterval);
-                }
+                setVerificationFormVisible(true);
+                clearInterval(updateInterval);
             } else {
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
-            if (error?.response?.data?.code === 100) {
-                //setError('Превышено максимальное количество попыток.');
-                startTimer(fullPhoneNumber);
-            } else {
-                setError('Произошла ошибка при проверке номера телефона.');
+            switch (error?.response?.status) {
+                case 429: startTimer(fullPhoneNumber, error?.response?.data?.data); break;
+                case 400: setError('Произошла ошибка при проверке номера телефона'); break;
+                default: setError('Произошла ошибка');
             }
         } finally {
             setButtonClicked(false);
@@ -91,7 +87,7 @@ function Login() {
         <div>
             {timers[fullPhoneNumber] > 0 && (
                 <Alert
-                    sx={{m: '20px', position: 'absolute', bottom: 0, right: 0, background: '#1f2026', color: 'white'}}
+                    sx={{ m: '20px', position: 'absolute', bottom: 0, right: 0, background: '#1f2026', color: 'white' }}
                     variant="filled" severity="error">
                     <AlertTitle>{`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`}</AlertTitle>
                 </Alert>
@@ -99,8 +95,8 @@ function Login() {
 
             {
                 isLoginWithPasswordVisible ? (
-                        <LoginWithPassword fullPhoneNumber={fullPhoneNumber}/>
-                    ) :
+                    <LoginWithPassword fullPhoneNumber={fullPhoneNumber} />
+                ) :
                     isVerificationFormVisible ? (
                         <Verification
                             phoneNumber={phoneNumber}
@@ -110,7 +106,7 @@ function Login() {
                         />
                     ) : (
                         <div className="Login login-wrapper">
-                            <Card sx={{minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
+                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px' }}>
                                 <CardContent
                                     sx={{
                                         display: 'flex',
@@ -119,11 +115,11 @@ function Login() {
                                         alignItems: 'center',
                                         p: '30px'
                                     }}>
-                                    <Typography variant='h5' sx={{fontWeight: 'bold'}}>Введите номер
+                                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите номер
                                         телефона</Typography>
-                                    <Typography sx={{fontWeight: 'regular', my: '10px'}}>Отправим смс с кодом
+                                    <Typography sx={{ fontWeight: 'regular', my: '10px' }}>Отправим смс с кодом
                                         подтверждения</Typography>
-                                    <form action="" onSubmit={handleSubmit} style={{width: '100%'}}>
+                                    <form action="" onSubmit={handleSubmit} style={{ width: '100%' }}>
                                         <div className="phone-container">
                                             <span className="country-code">+998</span>
                                             <InputMask
@@ -133,27 +129,27 @@ function Login() {
                                                 alwaysShowMask={true}
                                                 value={phoneNumber}
                                                 onChange={handlePhoneNumberChange}
-                                                sx={{flex: '1 1 auto', minWidth: 0}}
+                                                sx={{ flex: '1 1 auto', minWidth: 0 }}
                                             >
                                                 {(inputProps) => <InputElement {...inputProps} />}
                                             </InputMask>
                                         </div>
-                                        <Button type={"submit"} sx={{my: '20px'}} className="login-button"
-                                                variant="contained" disableElevation
-                                                disabled={!isPhoneNumberValid() || buttonClicked}>
+                                        <Button type={"submit"} sx={{ my: '20px' }} className="login-button"
+                                            variant="contained" disableElevation
+                                            disabled={!isPhoneNumberValid() || buttonClicked}>
                                             Получить код
                                         </Button>
                                     </form>
                                     {error && (
-                                        <Alert sx={{m: '20px', position: 'absolute', top: 0, right: 0}}
-                                               severity="error">
+                                        <Alert sx={{ m: '20px', position: 'absolute', top: 0, right: 0 }}
+                                            severity="error">
                                             <AlertTitle>Ошибка</AlertTitle>
                                             {error}
                                         </Alert>
                                     )}
                                     <Button className="login-button" variant="contained" disableElevation>
-                                        <Typography sx={{mr: '10px'}} variant="h5"><i variant="h1"
-                                                                                      className="fa-brands fa-telegram"></i></Typography>
+                                        <Typography sx={{ mr: '10px' }} variant="h5"><i variant="h1"
+                                            className="fa-brands fa-telegram"></i></Typography>
                                         Войти через Telegram
                                     </Button>
                                 </CardContent>
@@ -166,7 +162,7 @@ function Login() {
 }
 
 const InputElement = styled('input')(
-    ({theme}) => `
+    ({ theme }) => `
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
