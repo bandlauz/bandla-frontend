@@ -117,8 +117,7 @@ function Login() {
                                     }}>
                                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите номер
                                         телефона</Typography>
-                                    <Typography sx={{ fontWeight: 'regular', my: '10px' }}>Отправим смс с кодом
-                                        подтверждения</Typography>
+                                    <br></br>
                                     <form action="" onSubmit={handleSubmit} style={{ width: '100%' }}>
                                         <div className="phone-container">
                                             <span className="country-code">+998</span>
@@ -137,7 +136,7 @@ function Login() {
                                         <Button type={"submit"} sx={{ my: '20px' }} className="login-button"
                                             variant="contained" disableElevation
                                             disabled={!isPhoneNumberValid() || buttonClicked}>
-                                            Получить код
+                                            Войти
                                         </Button>
                                     </form>
                                     {error && (
