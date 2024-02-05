@@ -36,12 +36,12 @@ function Login() {
         }));
     };
 
-    const startTimer = (phone) => {
+    const startTimer = (phone, time) => {
         const startTime = new Date().getTime();
         updateInterval = setInterval(() => {
             const currentTime = new Date().getTime();
             const elapsedTime = currentTime - startTime;
-            const remainingTime = Math.max(0, 60000 - elapsedTime);
+            const remainingTime = Math.max(0, time * 1000 - elapsedTime);
             const remainingSeconds = Math.ceil(remainingTime / 1000);
 
             handleTimerUpdate(phone, remainingSeconds);
@@ -67,20 +67,16 @@ function Login() {
             const response = await Request(API_URL, "postWithParam", fullPhoneNumber);
             if (response.data.data === true) {
                 const response = await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
-                if (response.data.message === "SUCCESS") {
-                    setVerificationFormVisible(true);
-                    startTimer(fullPhoneNumber);
-                    clearInterval(updateInterval);
-                }
+                setVerificationFormVisible(true);
+                clearInterval(updateInterval);
             } else {
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
-            if (error?.response?.data?.code === 100) {
-                //setError('Превышено максимальное количество попыток.');
-                startTimer(fullPhoneNumber);
-            } else {
-                setError('Произошла ошибка при проверке номера телефона.');
+            switch (error?.response?.status) {
+                case 429: startTimer(fullPhoneNumber, error?.response?.data?.data); break;
+                case 400: setError('Произошла ошибка при проверке номера телефона'); break;
+                default: setError('Произошла ошибка');
             }
         } finally {
             setButtonClicked(false);
