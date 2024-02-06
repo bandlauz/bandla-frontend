@@ -51,7 +51,7 @@ const LoginWithPassword = ({fullPhoneNumber}) => {
     return (
         <>
             <div className="login-wrapper">
-                <Card sx={{minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
+                <Card sx={{minWidth: '200px', maxWidth: '500px', borderRadius: '12px', height: '250px'}}>
                     <CardContent sx={{p: '30px'}}>
                         <Typography
                             sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Пароль</Typography>

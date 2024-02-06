@@ -11,7 +11,8 @@ import {
     InputAdornment,
     IconButton,
     Typography,
-    Button
+    Button,
+    Alert
 } from '@mui/material';
 
 import {Visibility, VisibilityOff} from '@mui/icons-material';
@@ -22,9 +23,8 @@ const PasswordForm = ({temporaryToken}) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [loginVisible, setLoginVisible] = useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const validatePassword = () => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (password === '' && passwordError !== '') {
@@ -64,7 +64,8 @@ const PasswordForm = ({temporaryToken}) => {
                         password: password
                     }
                 );
-                if (response.data.message === "SUCCESS") {
+                if (response.status === 200) {
+                    setRegistrationSuccess(true);
                     setLoginVisible(true);
                 }
             } catch (error) {
@@ -75,11 +76,26 @@ const PasswordForm = ({temporaryToken}) => {
 
     return (
         <>
-            <div>
-                {loginVisible ? (
-                    <Login/>
-                ) : (
-                    <Card sx={{minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
+            {loginVisible ? (
+                <div>
+                    {registrationSuccess && (
+                        <Alert className="AlertContainer" severity="success"
+                               sx={{
+                                   marginTop: '30px',
+                                   position: 'fixed',
+                                   top: 0,
+                                   left: '50%',
+                                   transform: 'translateX(-50%)'
+                               }}
+                        >
+                            You have successfully registered, now you can enter the system through login.
+                        </Alert>
+                    )}
+                    <Login setRegistrationSuccess={setRegistrationSuccess}/>
+                </div>
+            ) : (
+                <div className="login-wrapper">
+                    <Card sx={{minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px'}}>
                         <CardContent sx={{p: '30px'}}>
                             <Typography
                                 sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Пароль</Typography>
@@ -104,20 +120,20 @@ const PasswordForm = ({temporaryToken}) => {
                                     // onFocus={handlePasswordFocus}
                                 />
                             </FormControl>
-                            {passwordError && (
-                                <Typography sx={{
-                                    color: '#e50000',
-                                    fontSize: '15px',
-                                    marginTop: '5px',
-                                    fontFamily: 'Inter, sans-serif !important',
-                                    my: 1
-                                }}>
-                                    {passwordError}
-                                </Typography>
-                            )}
-                            <Typography sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Подтвердите
+                            <div>
+                                {passwordError && (
+                                    <Typography sx={{
+                                        color: '#e50000',
+                                        fontSize: '15px',
+                                        fontFamily: 'Inter, sans-serif !important',
+                                    }}>
+                                        {passwordError}
+                                    </Typography>
+                                )}
+                            </div>
+                            <Typography sx={{mt: 3, fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Подтвердите
                                 пароль</Typography>
-                            <FormControl sx={{my: 1, width: '100%'}} variant="outlined">
+                            <FormControl sx={{my: 1, mt: 1, width: '100%'}} variant="outlined">
                                 <OutlinedInput
                                     sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif'}}
                                     id="outlined-adornment-confirm-password"
@@ -149,8 +165,8 @@ const PasswordForm = ({temporaryToken}) => {
                             </div>
                         </CardContent>
                     </Card>
-                )}
-            </div>
+                </div>
+            )}
         </>
     );
 };

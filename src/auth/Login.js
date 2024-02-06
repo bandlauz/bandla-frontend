@@ -8,7 +8,7 @@ import Request from "../Requests";
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
 
-function Login() {
+function Login({setRegistrationSuccess}) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
     const [error, setError] = useState('');
@@ -73,6 +73,7 @@ function Login() {
                     clearInterval(updateInterval);
                 }
             } else {
+                setRegistrationSuccess(false);
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
@@ -91,7 +92,8 @@ function Login() {
         <div>
             {timers[fullPhoneNumber] > 0 && (
                 <Alert
-                    sx={{ m: '20px', position: 'absolute', bottom: 0, right: 0, background: '#1f2026', color: 'white' }}
+                    className="AlertContainer"
+                    sx={{marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', background: '#1f2026', color: 'white' }}
                     variant="filled" severity="error">
                     <AlertTitle>{`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`}</AlertTitle>
                 </Alert>
@@ -110,7 +112,7 @@ function Login() {
                         />
                     ) : (
                         <div className="Login login-wrapper">
-                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px' }}>
+                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
                                 <CardContent
                                     sx={{
                                         display: 'flex',
@@ -144,7 +146,7 @@ function Login() {
                                         </Button>
                                     </form>
                                     {error && (
-                                        <Alert sx={{ m: '20px', position: 'absolute', top: 0, right: 0 }}
+                                        <Alert className="AlertContainer" sx={{marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)'}}
                                             severity="error">
                                             <AlertTitle>Ошибка</AlertTitle>
                                             {error}
