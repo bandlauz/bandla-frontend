@@ -61,6 +61,10 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
         try {
             await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
             setCountdown(60);
+            const firstInput = document.getElementById('digit-0');
+            if (firstInput) {
+                firstInput.focus();
+            }
         } catch (error) {
             console.error('Error resending code:', error.message);
         }
@@ -81,7 +85,7 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
                 };
                 const response = await Request('http://api.bandla.uz/auth/verification/check-confirmation-code', 'put', '0', requestData);
                 if (response?.status === 200) {
-                     setTemporaryToken(response.data.data);
+                    setTemporaryToken(response.data.data);
                     setPasswordFormVisible(true);
                 }
             } catch (error) {
@@ -103,11 +107,11 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
 
     return (
         <>
-            <div className="login-wrapper">
-                {isPasswordFormVisible ? (
-                    <PasswordForm temporaryToken={temporaryToken}/>
-                ) : (
-                    <Card sx={{minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
+            {isPasswordFormVisible ? (
+                <PasswordForm temporaryToken={temporaryToken}/>
+            ) : (
+                <div className="login-wrapper">
+                    <Card sx={{minWidth: '200px', width: '600px', borderRadius: '12px'}}>
                         <CardContent
                             sx={{
                                 p: '30px'
@@ -139,21 +143,29 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
                                 ))}
 
                             </div>
-                            {errorMsg && (
-                                <Typography sx={{
-                                    color: '#e50000',
-                                    margin: '20px auto',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>{errorMsg}</Typography>
-                            )}
-                            <Typography sx={{my: '30px', textAlign: 'center', fontSize: '19px', color: '#595b66'}}>
+                            <div style={{
+                                position: 'absolute',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                marginTop: '20px'
+                            }}>
+                                {errorMsg && (
+                                    <Typography sx={{
+                                        color: '#e50000',
+                                        marginTop: '40px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        textAlign: 'center'
+                                    }}>{errorMsg}</Typography>
+                                )}
+                            </div>
+                            <Typography
+                                sx={{margin: '70px 0 30px 0', textAlign: 'center', fontSize: '19px', color: '#595b66'}}>
                                 {countdown > 0
                                     ? `Если код не придёт, можно получить новый через ${countdown} сек`
                                     : (
                                         <Typography onClick={handleResendCode}
                                                     sx={{
-                                                        my: '50px',
                                                         cursor: 'pointer',
                                                         fontSize: '19px',
                                                         fontWeight: '550',
@@ -171,8 +183,9 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
                             </Button>
                         </CardContent>
                     </Card>
-                )}
-            </div>
+
+                </div>
+            )}
         </>
     );
 };
