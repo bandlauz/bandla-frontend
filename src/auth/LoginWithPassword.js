@@ -89,7 +89,7 @@ const LoginWithPassword = ({fullPhoneNumber}) => {
                         )}
                         <div style={{display: 'flex', justifyContent: 'end'}}>
                             <Button
-                                sx={{backgroundColor: '#2BBDE9 !important', color: '#fff', fontSize: '20px', my: 1}}
+                                sx={{backgroundColor: '#006DC7 !important', color: '#fff', fontSize: '20px', my: 1}}
                                 onClick={handleButtonClick}
                             >
                                 OK
