@@ -8,7 +8,7 @@ import Request from "../Requests";
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
 
-function Login({setRegistrationSuccess}) {
+function Login({ setRegistrationSuccess }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
     const [error, setError] = useState('');
@@ -70,7 +70,7 @@ function Login({setRegistrationSuccess}) {
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {
-                setRegistrationSuccess(false);
+                // setRegistrationSuccess(false);
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
@@ -89,7 +89,7 @@ function Login({setRegistrationSuccess}) {
             {timers[fullPhoneNumber] > 0 && (
                 <Alert
                     className="AlertContainer"
-                    sx={{marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', background: '#1f2026', color: 'white' }}
+                    sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', background: '#1f2026', color: 'white' }}
                     variant="filled" severity="error">
                     <AlertTitle>{`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`}</AlertTitle>
                 </Alert>
@@ -108,7 +108,7 @@ function Login({setRegistrationSuccess}) {
                         />
                     ) : (
                         <div className="Login login-wrapper">
-                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px'}}>
+                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px' }}>
                                 <CardContent
                                     sx={{
                                         display: 'flex',
@@ -142,16 +142,15 @@ function Login({setRegistrationSuccess}) {
                                         </Button>
                                     </form>
                                     {error && (
-                                        <Alert className="AlertContainer" sx={{marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)'}}
+                                        <Alert className="AlertContainer" sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)' }}
                                             severity="error">
                                             <AlertTitle>Ошибка</AlertTitle>
                                             {error}
                                         </Alert>
                                     )}
-                                    <Button className="login-button" variant="contained" disableElevation>
-                                        <Typography sx={{ mr: '10px' }} variant="h5"><i variant="h1"
-                                            className="fa-brands fa-telegram"></i></Typography>
-                                        Войти через Telegram
+                                    <Typography>или войдите через</Typography>
+                                    <Button disableElevation>
+                                        <i className="fa-brands fa-telegram fa-4x" style={{color: "#74C0FC"}}></i>
                                     </Button>
                                 </CardContent>
                             </Card>
