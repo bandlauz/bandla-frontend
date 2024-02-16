@@ -18,10 +18,10 @@ function Home() {
                 <h3 style={{ color: "white" }} align="center">Hello from Bandla system 👀</h3>
             </Box>
             <div className="image-container">
-                <img src="https://github.com/bandlauz/.github/assets/109890132/8aa4d947-9b71-45ed-b923-bce64d06df08"
+                <img src={process.env.PUBLIC_URL+"/logo.jpg"}
                     alt="Bandla image"
-                    width="370"
-                    height="270" />
+                    width="360"
+                    height="250"/>
             </div>
             <h3 align="center">Jamoamizga Web-dizayner kerak🔎</h3>
             <h3 align="center">В нашу команду нужен Веб-дизайнер🔎</h3>
