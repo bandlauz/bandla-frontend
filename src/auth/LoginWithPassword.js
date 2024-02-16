@@ -31,7 +31,7 @@ const LoginWithPassword = ({fullPhoneNumber}) => {
         if (trimmedPassword !== '') {
             try {
                 const response = await Request(
-                    'http://api.bandla.uz/auth/login',
+                    'https://api.bandla.uz/auth/login',
                     'post',
                     '',
                     {

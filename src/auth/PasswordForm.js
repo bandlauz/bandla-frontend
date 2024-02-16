@@ -56,7 +56,7 @@ const PasswordForm = ({temporaryToken}) => {
         if (validatePassword() && password === confirmPassword && password !== '' && confirmPassword !== '') {
             try {
                 const response = await Request(
-                    'http://api.bandla.uz/auth/verification/complete',
+                    'https://api.bandla.uz/auth/verification/complete',
                     'put',
                     '',
                     {
