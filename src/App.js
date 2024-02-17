@@ -1,5 +1,6 @@
 import Login from '../src/auth/Login';
 import Home from './Home';
+import Logout from '../src/auth/Logout'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/logout" element={<Logout/>}/>
             </Routes>
         </BrowserRouter>
     );

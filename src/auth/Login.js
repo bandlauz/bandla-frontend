@@ -8,7 +8,7 @@ import Request from "../Requests";
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
 
-function Login({ setRegistrationSuccess }) {
+function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
     const [error, setError] = useState('');
@@ -70,7 +70,6 @@ function Login({ setRegistrationSuccess }) {
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {
-                // setRegistrationSuccess(false);
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
@@ -150,7 +149,7 @@ function Login({ setRegistrationSuccess }) {
                                     )}
                                     <Typography>или войдите через</Typography>
                                     <Button disableElevation>
-                                        <i className="fa-brands fa-telegram fa-4x" style={{color: "#74C0FC"}}></i>
+                                        <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
                                     </Button>
                                 </CardContent>
                             </Card>
