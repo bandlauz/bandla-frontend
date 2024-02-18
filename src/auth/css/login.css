@@ -41,11 +41,11 @@
 }
 
 .login-wrapper {
-    padding: 15px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
+    height: 75vh;
 }
 
 @media (max-width: 600px) {
