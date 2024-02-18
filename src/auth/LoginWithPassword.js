@@ -50,8 +50,8 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
                     }
                 );
                 if (response.status === 200) {
-                    localStorage.setItem("accessToken", response.data.accessToken);
-                    localStorage.setItem("refreshToken", response.data.refreshToken);
+                    localStorage.setItem("accessToken", response.data.data.accessToken);
+                    localStorage.setItem("refreshToken", response.data.data.refreshToken);
                     toast.success("Successfully loged");
                     await sleep(1400)
                     navigate('/');
