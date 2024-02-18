@@ -81,8 +81,14 @@ function Profile() {
             photoUrl: photoUrl
         }
 
-        await Request("https://api.bandla.uz/api/profile/my/update", "put", null, body, true, navigateToLogin);
-        toast.success("Muvaffaqiyatli saqlandi");
+        try {
+            await Request("https://api.bandla.uz/api/profile/my/update", "put", null, body, true, navigateToLogin);
+            toast.success("Muvaffaqiyatli saqlandi");
+        } catch (error) {
+            if (error.response.data?.errors) {
+                toast.error(error.response.data.errors[0])
+            }
+        }
     }
 
     if (loading) {
