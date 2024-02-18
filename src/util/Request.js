@@ -10,7 +10,7 @@ async function sendRequest(url, method, data, header) {
     return await axios[method](url, data, header);
 }
 
-function refreshToken(navigate) {
+async function refreshToken(navigateToLogin) {
     try {
         const refreshToken = localStorage.getItem("refreshToken");
         var header = {
@@ -18,16 +18,17 @@ function refreshToken(navigate) {
                 'Authorization': `Bearer ${refreshToken}`
             }
         };
-        const response = sendRequest("https://api.bandla.uz/auth/refresh-token", "get", null, header);
+        const response = await sendRequest("https://api.bandla.uz/auth/refresh-token", "get", null, header);
 
         localStorage.removeItem("accessToken");
         localStorage.setItem("accessToken", response.data.data);
     } catch (error) {
-        navigate("/login");
+        console.error("Refresh token failed:", error);
+        throw error;
     }
 }
 
-const Request = (url, method, param, data, isSecure, navigate) => {
+const Request = async (url, method, param, data, isSecure, navigateToLogin) => {
     var header;
     if (param !== null) {
         url = url + param;
@@ -37,7 +38,7 @@ const Request = (url, method, param, data, isSecure, navigate) => {
         const token = localStorage.getItem("accessToken");
 
         if (!token) {
-            navigate("/login");
+            navigateToLogin();
             return;
         }
 
@@ -49,12 +50,13 @@ const Request = (url, method, param, data, isSecure, navigate) => {
     }
 
     try {
-        return sendRequest(url, method, data, header)
+        return await sendRequest(url, method, data, header)
     } catch (error) {
         if (error.response.status == 403) {
-            refreshToken(navigate);
-            return sendRequest(url, method, data, header)
+            await refreshToken();
+            return await sendRequest(url, method, data, header)
         }
+        throw error;
     }
 };
 
