@@ -1,5 +1,5 @@
 import axios from "axios";
-import Token from "./util/Token"
+import Token from "./Token"
 const Requests = async (url, method, param, data, isSecure, token) => {
     if (isSecure) {
         if (token == null) {
@@ -11,7 +11,7 @@ const Requests = async (url, method, param, data, isSecure, token) => {
         }
 
         var header = {
-            headers: {
+            headers: {  
                 'Authorization': `Bearer ${token}`
             }
         };

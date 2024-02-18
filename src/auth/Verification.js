@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState, useEffect} from 'react';
 import {styled} from '@mui/system';
 import {Card, CardContent, Button, Typography, TextField} from '@mui/material';
-import Request from '../Requests';
+import Request from '../util/Requests';
 import useVerificationHook from "./useVerificationHook";
 import PasswordForm from './PasswordForm';
 import './css/login.css';
