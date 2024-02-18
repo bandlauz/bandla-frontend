@@ -1,10 +1,10 @@
 import * as React from "react";
 import './Home.css';
+import Request from '../src/util/Request';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-import Request from '../src/Requests';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,13 +19,14 @@ function Home() {
     const [loggedIn, setLoggedIn] = useState(false);
     const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
     const [profileImg, setProfileImg] = useState();
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         if (!localStorage.getItem("accessToken")) {
             return;
         }
         setLoggedIn(true);
-        const myprofile = await Request(MYPROFILE_URL, "get", null, null, true);
+        const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigate);
         setProfileImg(myprofile.data.data.photoUrl)
     }
 

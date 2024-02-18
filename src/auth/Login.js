@@ -1,12 +1,12 @@
 import * as React from 'react';
 import './css/login.css';
-import InputMask from 'react-input-mask';
-import { styled } from '@mui/system';
-import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
-import { useState } from "react";
-import Request from "../Requests";
+import Request from '../util/Request';
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
+import InputMask from 'react-input-mask';
+import { useState } from "react";
+import { styled } from '@mui/system';
+import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -64,9 +64,9 @@ function Login() {
                 return;
             }
 
-            const response = await Request(API_URL, "postWithParam", fullPhoneNumber);
+            const response = await Request(API_URL, "post", fullPhoneNumber);
             if (response.data.data === true) {
-                const response = await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
+                const response = await Request(API_SEND_CODE, "post", fullPhoneNumber);
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {

@@ -1,4 +1,10 @@
 import * as React from 'react';
+import './css/login.css';
+import Request from '../util/Request';
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import {
     Card,
     CardContent,
@@ -10,12 +16,6 @@ import {
     Button
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useState, useEffect } from "react";
-import './css/login.css';
-import Request from '../Requests';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
 
 const LoginWithPassword = ({ fullPhoneNumber }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -40,15 +40,13 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
         const trimmedPassword = password.trim();
         if (trimmedPassword !== '') {
             try {
-                const response = await Request(
-                    'https://api.bandla.uz/auth/login',
-                    'post',
-                    '',
-                    {
-                        phoneNumber: fullPhoneNumber,
-                        password: password
-                    }
-                );
+                var body = {
+                    phoneNumber: fullPhoneNumber,
+                    password: password
+                };
+
+                const response = await Request("https://api.bandla.uz/auth/login", "post", null, body);
+
                 if (response.status === 200) {
                     localStorage.setItem("accessToken", response.data.data.accessToken);
                     localStorage.setItem("refreshToken", response.data.data.refreshToken);
