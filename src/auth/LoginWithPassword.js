@@ -40,15 +40,13 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
         const trimmedPassword = password.trim();
         if (trimmedPassword !== '') {
             try {
-                const response = await Request(
-                    'https://api.bandla.uz/auth/login',
-                    'post',
-                    '',
-                    {
-                        phoneNumber: fullPhoneNumber,
-                        password: password
-                    }
-                );
+                var body = {
+                    phoneNumber: fullPhoneNumber,
+                    password: password
+                };
+
+                const response = await Request("https://api.bandla.uz/auth/login", "post", null, body);
+
                 if (response.status === 200) {
                     localStorage.setItem("accessToken", response.data.data.accessToken);
                     localStorage.setItem("refreshToken", response.data.data.refreshToken);

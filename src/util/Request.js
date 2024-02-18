@@ -1,58 +1,61 @@
 import axios from "axios";
-import Token from "./Token"
-const Requests = async (url, method, param, data, isSecure, token) => {
+
+async function sendRequest(url, method, data, header) {
+    if (data == null) {
+        return await axios[method](url, header);
+    }
+    if (header == null) {
+        return await axios[method](url, data);
+    }
+    return await axios[method](url, data, header);
+}
+
+function refreshToken(navigate) {
+    try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        var header = {
+            headers: {
+                'Authorization': `Bearer ${refreshToken}`
+            }
+        };
+        const response = sendRequest("https://api.bandla.uz/auth/refresh-token", "get", null, header);
+
+        localStorage.removeItem("accessToken");
+        localStorage.setItem("accessToken", response.data.data);
+    } catch (error) {
+        navigate("/login");
+    }
+}
+
+const Request = (url, method, param, data, isSecure, navigate) => {
+    var header;
+    if (param !== null) {
+        url = url + param;
+    }
+
     if (isSecure) {
-        if (token == null) {
-            token = localStorage.getItem("accessToken");
-        }
+        const token = localStorage.getItem("accessToken");
 
         if (!token) {
+            navigate("/login");
             return;
         }
 
-        var header = {
-            headers: {  
+        header = {
+            headers: {
                 'Authorization': `Bearer ${token}`
             }
         };
-        try {
-            switch (method) {
-                case "get": {
-                    return await axios.get(url, header)
-                }
-            }
-
-        } catch (error) {
-            if (error.response.status == 403) {
-                Token();
-                Requests(error.config.url,error.response.config.method,null,null,true,null);
-                return;
-            }
-            throw error;
-        }
-        return;
     }
 
     try {
-        switch (method) {
-            case "postWithParam": {
-                return await axios.post(`${url}${param}`);
-            }
-            case "post": {
-                return await axios.post(url, data);
-            }
-            case "put": {
-                return await axios.put(url, data);
-            }
-            case "get": {
-                return await axios.get(url, data)
-            }
-            default:
-                throw new Error(`Invalid method: ${method}`);
-        }
+        return sendRequest(url, method, data, header)
     } catch (error) {
-        throw error;
+        if (error.response.status == 403) {
+            refreshToken(navigate);
+            return sendRequest(url, method, data, header)
+        }
     }
 };
 
-export default Requests;
+export default Request;

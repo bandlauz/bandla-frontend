@@ -64,9 +64,9 @@ function Login() {
                 return;
             }
 
-            const response = await Request(API_URL, "postWithParam", fullPhoneNumber);
+            const response = await Request(API_URL, "post", fullPhoneNumber);
             if (response.data.data === true) {
-                const response = await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
+                const response = await Request(API_SEND_CODE, "post", fullPhoneNumber);
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {
