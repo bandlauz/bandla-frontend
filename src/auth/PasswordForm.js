@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import Request from '../util/Request';
 import Login from './Login';
 import './css/login.css';
@@ -14,10 +14,9 @@ import {
     Button,
     Alert
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-import {Visibility, VisibilityOff} from '@mui/icons-material';
-
-const PasswordForm = ({temporaryToken}) => {
+const PasswordForm = ({ temporaryToken }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -80,28 +79,28 @@ const PasswordForm = ({temporaryToken}) => {
                 <div>
                     {registrationSuccess && (
                         <Alert className="AlertContainer" severity="success"
-                               sx={{
-                                   marginTop: '30px',
-                                   position: 'fixed',
-                                   top: 0,
-                                   left: '50%',
-                                   transform: 'translateX(-50%)'
-                               }}
+                            sx={{
+                                marginTop: '30px',
+                                position: 'fixed',
+                                top: 0,
+                                left: '50%',
+                                transform: 'translateX(-50%)'
+                            }}
                         >
                             You have successfully registered, now you can enter the system through login.
                         </Alert>
                     )}
-                    <Login setRegistrationSuccess={setRegistrationSuccess}/>
+                    <Login setRegistrationSuccess={setRegistrationSuccess} />
                 </div>
             ) : (
                 <div className="login-wrapper">
-                    <Card sx={{minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px'}}>
-                        <CardContent sx={{p: '30px'}}>
+                    <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px' }}>
+                        <CardContent sx={{ p: '30px' }}>
                             <Typography
-                                sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Пароль</Typography>
-                            <FormControl sx={{my: 1, width: '100%'}} variant="outlined">
+                                sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Пароль</Typography>
+                            <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
                                 <OutlinedInput
-                                    sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif'}}
+                                    sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
                                     id="outlined-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
@@ -111,13 +110,13 @@ const PasswordForm = ({temporaryToken}) => {
                                                 onClick={handleClickShowPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }
                                     label={null}
                                     onChange={handlePasswordChange}
-                                    // onFocus={handlePasswordFocus}
+                                // onFocus={handlePasswordFocus}
                                 />
                             </FormControl>
                             <div>
@@ -131,11 +130,11 @@ const PasswordForm = ({temporaryToken}) => {
                                     </Typography>
                                 )}
                             </div>
-                            <Typography sx={{mt: 3, fontSize: '20px', fontFamily: 'Inter, sans-serif !important'}}>Подтвердите
+                            <Typography sx={{ mt: 3, fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Подтвердите
                                 пароль</Typography>
-                            <FormControl sx={{my: 1, mt: 1, width: '100%'}} variant="outlined">
+                            <FormControl sx={{ my: 1, mt: 1, width: '100%' }} variant="outlined">
                                 <OutlinedInput
-                                    sx={{fontSize: '20px', fontFamily: 'Inter, sans-serif'}}
+                                    sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
                                     id="outlined-adornment-confirm-password"
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
@@ -145,18 +144,18 @@ const PasswordForm = ({temporaryToken}) => {
                                                 onClick={handleClickShowPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton>
                                         </InputAdornment>
                                     }
                                     label={null}
                                     onChange={handleConfirmPasswordChange}
-                                    // onFocus={handlePasswordFocus}
+                                // onFocus={handlePasswordFocus}
                                 />
                             </FormControl>
-                            <div style={{display: 'flex', justifyContent: 'end'}}>
+                            <div style={{ display: 'flex', justifyContent: 'end' }}>
                                 <Button
-                                    sx={{backgroundColor: '#2BBDE9 !important', color: '#fff', fontSize: '20px', my: 1}}
+                                    sx={{ backgroundColor: '#2BBDE9 !important', color: '#fff', fontSize: '20px', my: 1 }}
                                     onClick={handleButtonClick}
                                     disabled={password !== confirmPassword || password === '' || confirmPassword === ''}
                                 >
