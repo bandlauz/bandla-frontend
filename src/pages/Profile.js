@@ -2,13 +2,13 @@ import * as React from "react"
 import "./css/Profile.css"
 import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { TextField } from "@mui/material";
 import Button from '@mui/material/Button';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
 
 function Profile() {
     const [firstName, setFirstName] = useState('');
