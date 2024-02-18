@@ -1,8 +1,8 @@
 import * as React from 'react';
-import './css/login.css';
+import './css/Login.css';
 import Request from '../util/Request';
-import Verification from './Verification';
-import LoginWithPassword from './LoginWithPassword';
+import Verification from '../auth/Verification';
+import LoginWithPassword from '../auth/LoginWithPassword';
 import InputMask from 'react-input-mask';
 import { useState } from "react";
 import { styled } from '@mui/system';

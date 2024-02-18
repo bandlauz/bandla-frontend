@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Request from '../util/Request';
-import Login from './Login';
-import './css/login.css';
+import Login from '../pages/Login';
+import '../pages/css/Login.css';
 import {
     Card,
     CardContent,

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import './css/login.css';
+import '../pages/css/Login.css';
 import Request from '../util/Request';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import useVerificationHook from "./useVerificationHook";
 import PasswordForm from './PasswordForm';
-import {styled} from '@mui/system';
-import {Card, CardContent, Button, Typography, TextField} from '@mui/material';
+import { styled } from '@mui/system';
+import { Card, CardContent, Button, Typography, TextField } from '@mui/material';
 
 const StyledTextField = styled(TextField)({
     marginRight: '0.5em',
@@ -17,8 +17,8 @@ const StyledTextField = styled(TextField)({
 
 });
 
-const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificationFormVisible}) => {
-    const {inputStates, handleChange} = useVerificationHook(4);
+const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificationFormVisible }) => {
+    const { inputStates, handleChange } = useVerificationHook(4);
     const [countdown, setCountdown] = useState(60);
     const [isAllInputsFilled, setIsAllInputsFilled] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -26,7 +26,7 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
     const [temporaryToken, setTemporaryToken] = useState(null);
     const handleInput = (e, index) => {
         const numericValue = e.target.value.replace(/[^0-9]/g, '');
-        handleChange({target: {value: numericValue}}, index);
+        handleChange({ target: { value: numericValue } }, index);
         setErrorMsg(null);
     };
 
@@ -108,19 +108,19 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
     return (
         <>
             {isPasswordFormVisible ? (
-                <PasswordForm temporaryToken={temporaryToken}/>
+                <PasswordForm temporaryToken={temporaryToken} />
             ) : (
                 <div className="login-wrapper">
-                    <Card sx={{minWidth: '200px', width: '600px', borderRadius: '12px'}}>
+                    <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px' }}>
                         <CardContent
                             sx={{
                                 p: '30px'
                             }}>
-                            <Typography variant='h5' sx={{fontWeight: 'bold'}}>Введите код</Typography>
-                            <Typography sx={{fontWeight: 'regular', my: '20px', fontSize: '19px'}}>Для подтверждения
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите код</Typography>
+                            <Typography sx={{ fontWeight: 'regular', my: '20px', fontSize: '19px' }}>Для подтверждения
                                 телефона
-                                отправили <br/> 4-значный код на <b>+998 {phoneNumber}</b></Typography>
-                            <div style={{display: "flex", justifyContent: "center"}}>
+                                отправили <br /> 4-значный код на <b>+998 {phoneNumber}</b></Typography>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
                                 {inputStates.map((state, index) => (
                                     <StyledTextField
                                         key={index}
@@ -160,26 +160,26 @@ const Verification = ({phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificat
                                 )}
                             </div>
                             <Typography
-                                sx={{margin: '70px 0 30px 0', textAlign: 'center', fontSize: '19px', color: '#595b66'}}>
+                                sx={{ margin: '70px 0 30px 0', textAlign: 'center', fontSize: '19px', color: '#595b66' }}>
                                 {countdown > 0
                                     ? `Если код не придёт, можно получить новый через ${countdown} сек`
                                     : (
                                         <Typography onClick={handleResendCode}
-                                                    sx={{
-                                                        cursor: 'pointer',
-                                                        fontSize: '19px',
-                                                        fontWeight: '550',
-                                                        color: '#000'
-                                                    }}>
+                                            sx={{
+                                                cursor: 'pointer',
+                                                fontSize: '19px',
+                                                fontWeight: '550',
+                                                color: '#000'
+                                            }}>
                                             <i className="fas fa-redo-alt"></i> Отправить код повторно
                                         </Typography>
                                     )}
                             </Typography>
                             <Button className="login-button" variant="contained"
-                                    sx={{fontSize: '19px'}}
-                                    onClick={handleGoBack}>
+                                sx={{ fontSize: '19px' }}
+                                onClick={handleGoBack}>
                                 <i className="fa-solid fa-arrow-left"></i>
-                                <span style={{marginLeft: '5px'}}>Назад</span>
+                                <span style={{ marginLeft: '5px' }}>Назад</span>
                             </Button>
                         </CardContent>
                     </Card>
