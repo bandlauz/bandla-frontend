@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Footer.css"
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
@@ -47,4 +46,5 @@ function Footer() {
     </Box>
   )
 }
+
 export default Footer;
