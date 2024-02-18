@@ -21,13 +21,21 @@ function Home() {
     const [profileImg, setProfileImg] = useState();
     const navigate = useNavigate();
 
+    const navigateToLogin = () => {
+        navigate("/login");
+    };
+
     const fetchData = async () => {
         if (!localStorage.getItem("accessToken")) {
             return;
         }
         setLoggedIn(true);
-        const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigate);
-        setProfileImg(myprofile.data.data.photoUrl)
+        try {
+            const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigateToLogin);
+            setProfileImg(myprofile.data.data.photoUrl)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
