@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './css/login.css';
-import Request from '../util/Requests';
+import Request from '../util/Request';
 import Verification from './Verification';
 import LoginWithPassword from './LoginWithPassword';
 import InputMask from 'react-input-mask';

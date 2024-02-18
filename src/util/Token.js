@@ -1,4 +1,4 @@
-import Request from './Requests';
+import Request from './Request';
 import { useNavigate } from "react-router-dom";
 const Token = () => {
     const navigate = useNavigate();

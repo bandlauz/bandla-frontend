@@ -12,7 +12,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import './css/login.css';
-import Request from '../util/Requests';
+import Request from '../util/Request';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'

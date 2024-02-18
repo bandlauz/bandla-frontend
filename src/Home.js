@@ -1,6 +1,6 @@
 import * as React from "react";
 import './Home.css';
-import Request from '../src/util/Requests';
+import Request from '../src/util/Request';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
