@@ -1,14 +1,14 @@
 import * as React from 'react';
-import './css/login.css';
+import './css/Login.css';
+import Request from '../util/Request';
+import Verification from '../auth/Verification';
+import LoginWithPassword from '../auth/LoginWithPassword';
 import InputMask from 'react-input-mask';
+import { useState } from "react";
 import { styled } from '@mui/system';
 import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
-import { useState } from "react";
-import Request from "../Requests";
-import Verification from './Verification';
-import LoginWithPassword from './LoginWithPassword';
 
-function Login({ setRegistrationSuccess }) {
+function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
     const [error, setError] = useState('');
@@ -64,13 +64,12 @@ function Login({ setRegistrationSuccess }) {
                 return;
             }
 
-            const response = await Request(API_URL, "postWithParam", fullPhoneNumber);
+            const response = await Request(API_URL, "post", fullPhoneNumber);
             if (response.data.data === true) {
-                const response = await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
+                const response = await Request(API_SEND_CODE, "post", fullPhoneNumber);
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {
-                // setRegistrationSuccess(false);
                 setLoginWithPasswordVisible(true);
             }
         } catch (error) {
@@ -150,7 +149,7 @@ function Login({ setRegistrationSuccess }) {
                                     )}
                                     <Typography>или войдите через</Typography>
                                     <Button disableElevation>
-                                        <i className="fa-brands fa-telegram fa-4x" style={{color: "#74C0FC"}}></i>
+                                        <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
                                     </Button>
                                 </CardContent>
                             </Card>
