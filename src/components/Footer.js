@@ -27,9 +27,7 @@ function Footer() {
               &copy;
               <Link color="inherit" href="https://bandla.uz/">
                 Bandla
-              </Link>{" "}
-              {new Date().getFullYear()}
-              {". All rights reserved"}
+              </Link>{" "}{new Date().getFullYear()}{". All rights reserved"}
             </Typography>
           </Grid>
           <Grid item xs={4} align="right">
