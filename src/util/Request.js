@@ -24,7 +24,7 @@ async function refreshToken(navigateToLogin) {
         localStorage.setItem("accessToken", response.data.data);
     } catch (error) {
         console.error("Refresh token failed:", error);
-        throw error;
+        navigateToLogin();
     }
 }
 
@@ -53,7 +53,7 @@ const Request = async (url, method, param, data, isSecure, navigateToLogin) => {
         return await sendRequest(url, method, data, header)
     } catch (error) {
         if (error.response.status == 403) {
-            await refreshToken();
+            await refreshToken(navigateToLogin);
             return await sendRequest(url, method, data, header)
         }
         throw error;
