@@ -18,9 +18,10 @@ async function refreshToken(navigateToLogin) {
                 'Authorization': `Bearer ${refreshToken}`
             }
         };
-        const response = await sendRequest("https://api.bandla.uz/auth/refresh-token", "get", null, header);
-
         localStorage.removeItem("accessToken");
+
+        const response = await sendRequest("https://api.bandla.uz/auth/refresh-token", "get", null, header);
+        
         localStorage.setItem("accessToken", response.data.data);
     } catch (error) {
         console.error("Refresh token failed:", error);
