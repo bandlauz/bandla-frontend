@@ -1,5 +1,6 @@
 import * as React from "react"
 import "./css/Profile.css"
+import Navbar from "../components/Navbar"
 import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
@@ -96,44 +97,47 @@ function Profile() {
     }
 
     return (
-        <div className="profile-wrapper" style={{ justifyContent: "center" }}>
-            <Container>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={1400}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light" />
-                <Grid p={1} align="center">
-                    <Avatar
-                        src={photoUrl}
-                        sx={{ width: 85, height: 85 }}>B</Avatar>
-                </Grid>
-                <Grid p={1} align="center">
-                    <TextField
-                        label="Telefon raqam"
-                        size="small"
-                        disabled
-                        value={phoneNumber} />
-                </Grid>
-                <Grid p={1} align="center">
-                    <TextField id="firstName" label="Ism" value={firstName} size="small" onChange={changeFirstName} />
-                </Grid>
-                <Grid p={1} align="center">
-                    <TextField id="lastName" label="Familya" value={lastName} size="small" onChange={changeLastName} />
-                </Grid>
-                <Grid align="center">
-                    <Button id="save" variant="contained" onClick={save}>
-                        Saqlash
-                    </Button>
-                </Grid>
-            </Container>
-        </div>);
+        <>
+            <Navbar />
+            <div className="profile-wrapper" style={{ justifyContent: "center" }}>
+                <Container>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={1400}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light" />
+                    <Grid p={1} align="center">
+                        <Avatar
+                            src={photoUrl}
+                            sx={{ width: 85, height: 85 }}>B</Avatar>
+                    </Grid>
+                    <Grid p={1} align="center">
+                        <TextField
+                            label="Telefon raqam"
+                            size="small"
+                            disabled
+                            value={phoneNumber} />
+                    </Grid>
+                    <Grid p={1} align="center">
+                        <TextField id="firstName" label="Ism" value={firstName} size="small" onChange={changeFirstName} />
+                    </Grid>
+                    <Grid p={1} align="center">
+                        <TextField id="lastName" label="Familya" value={lastName} size="small" onChange={changeLastName} />
+                    </Grid>
+                    <Grid align="center">
+                        <Button id="save" variant="contained" onClick={save}>
+                            Saqlash
+                        </Button>
+                    </Grid>
+                </Container>
+            </div>
+        </>);
 }
 
 export default Profile;
