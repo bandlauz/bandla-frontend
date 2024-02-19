@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './css/Login.css';
+import NavbarSimple from '../components/NavbarSimple.js';
 import Request from '../util/Request';
 import Verification from '../auth/Verification';
 import LoginWithPassword from '../auth/LoginWithPassword';
@@ -85,6 +86,7 @@ function Login() {
 
     return (
         <div>
+            <NavbarSimple />
             {timers[fullPhoneNumber] > 0 && (
                 <Alert
                     className="AlertContainer"
