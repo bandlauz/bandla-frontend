@@ -1,25 +1,14 @@
 import React from 'react'
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
-import Button from "@mui/material/Button";
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
+import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
+import { Logout, Settings } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Navbar() {
-    const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
     const [loggedIn, setLoggedIn] = useState(false);
     const [profileImg, setProfileImg] = useState();
+    const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
 
     const navigateToHome = () => {
         console.log("Navbar navigate");
@@ -76,21 +65,18 @@ function Navbar() {
                                 </Button>
                             </a> :
                             <React.Fragment>
-                                {/* <Box> */}
                                 <Tooltip title="Account settings">
                                     <IconButton
                                         onClick={handleClick}
                                         size="small"
-                                        // sx={{ ml: 2 }}
                                         aria-controls={open ? 'account-menu' : undefined}
                                         aria-haspopup="true"
                                         aria-expanded={open ? 'true' : undefined}>
                                         <Avatar
                                             src={profileImg}
-                                            sx={{ width: 35, height: 35 }}>B</Avatar>
+                                            sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
                                     </IconButton>
                                 </Tooltip>
-                                {/* </Box> */}
                                 <Menu
                                     anchorEl={anchorEl}
                                     id="account-menu"
@@ -124,11 +110,12 @@ function Navbar() {
                                         },
                                     }}
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                                     <a href="/profile" style={{ textDecoration: 'none', color: "black" }}>
                                         <MenuItem onClick={handleClose}>
-                                            <Avatar />
+                                            <ListItemIcon>
+                                                <PersonIcon fontSize="small" />
+                                            </ListItemIcon>
                                             Profile
                                         </MenuItem>
                                     </a>
