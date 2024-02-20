@@ -5,21 +5,18 @@ import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import Avatar from '@mui/material/Avatar';
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import { TextField } from "@mui/material";
-import Button from '@mui/material/Button';
+import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
 
 function Profile() {
+    const [loading, setLoading] = useState(true);
+    const [canSave, setCanSave] = useState(true);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [createdDate, setCreatedDate] = useState('');
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
     const list = ["firstName", "lastName", "save"]
+
+    const navigate = useNavigate();
 
     const navigateToLogin = () => {
         navigate("/login");
@@ -34,12 +31,19 @@ function Profile() {
             setLastName(data.lastName);
             setPhotoUrl(data.photoUrl);
             setPhoneNumber(data.phoneNumber);
-            setCreatedDate(data.createdDate);
             setLoading(false);
         } catch (error) {
-            console.log(error);
+            if (error.response.data?.errors) {
+                toast.error(error.response.data.errors[0])
+            } else {
+                toast.error("Ma'lumotlarni yuklashda xatolik ro'y berdi");
+            }
         }
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleKeyPress = useCallback((event) => {
         if (event.key === 'Enter') {
@@ -60,10 +64,23 @@ function Profile() {
         };
     }, [handleKeyPress]);
 
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const uploadImage = async (event) => {
+        setCanSave(false);
+        try {
+            const formData = new FormData();
+            formData.append('file', event.target.files[0]);
+            const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
+            setPhotoUrl(response.data.data.url);
+        } catch (error) {
+            if (error.response.data?.errors) {
+                toast.error(error.response.data.errors[0])
+            } else {
+                toast.error("Photo suratni yuklashda xatolik ro'y berdi");
+            }
+        } finally {
+            setCanSave(true);
+        }
+    }
 
     const changeFirstName = (event) => {
         setFirstName(event.target.value);
@@ -88,12 +105,14 @@ function Profile() {
         } catch (error) {
             if (error.response.data?.errors) {
                 toast.error(error.response.data.errors[0])
+            } else {
+                toast.error("Ma'lumotlarni saqlashda xatolik ro'y berdi");
             }
         }
     }
 
     if (loading) {
-        return <div>Loading...</div>; // Display loading indicator
+        return <div>Ma'lumotlar yuklanmoqda...</div>;
     }
 
     return (
@@ -113,9 +132,17 @@ function Profile() {
                         pauseOnHover
                         theme="light" />
                     <Grid p={1} align="center">
-                        <Avatar
-                            src={photoUrl}
-                            sx={{ width: 85, height: 85 }}>B</Avatar>
+                        <div class="upload">
+                            <Avatar
+                                src={photoUrl}
+                                sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}>
+                                B
+                            </Avatar>
+                            <div class="round">
+                                <input type="file" accept="image/png, image/jpeg" onChange={uploadImage} />
+                                <i class="fa fa-camera" style={{ color: '#fff' }}></i>
+                            </div>
+                        </div>
                     </Grid>
                     <Grid p={1} align="center">
                         <TextField
@@ -131,7 +158,7 @@ function Profile() {
                         <TextField id="lastName" label="Familya" value={lastName} size="small" onChange={changeLastName} />
                     </Grid>
                     <Grid align="center">
-                        <Button id="save" variant="contained" onClick={save}>
+                        <Button id="save" variant="contained" onClick={save} disabled={!canSave}>
                             Saqlash
                         </Button>
                     </Grid>
