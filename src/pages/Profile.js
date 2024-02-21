@@ -10,11 +10,13 @@ import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
 function Profile() {
     const [loading, setLoading] = useState(true);
     const [canSave, setCanSave] = useState(true);
+    const [photo, setPhoto] = useState('');
+    const [photoUrl, setPhotoUrl] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [photoUrl, setPhotoUrl] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const list = ["firstName", "lastName", "save"]
+    const maxPhotoSize = 1024 * 1024 * 6; //KB
 
     const navigate = useNavigate();
 
@@ -64,22 +66,14 @@ function Profile() {
         };
     }, [handleKeyPress]);
 
-    const uploadImage = async (event) => {
-        setCanSave(false);
-        try {
-            const formData = new FormData();
-            formData.append('file', event.target.files[0]);
-            const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
-            setPhotoUrl(response.data.data.url);
-        } catch (error) {
-            if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
-            } else {
-                toast.error("Photo suratni yuklashda xatolik ro'y berdi");
-            }
-        } finally {
-            setCanSave(true);
+    const changePhoto = (event) => {
+        const file = event.target.files[0];
+        if (file.size > maxPhotoSize) {
+            toast.error("Photo surati hajmi 6 MB dan kam bo'lishi kerak!");
+            return;
         }
+        setPhoto(file);
+        setPhotoUrl(URL.createObjectURL(file));
     }
 
     const changeFirstName = (event) => {
@@ -90,13 +84,34 @@ function Profile() {
     }
 
     const save = async () => {
+        setCanSave(false);
+
         const element = document.getElementById("save");
         element.blur();
+
+        let url = photoUrl;
+        if (photo) {
+            try {
+                const formData = new FormData();
+                formData.append('file', photo);
+                const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
+                setPhotoUrl(response.data.data.url);
+                url = response.data.data.url;
+            } catch (error) {
+                if (error.response.data?.errors) {
+                    toast.error(error.response.data.errors[0])
+                } else {
+                    toast.error("Photo suratni yuklashda xatolik ro'y berdi");
+                }
+                setCanSave(true);
+                return;
+            }
+        }
 
         const body = {
             firstName: firstName,
             lastName: lastName,
-            photoUrl: photoUrl
+            photoUrl: url
         }
 
         try {
@@ -109,6 +124,8 @@ function Profile() {
                 toast.error("Ma'lumotlarni saqlashda xatolik ro'y berdi");
             }
         }
+
+        setCanSave(true);
     }
 
     if (loading) {
@@ -132,15 +149,15 @@ function Profile() {
                         pauseOnHover
                         theme="light" />
                     <Grid p={1} align="center">
-                        <div class="upload">
+                        <div className="upload">
                             <Avatar
                                 src={photoUrl}
                                 sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}>
                                 B
                             </Avatar>
-                            <div class="round">
-                                <input type="file" accept="image/png, image/jpeg" onChange={uploadImage} />
-                                <i class="fa fa-camera" style={{ color: '#fff' }}></i>
+                            <div className="round">
+                                <input type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
+                                <i className="fa fa-camera" style={{ color: '#fff' }}></i>
                             </div>
                         </div>
                     </Grid>
