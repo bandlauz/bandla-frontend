@@ -10,3 +10,11 @@ code {
     font-family: Inter,  sans-serif,
     monospace;
 }
+
+@media (max-width: 768px) {
+    *,
+    *::before,
+    *::after {
+        cursor: none;
+    }   
+}
