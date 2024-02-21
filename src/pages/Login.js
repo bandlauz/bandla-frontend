@@ -5,7 +5,7 @@ import Request from '../util/Request';
 import Verification from '../auth/Verification';
 import LoginWithPassword from '../auth/LoginWithPassword';
 import InputMask from 'react-input-mask';
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { styled } from '@mui/system';
 import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
 
@@ -20,6 +20,12 @@ function Login() {
     const API_URL = "https://api.bandla.uz/auth/is-not-verified/";
     const API_SEND_CODE = "https://api.bandla.uz/auth/verification/send-confirmation-code/";
     let updateInterval;
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
 
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
@@ -65,9 +71,9 @@ function Login() {
                 return;
             }
 
-            const response = await Request(API_URL, "post", fullPhoneNumber);
+            let response = await Request(API_URL, "post", fullPhoneNumber);
             if (response.data.data === true) {
-                const response = await Request(API_SEND_CODE, "post", fullPhoneNumber);
+                response = await Request(API_SEND_CODE, "post", fullPhoneNumber);
                 setVerificationFormVisible(true);
                 clearInterval(updateInterval);
             } else {
@@ -133,7 +139,7 @@ function Login() {
                                                 onChange={handlePhoneNumberChange}
                                                 sx={{ flex: '1 1 auto', minWidth: 0 }}
                                             >
-                                                {(inputProps) => <InputElement {...inputProps} />}
+                                                {(inputProps) => <InputElement {...inputProps} ref={inputRef} />}
                                             </InputMask>
                                         </div>
                                         <Button type={"submit"} sx={{ my: '20px' }} className="login-button"
