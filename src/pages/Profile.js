@@ -148,36 +148,40 @@ function Profile() {
                         draggable
                         pauseOnHover
                         theme="light" />
-                    <Grid p={1} align="center">
-                        <div className="upload">
-                            <Avatar
-                                src={photoUrl}
-                                sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}>
-                                B
-                            </Avatar>
-                            <div className="round">
-                                <input type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
-                                <i className="fa fa-camera" style={{ color: '#fff' }}></i>
+                    <Grid container direction={"column"} spacing={2} align="center">
+                        <Grid item>
+                            <div className="upload">
+                                <Avatar
+                                    src={photoUrl}
+                                    sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}>
+                                    B
+                                </Avatar>
+                                <div className="round">
+                                    <input type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
+                                    <i className="fa fa-camera" style={{ color: '#fff' }}></i>
+                                </div>
                             </div>
-                        </div>
-                    </Grid>
-                    <Grid p={1} align="center">
-                        <TextField
-                            label="Telefon raqam"
-                            size="small"
-                            disabled
-                            value={phoneNumber} />
-                    </Grid>
-                    <Grid p={1} align="center">
-                        <TextField id="firstName" label="Ism" value={firstName} size="small" onChange={changeFirstName} />
-                    </Grid>
-                    <Grid p={1} align="center">
-                        <TextField id="lastName" label="Familya" value={lastName} size="small" onChange={changeLastName} />
-                    </Grid>
-                    <Grid align="center">
-                        <Button id="save" variant="contained" onClick={save} disabled={!canSave}>
-                            Saqlash
-                        </Button>
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                label="Telefon raqam"
+                                size="small"
+                                disabled
+                                value={phoneNumber} />
+                        </Grid>
+                        <Grid item>
+                            <TextField id="firstName" label="Ism" error={!firstName}
+                                value={firstName} size="small" onChange={changeFirstName} />
+                        </Grid>
+                        <Grid item>
+                            <TextField id="lastName" label="Familya" error={!lastName}
+                                value={lastName} size="small" onChange={changeLastName} />
+                        </Grid>
+                        <Grid item>
+                            <Button id="save" variant="contained" onClick={save} disabled={!canSave || !firstName || !lastName}>
+                                Saqlash
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Container>
             </div>
