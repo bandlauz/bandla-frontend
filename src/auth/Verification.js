@@ -83,7 +83,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                     phoneNumber: fullPhoneNumber,
                     code: enteredCode,
                 };
-                const response = await Request('https://api.bandla.uz/auth/verification/check-confirmation-code', 'put', '0', requestData);
+                const response = await Request('https://api.bandla.uz/auth/verification/check-confirmation-code', 'put', null, requestData);
                 if (response?.status === 200) {
                     setTemporaryToken(response.data.data);
                     setPasswordFormVisible(true);
