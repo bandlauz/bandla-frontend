@@ -143,7 +143,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                         key={index}
                                         ref={el => inputRefs.current[index] = el}
                                         id={`digit-${index}`}
-                                        type="text"
+                                        type="tel"
                                         maxLength="1"
                                         value={digit}
                                         onChange={(e) => handleChange(e, index)}
