@@ -1,41 +1,55 @@
 import * as React from 'react';
 import '../pages/css/Login.css';
+import { useState, useEffect, useRef } from 'react';
 import Request from '../util/Request';
-import { useState, useEffect } from 'react';
-import useVerificationHook from "./useVerificationHook";
 import PasswordForm from './PasswordForm';
-import { styled } from '@mui/system';
 import { Card, CardContent, Button, Typography, TextField } from '@mui/material';
 
-const StyledTextField = styled(TextField)({
-    marginRight: '0.5em',
-    width: "50px",
-    height: "48px",
-    '& .MuiOutlinedInput-notchedOutline ': {
-        border: 'none',
-    },
-
-});
-
 const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificationFormVisible }) => {
-    const { inputStates, handleChange } = useVerificationHook(4);
     const [countdown, setCountdown] = useState(60);
     const [isAllInputsFilled, setIsAllInputsFilled] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
     const [isPasswordFormVisible, setPasswordFormVisible] = useState(false);
     const [temporaryToken, setTemporaryToken] = useState(null);
-    const handleInput = (e, index) => {
-        const numericValue = e.target.value.replace(/[^0-9]/g, '');
-        handleChange({ target: { value: numericValue } }, index);
+
+    const [verificationCode, setVerificationCode] = useState(new Array(4).fill(''));
+    const inputRefs = useRef([]);
+    useEffect(() => {
+        inputRefs.current[0].focus();
+    }, []);
+
+    const handleChange = (e, index) => {
+        let value = e.target.value.replace(/[^0-9]/g, '');
         setErrorMsg(null);
+        value = value.slice(-1); // Take only the last character
+        const updatedCode = [...verificationCode];
+        updatedCode[index] = value;
+        setVerificationCode(updatedCode);
+
+        // Move focus to the next input
+        if (value !== '' && index < 4 - 1) {
+            inputRefs.current[index + 1].focus();
+        }
     };
 
-    useEffect(() => {
-        const firstInput = document.getElementById('digit-0');
-        if (firstInput) {
-            firstInput.focus();
+    const handleKeyDown = (e, index) => {
+        if (e.key === 'Backspace' && index > 0 && verificationCode[index] === '') {
+            inputRefs.current[index - 1].focus();
         }
-    }, []);
+    };
+
+    const handlePaste = (e) => {
+        e.preventDefault();
+        const pasteData = e.clipboardData.getData('text/plain').trim();
+        if (pasteData.length === 4 && /^\d+$/.test(pasteData)) {
+            const pasteDigits = pasteData.split('');
+            const updatedCode = [...verificationCode];
+            for (let i = 0; i < 4; i++) {
+                updatedCode[i] = pasteDigits[i];
+            }
+            setVerificationCode(updatedCode);
+        }
+    };
 
     useEffect(() => {  // secundomer
         let interval;
@@ -46,15 +60,17 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
             }, 1000);
         }
 
-
         return () => {
             clearInterval(interval);
         };
-    }, [countdown, inputStates]);
+    }, [countdown, verificationCode]);
+
+
 
     useEffect(() => {
-        setIsAllInputsFilled(inputStates.every(state => state.digit !== ""));
-    }, [inputStates]);
+        setIsAllInputsFilled(verificationCode.every(state => state !== ""));
+    }, [verificationCode]);
+
 
 
     const handleResendCode = async () => {
@@ -78,7 +94,8 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
     useEffect(() => {
         const handleVerification = async () => {
             try {
-                const enteredCode = inputStates.map(state => state.digit).join('');
+                const enteredCode = verificationCode.join('');
+
                 const requestData = {
                     phoneNumber: fullPhoneNumber,
                     code: enteredCode,
@@ -121,27 +138,31 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                 телефона
                                 отправили <br /> 4-значный код на <b>+998 {phoneNumber}</b></Typography>
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                {inputStates.map((state, index) => (
-                                    <StyledTextField
+                                {verificationCode.map((digit, index) => (
+                                    <input
                                         key={index}
-                                        type="tel"
-                                        value={state.digit}
+                                        ref={el => inputRefs.current[index] = el}
                                         id={`digit-${index}`}
-                                        onChange={(e) => handleInput(e, index)}
-                                        inputProps={{
-                                            maxLength: 1,
-                                            style: {
-                                                textAlign: 'center',
-                                                backgroundColor: "#f2f4f7",
-                                                borderRadius: "12px",
-                                                border: errorMsg ? '1px solid #e50000' : 'none',
-                                                fontFamily: "Inter",
-                                                fontSize: "20px"
-                                            },
+                                        type="text"
+                                        maxLength="1"
+                                        value={digit}
+                                        onChange={(e) => handleChange(e, index)}
+                                        onKeyDown={(e) => handleKeyDown(e, index)}
+                                        onPaste={handlePaste}
+                                        style={{
+                                            outline: 'none',
+                                            width: '50px',
+                                            height: '50px',
+                                            textAlign: 'center',
+                                            backgroundColor: "#f2f4f7",
+                                            borderRadius: "12px",
+                                            marginRight: '4px',
+                                            border: errorMsg ? '1px solid #e50000' : 'none',
+                                            fontFamily: "Inter",
+                                            fontSize: "20px"
                                         }}
                                     />
                                 ))}
-
                             </div>
                             <div style={{
                                 position: 'absolute',
