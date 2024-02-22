@@ -125,6 +125,7 @@ function Login() {
                                         <div className="phone-container">
                                             <span className="country-code">+998</span>
                                             <InputMask
+                                                type="tel"
                                                 mask="99 999-99-99"
                                                 maskChar=""
                                                 placeholder="00 000-00-00"
