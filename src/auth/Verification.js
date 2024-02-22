@@ -124,7 +124,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                 {inputStates.map((state, index) => (
                                     <StyledTextField
                                         key={index}
-                                        type="text"
+                                        type="tel"
                                         value={state.digit}
                                         id={`digit-${index}`}
                                         onChange={(e) => handleInput(e, index)}
