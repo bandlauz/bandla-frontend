@@ -1,6 +1,5 @@
 import * as React from "react"
 import "./css/Profile.css"
-import Navbar from "../components/Navbar"
 import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
@@ -134,7 +133,6 @@ function Profile() {
 
     return (
         <>
-            <Navbar />
             <div className="profile-wrapper" style={{ justifyContent: "center" }}>
                 <Container>
                     <ToastContainer

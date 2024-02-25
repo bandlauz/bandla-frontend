@@ -1,12 +1,10 @@
 import * as React from "react";
 import './css/Home.css';
-import Navbar from "../components/Navbar";
 import { Box } from "@mui/system";
 
 function Home() {
     return (
         <>
-            <Navbar />
             <Box sx={{ borderRadius: '16px', backgroundColor: '#1E374B', width: 290 }}
                 padding={0.004} mx="auto">
                 <h3 style={{ color: "white" }} align="center">Hello from Bandla system 👀</h3>
