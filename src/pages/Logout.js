@@ -8,6 +8,7 @@ function Logout() {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         navigate('/');
+        window.location.reload();
     }, [])
     return (
         <h1>Logout</h1>

@@ -75,7 +75,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
 
     const handleResendCode = async () => {
         try {
-            await Request(API_SEND_CODE, "postWithParam", fullPhoneNumber);
+            await Request(API_SEND_CODE, "post", fullPhoneNumber);
             setCountdown(60);
             const firstInput = document.getElementById('digit-0');
             if (firstInput) {
