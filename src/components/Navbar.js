@@ -7,7 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from "../components/NavbarSimple"
 
 function Navbar() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(null);
     const [profileImg, setProfileImg] = useState();
     const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
 
@@ -17,6 +17,7 @@ function Navbar() {
 
     const fetchData = async () => {
         if (!localStorage.getItem("accessToken")) {
+            setLoggedIn(false);
             return;
         }
         try {
@@ -24,6 +25,7 @@ function Navbar() {
             setLoggedIn(true);
             setProfileImg(myprofile.data.data.photoUrl)
         } catch (error) {
+            setLoggedIn(false);
             console.log(error);
         }
     }
@@ -41,7 +43,7 @@ function Navbar() {
         setAnchorEl(null);
     };
 
-    if (!loggedIn) {
+    if (loggedIn == null) {
         return (<NavbarSimple />)
     }
 
@@ -94,7 +96,7 @@ function Navbar() {
                                         sx: {
                                             overflow: 'visible',
                                             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
+                                            mt: 1.4,
                                             '& .MuiAvatar-root': {
                                                 width: 32,
                                                 height: 32,

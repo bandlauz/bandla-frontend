@@ -22,7 +22,7 @@ function NavbarSimple() {
                             />
                         </Link>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={8}>
                     </Grid>
                 </Grid>
             </Container>

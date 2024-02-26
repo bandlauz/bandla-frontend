@@ -53,6 +53,7 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
                     toast.success("Successfully loged");
                     await sleep(1400)
                     navigate('/');
+                    window.location.reload();
                 }
             } catch (error) {
                 setPasswordError('Неверный пароль!');
