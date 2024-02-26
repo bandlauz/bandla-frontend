@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
+import NavbarSimple from "../components/NavbarSimple"
 
 function Navbar() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +40,11 @@ function Navbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    if (!loggedIn) {
+        return (<NavbarSimple />)
+    }
+
     return (
         <Box
             sx={{
