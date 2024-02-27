@@ -57,7 +57,7 @@ function Navbar() {
             <Container>
                 <Grid className='d_flex_x_sb' container>
                     <Grid className='d_flex_y_ce' item xs={4} align="left">
-                        <Link color="inherit" href="https://bandla.uz">
+                        <Link className='d_flex_y_ce' color="inherit" href="https://bandla.uz">
                             <img src={process.env.PUBLIC_URL + "/logo-black.png"}
                                 alt="Bandla image"
                                 height={35}
