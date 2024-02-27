@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box } from "@mui/material";
-import Divider from '@mui/material/Divider';
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -27,7 +26,6 @@ function NavbarSimple() {
                     </Grid>
                 </Grid>
             </Container>
-            <Divider />
         </Box>);
 }
 export default NavbarSimple;
