@@ -50,8 +50,8 @@ function Navbar() {
     return (
         <Box
             sx={{
-                marginBottom: 1,
-                p: 1
+                paddingTop: 0.5,
+                marginBottom: 1
             }}>
             <Container>
                 <Grid container>
@@ -71,15 +71,22 @@ function Navbar() {
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
                                     Войти
                                 </Button>
-                            </a> :
+                            </a>
+                            :
                             <React.Fragment>
-                                <Tooltip title="Account settings">
+                                <Tooltip title="Account sozlamari">
                                     <IconButton
                                         onClick={handleClick}
                                         size="small"
                                         aria-controls={open ? 'account-menu' : undefined}
                                         aria-haspopup="true"
-                                        aria-expanded={open ? 'true' : undefined}>
+                                        aria-expanded={open ? 'true' : undefined}
+                                        sx={{
+                                            display: 'inline-block',
+                                            padding: 0,
+                                            minHeight: 0,
+                                            minWidth: 0
+                                        }}>
                                         <Avatar
                                             src={profileImg}
                                             sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>

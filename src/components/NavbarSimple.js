@@ -9,8 +9,8 @@ function NavbarSimple() {
     return (
         <Box
             sx={{
-                marginBottom: 1,
-                p: 1
+                paddingTop: 0.5,
+                marginBottom: 1
             }}>
             <Container>
                 <Grid container>
