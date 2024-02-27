@@ -3,7 +3,7 @@ import '../pages/css/Login.css';
 import { useState, useEffect, useRef } from 'react';
 import Request from '../util/Request';
 import PasswordForm from './PasswordForm';
-import { Card, CardContent, Button, Typography, TextField } from '@mui/material';
+import { Card, CardContent, Button, Typography } from '@mui/material';
 
 const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerificationFormVisible }) => {
     const [countdown, setCountdown] = useState(60);
