@@ -74,19 +74,21 @@ function Navbar() {
                             </a>
                             :
                             <React.Fragment>
-                                <IconButton
-                                    onClick={handleClick}
-                                    size="small"
-                                    sx={{
-                                        display: 'inline-block',
-                                        padding: 0,
-                                        minHeight: 0,
-                                        minWidth: 0
-                                    }}>
-                                    <Avatar
-                                        src={profileImg}
-                                        sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
-                                </IconButton>
+                                <Tooltip title="Account sozlamari">
+                                    <IconButton
+                                        onClick={handleClick}
+                                        size="small"
+                                        sx={{
+                                            display: 'inline-block',
+                                            padding: 0,
+                                            minHeight: 0,
+                                            minWidth: 0
+                                        }}>
+                                        <Avatar
+                                            src={profileImg}
+                                            sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
+                                    </IconButton>
+                                </Tooltip>
                                 <Menu
                                     anchorEl={anchorEl}
                                     id="account-menu"
