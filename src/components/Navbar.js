@@ -78,6 +78,9 @@ function Navbar() {
                                     <IconButton
                                         onClick={handleClick}
                                         size="small"
+                                        aria-controls={open ? 'account-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
                                         sx={{
                                             display: 'inline-block',
                                             padding: 0,
