@@ -6,12 +6,12 @@ import LoginWithPassword from '../auth/LoginWithPassword';
 import InputMask from 'react-input-mask';
 import { useState } from "react";
 import { styled } from '@mui/system';
-import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
+import { Card, CardContent, Button, Typography } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
-    const [error, setError] = useState('');
     const [timers, setTimers] = useState({});
     const [buttonClicked, setButtonClicked] = useState(false);
     const [isLoginWithPasswordVisible, setLoginWithPasswordVisible] = useState(false);
@@ -22,7 +22,6 @@ function Login() {
 
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
-        setError('');
     };
 
     const isPhoneNumberValid = () => {
@@ -60,7 +59,7 @@ function Login() {
         try {
             setButtonClicked(true);
             if (timers[fullPhoneNumber]) {
-                // setError(`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`);
+                toast.error(`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд`);
                 return;
             }
 
@@ -74,9 +73,13 @@ function Login() {
             }
         } catch (error) {
             switch (error?.response?.status) {
-                case 429: startTimer(fullPhoneNumber, error?.response?.data?.data); break;
-                case 400: setError('Произошла ошибка при проверке номера телефона'); break;
-                default: setError('Произошла ошибка');
+                case 429: {
+                    startTimer(fullPhoneNumber, error?.response?.data?.data);
+                    toast.error(`Пожалуйста, подождите ${error?.response?.data?.data} секунд`);
+                    break;
+                }
+                case 400: toast.error('Произошла ошибка при проверке номера телефона'); break;
+                default: toast.error('Произошла ошибка');
             }
         } finally {
             setButtonClicked(false);
@@ -85,15 +88,17 @@ function Login() {
 
     return (
         <div>
-            {timers[fullPhoneNumber] > 0 && (
-                <Alert
-                    className="AlertContainer"
-                    sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', background: '#1f2026', color: 'white' }}
-                    variant="filled" severity="error">
-                    <AlertTitle>{`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`}</AlertTitle>
-                </Alert>
-            )}
-
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light" />
             {
                 isLoginWithPasswordVisible ? (
                     <LoginWithPassword fullPhoneNumber={fullPhoneNumber} />
@@ -141,13 +146,6 @@ function Login() {
                                             Войти
                                         </Button>
                                     </form>
-                                    {error && (
-                                        <Alert className="AlertContainer" sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)' }}
-                                            severity="error">
-                                            <AlertTitle>Ошибка</AlertTitle>
-                                            {error}
-                                        </Alert>
-                                    )}
                                     <Typography>или войдите через</Typography>
                                     <Button disableElevation>
                                         <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
