@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 function NavbarSimple() {
     return (
         <Box
+            className='b_line'
             sx={{
                 marginBottom: 1,
                 p: 1

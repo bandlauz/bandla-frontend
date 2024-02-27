@@ -1,7 +1,7 @@
 import React from 'react'
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
-import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
+import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, ListItemIcon, MenuItem } from "@mui/material";
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from "../components/NavbarSimple"
@@ -49,13 +49,14 @@ function Navbar() {
 
     return (
         <Box
+            className='b_line'
             sx={{
                 marginBottom: 1,
                 p: 1
             }}>
             <Container>
-                <Grid container>
-                    <Grid item xs={4} align="left">
+                <Grid className='d_flex_x_sb' container>
+                    <Grid className='d_flex_y_ce' item xs={4} align="left">
                         <Link color="inherit" href="https://bandla.uz">
                             <img src={process.env.PUBLIC_URL + "/logo-black.png"}
                                 alt="Bandla image"
@@ -63,9 +64,7 @@ function Navbar() {
                             />
                         </Link>
                     </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4} align="right">
+                    <Grid className='d_flex_y_ce d_flex_x_r' item xs={4} align="right">
                         {!loggedIn ?
                             <a href="/login" style={{ textDecoration: 'none' }}>
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
@@ -120,14 +119,13 @@ function Navbar() {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                                     <a href="/profile" style={{ textDecoration: 'none', color: "black" }}>
-                                        <MenuItem onClick={handleClose}>
+                                        <MenuItem className='b_line' onClick={handleClose}>
                                             <ListItemIcon>
                                                 <PersonIcon fontSize="small" />
                                             </ListItemIcon>
                                             Profile
                                         </MenuItem>
                                     </a>
-                                    <Divider />
                                     <MenuItem onClick={handleClose}>
                                         <ListItemIcon>
                                             <Settings fontSize="small" />
@@ -148,7 +146,6 @@ function Navbar() {
                     </Grid>
                 </Grid>
             </Container>
-            <Divider />
         </Box>);
 }
 
