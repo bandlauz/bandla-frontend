@@ -12,8 +12,8 @@ function Footer() {
       <Divider />
       <Box p={1}>
         <Container>
-          <Grid container>
-            <Grid item xs={6} align="left">
+          <Grid container style={{display: 'flex', alignItems: 'center'}}>
+            <Grid item xs={6} align="left" style={{whiteSpace: 'nowrap'}}>
               <Typography variant="body2" color="text.secondary">
                 &copy;
                 <Link color="inherit" href="https://bandla.uz/">
