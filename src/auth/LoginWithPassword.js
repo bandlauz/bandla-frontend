@@ -25,7 +25,6 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
         setPasswordError('');
         setPassword(e.target.value);
     };
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     useEffect(() => {
         const firstInput = document.getElementById('passwordInput');

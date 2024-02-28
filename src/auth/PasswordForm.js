@@ -64,7 +64,7 @@ const PasswordForm = ({ temporaryToken }) => {
                     }
                 );
                 if (response.status === 200) {
-                    toast.success("Success");
+                    toast.success("Siz ro'yxatdan o'tdingiz");
                     await sleep(2000);
                     window.location.reload();
                 }
