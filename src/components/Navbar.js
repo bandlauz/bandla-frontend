@@ -69,7 +69,7 @@ function Navbar() {
                         {!loggedIn ?
                             <a href="/login" style={{ textDecoration: 'none' }}>
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
-                                    Войти
+                                    Kirish
                                 </Button>
                             </a>
                             :
@@ -139,14 +139,14 @@ function Navbar() {
                                         <ListItemIcon>
                                             <Settings fontSize="small" />
                                         </ListItemIcon>
-                                        Settings
+                                        Sozlamar
                                     </MenuItem>
                                     <a href="/logout" style={{ textDecoration: 'none', color: "red" }}>
                                         <MenuItem onClick={handleClose}>
                                             <ListItemIcon>
                                                 <Logout fontSize="small" style={{ color: "red" }} />
                                             </ListItemIcon>
-                                            Logout
+                                            Chiqish
                                         </MenuItem>
                                     </a>
                                 </Menu>

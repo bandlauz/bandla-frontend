@@ -32,7 +32,7 @@ const PasswordForm = ({ temporaryToken }) => {
         }
 
         if (!passwordRegex.test(password)) {
-            setPasswordError('Пароль должен иметь длину не менее 8 символов, содержать не менее 1 строчной буквы, 1 заглавной буквы и 1 цифры.');
+            setPasswordError("Parol 8 ta belgidan kam bo'lmasligi kerak va kamida 1 ta kichik harf, 1 ta bosh harf va 1 ta raqam qatnashishi zarur");
             return false;
         } else {
             setPasswordError('');
@@ -57,14 +57,14 @@ const PasswordForm = ({ temporaryToken }) => {
                 const response = await Request(
                     'https://api.bandla.uz/auth/verification/complete',
                     'put',
-                    '',
+                    null,
                     {
                         temporaryToken: temporaryToken,
                         password: password
                     }
                 );
                 if (response.status === 200) {
-                    toast.success("Success");
+                    toast.success("Siz ro'yxatdan o'tdingiz");
                     await sleep(2000);
                     window.location.reload();
                 }
@@ -90,7 +90,7 @@ const PasswordForm = ({ temporaryToken }) => {
             <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px' }}>
                 <CardContent sx={{ p: '30px' }}>
                     <Typography
-                        sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Пароль</Typography>
+                        sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Parol</Typography>
                     <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
                         <OutlinedInput
                             sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
@@ -108,9 +108,7 @@ const PasswordForm = ({ temporaryToken }) => {
                                 </InputAdornment>
                             }
                             label={null}
-                            onChange={handlePasswordChange}
-                        // onFocus={handlePasswordFocus}
-                        />
+                            onChange={handlePasswordChange} />
                     </FormControl>
                     <div>
                         {passwordError && (
@@ -142,9 +140,7 @@ const PasswordForm = ({ temporaryToken }) => {
                                 </InputAdornment>
                             }
                             label={null}
-                            onChange={handleConfirmPasswordChange}
-                        // onFocus={handlePasswordFocus}
-                        />
+                            onChange={handleConfirmPasswordChange} />
                     </FormControl>
                     <div style={{ display: 'flex', justifyContent: 'end' }}>
                         <Button

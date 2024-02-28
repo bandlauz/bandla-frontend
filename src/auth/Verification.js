@@ -108,9 +108,9 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
             } catch (error) {
                 if (error?.response?.data?.code === 100) {
                     if (countdown > 0) {
-                        setErrorMsg('Неверный код!');
+                        setErrorMsg('Tasdiqlash kodi xato');
                     } else {
-                        setErrorMsg('Время ввода кода истекло!');
+                        setErrorMsg('Tasdiqlash kodi yaroqsiz');
                     }
                 }
             }
@@ -133,10 +133,9 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                             sx={{
                                 p: '30px'
                             }}>
-                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите код</Typography>
-                            <Typography sx={{ fontWeight: 'regular', my: '20px', fontSize: '19px' }}>Для подтверждения
-                                телефона
-                                отправили <br /> 4-значный код на <b>+998 {phoneNumber}</b></Typography>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Tasdiqlash kodini kiriting</Typography>
+                            <Typography sx={{ fontWeight: 'regular', my: '20px', fontSize: '19px' }}><b>+998 {phoneNumber}</b> telefon raqamini tasdiqlash uchun
+                                <br />  4 xonali kod yubordik</Typography>
                             <div style={{ display: "flex", justifyContent: "center" }}>
                                 {verificationCode.map((digit, index) => (
                                     <input
@@ -183,7 +182,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                             <Typography
                                 sx={{ margin: '70px 0 30px 0', textAlign: 'center', fontSize: '19px', color: '#595b66' }}>
                                 {countdown > 0
-                                    ? `Если код не придёт, можно получить новый через ${countdown} сек`
+                                    ? `Agarda tasdiqlash kodi kelmasa ${countdown} soniyadan so'ng qayta yuborish mumkin`
                                     : (
                                         <Typography onClick={handleResendCode}
                                             sx={{
@@ -192,7 +191,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                                 fontWeight: '550',
                                                 color: '#000'
                                             }}>
-                                            <i className="fas fa-redo-alt"></i> Отправить код повторно
+                                            <i className="fas fa-redo-alt"></i> Qayta yuborish
                                         </Typography>
                                     )}
                             </Typography>
@@ -200,7 +199,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                 sx={{ fontSize: '19px' }}
                                 onClick={handleGoBack}>
                                 <i className="fa-solid fa-arrow-left"></i>
-                                <span style={{ marginLeft: '5px' }}>Назад</span>
+                                <span style={{ marginLeft: '5px' }}>Orqaga</span>
                             </Button>
                         </CardContent>
                     </Card>
