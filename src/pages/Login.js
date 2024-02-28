@@ -59,7 +59,7 @@ function Login() {
         try {
             setButtonClicked(true);
             if (timers[fullPhoneNumber]) {
-                toast.error(`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд`);
+                toast.error(`Iltimos ${timers[fullPhoneNumber]} soniya kuting!`);
                 return;
             }
 
@@ -75,11 +75,11 @@ function Login() {
             switch (error?.response?.status) {
                 case 429: {
                     startTimer(fullPhoneNumber, error?.response?.data?.data);
-                    toast.error(`Пожалуйста, подождите ${error?.response?.data?.data} секунд`);
+                    toast.error(`Iltimos ${error?.response?.data?.data} soniya kuting!`);
                     break;
                 }
-                case 400: toast.error('Произошла ошибка при проверке номера телефона'); break;
-                default: toast.error('Произошла ошибка');
+                case 400: toast.error("Noto'gri telefon raqam"); break;
+                default: toast.error("Xatolik ro'y berdi");
             }
         } finally {
             setButtonClicked(false);
@@ -121,8 +121,9 @@ function Login() {
                                         alignItems: 'center',
                                         p: '30px'
                                     }}>
-                                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите номер
-                                        телефона</Typography>
+                                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                        Telefon raqamingizni kiriting
+                                    </Typography>
                                     <br></br>
                                     <form action="" onSubmit={handleSubmit} style={{ width: '100%' }}>
                                         <div className="phone-container">
@@ -143,10 +144,10 @@ function Login() {
                                         <Button type={"submit"} sx={{ my: '20px' }} className="login-button"
                                             variant="contained" disableElevation
                                             disabled={!isPhoneNumberValid() || buttonClicked}>
-                                            Войти
+                                            Kirish
                                         </Button>
                                     </form>
-                                    <Typography>или войдите через</Typography>
+                                    <Typography>yoki</Typography>
                                     <Button disableElevation>
                                         <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
                                     </Button>
