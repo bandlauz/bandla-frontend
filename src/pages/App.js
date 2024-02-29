@@ -4,6 +4,7 @@ import Home from './Home';
 import Profile from './Profile'
 import Login from './Login';
 import Logout from './Logout'
+import About from './About'
 import Footer from '../components/Footer'
 import NavbarContainer from '../components/NavbarContainer';
 
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/logout" element={<Logout />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/about" element={<About />} />
                     </Routes>
                 </BrowserRouter>
             </div>

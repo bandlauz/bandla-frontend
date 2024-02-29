@@ -55,13 +55,11 @@ function Navbar() {
             }}>
             <Container>
                 <Grid container>
-                    <Grid item xs={4} align="left">
-                        <Link color="inherit" href="https://bandla.uz">
-                            <img src={process.env.PUBLIC_URL + "/logo-black.png"}
-                                alt="Bandla image"
-                                height={35}
-                            />
+                    <Grid item xs={4} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Link color="inherit" href="https://bandla.uz" style={{ display: 'block', marginRight: 10 }}>
+                            <img src={process.env.PUBLIC_URL + "/logo-black.png"} alt="Bandla image" height={35} />
                         </Link>
+                        <Link color="inherit" href="https://bandla.uz/about" style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>Biz haqimiqda</Link>
                     </Grid>
                     <Grid item xs={4}>
                     </Grid>
