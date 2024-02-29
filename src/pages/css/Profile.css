@@ -12,6 +12,10 @@
     margin: auto;
 }
 
+.upload .avatar {
+    cursor: pointer;
+}
+
 .upload .round {
     position: absolute;
     bottom: 0;
@@ -23,12 +27,17 @@
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
-.upload .round input[type="file"] {
+.upload input[type="file"] {
     position: absolute;
     transform: scale(2);
     opacity: 0;
+    display: none;
 }
 
 input[type=file]::-webkit-file-upload-button {
