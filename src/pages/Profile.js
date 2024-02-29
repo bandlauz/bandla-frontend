@@ -161,7 +161,6 @@ function Profile() {
                                 <Avatar
                                     className="avatar"
                                     src={photoUrl}
-                                    sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}
                                     onClick={() => {
                                         fileInput.current.click();
                                     }}

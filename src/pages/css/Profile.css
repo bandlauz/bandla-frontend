@@ -13,7 +13,10 @@
 }
 
 .upload .avatar {
+    width: 85px;
+    height: 85px;
     cursor: pointer;
+    border: 0.5px solid lightgray;
 }
 
 .upload .round {
@@ -31,6 +34,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: 2px solid lightgray;
 }
 
 .upload input[type="file"] {
