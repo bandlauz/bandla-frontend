@@ -8,8 +8,8 @@ function Alert({ show, message, onHide, onDelete }) {
       <div className="alert_content">
         <p>{message}</p>
         <div className="alert_buttons">
-          <button onClick={onHide}>Cancel</button>
-          <button onClick={onDelete} className="delete_button">Delete</button>
+          <button onClick={onHide}>Yopish</button>
+          <button onClick={onDelete} className="delete_button">O'chirish</button>
         </div>
       </div>
     </div>
