@@ -167,9 +167,11 @@ function Profile() {
                                 >
                                     B
                                 </Avatar>
-                                <div className="round" style={{ backgroundColor: 'red' }} onClick={() => {setShowAlert(true)}}>
-                                    <i className="fa-solid fa-trash" style={{ color: '#fff' }}></i>
-                                </div>
+                                {photoUrl && (
+                                    <div className="round" style={{ backgroundColor: 'red' }} onClick={() => {setShowAlert(true)}}>
+                                        <i className="fa-solid fa-trash" style={{ color: '#fff' }}></i>
+                                    </div>
+                                )}
                                 {showAlert && (
                                     <Alert
                                     show={showAlert}
