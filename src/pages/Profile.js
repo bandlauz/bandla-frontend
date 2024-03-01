@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import "./css/Profile.css"
+import "react-toastify/dist/ReactToastify.css"
 import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
