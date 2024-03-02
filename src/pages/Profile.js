@@ -1,12 +1,15 @@
-import * as React from "react"
+import React, { useRef } from "react"
 import "./css/Profile.css"
+import "react-toastify/dist/ReactToastify.css"
 import Request from "../util/Request"
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
+import Alert from '../components/Alert'
 
 function Profile() {
+    const fileInput = useRef(null);
     const [loading, setLoading] = useState(true);
     const [canSave, setCanSave] = useState(true);
     const [photo, setPhoto] = useState('');
@@ -45,6 +48,24 @@ function Profile() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleDelete = async () => {
+        setShowAlert(false);
+        try {
+            await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, {}, true, navigateToLogin);
+            toast.success("Profil rasmi o'chirildi");
+            setPhotoUrl(null);
+            setPhoto(null);
+        } catch (error) {
+            if (error.response.data?.errors) {
+                toast.error(error.response.data.errors[0])
+            } else {
+                toast.error("Profile rasmini o'chirishda xatolik ro'y berdi");
+            }
+        }
+    };
 
     const handleKeyPress = useCallback((event) => {
         if (event.key === 'Enter') {
@@ -150,14 +171,28 @@ function Profile() {
                         <Grid item>
                             <div className="upload">
                                 <Avatar
+                                    className="avatar"
                                     src={photoUrl}
-                                    sx={{ width: 85, height: 85, border: '0.1px solid lightgray' }}>
+                                    onClick={() => {
+                                        fileInput.current.click();
+                                    }}
+                                >
                                     B
                                 </Avatar>
-                                <div className="round">
-                                    <input type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
-                                    <i className="fa fa-camera" style={{ color: '#fff' }}></i>
-                                </div>
+                                {photoUrl && (
+                                    <div className="round" style={{ backgroundColor: 'red' }} onClick={() => { setShowAlert(true) }}>
+                                        <i className="fa-solid fa-trash" style={{ color: '#fff' }}></i>
+                                    </div>
+                                )}
+                                {showAlert && (
+                                    <Alert
+                                        show={showAlert}
+                                        message="Profil rasmini o'chirib tashlamoqchimisiz?"
+                                        onHide={() => { setShowAlert(false) }}
+                                        onDelete={handleDelete}
+                                    />
+                                )}
+                                <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
                             </div>
                         </Grid>
                         <Grid item>
