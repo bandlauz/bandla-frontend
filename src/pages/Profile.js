@@ -51,9 +51,20 @@ function Profile() {
 
     const [showAlert, setShowAlert] = useState(false);
 
-    const handleDelete = () => {
-        // Perform delete action here
+    const handleDelete = async () => {
         setShowAlert(false);
+        try {
+            await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, {}, true, navigateToLogin);
+            toast.success("Profil rasmi o'chirildi");
+            setPhotoUrl(null);
+            setPhoto(null);
+        } catch (error) {
+            if (error.response.data?.errors) {
+                toast.error(error.response.data.errors[0])
+            } else {
+                toast.error("Profile rasmini o'chirishda xatolik ro'y berdi");
+            }
+        }
     };
 
     const handleKeyPress = useCallback((event) => {
@@ -169,16 +180,16 @@ function Profile() {
                                     B
                                 </Avatar>
                                 {photoUrl && (
-                                    <div className="round" style={{ backgroundColor: 'red' }} onClick={() => {setShowAlert(true)}}>
+                                    <div className="round" style={{ backgroundColor: 'red' }} onClick={() => { setShowAlert(true) }}>
                                         <i className="fa-solid fa-trash" style={{ color: '#fff' }}></i>
                                     </div>
                                 )}
                                 {showAlert && (
                                     <Alert
-                                    show={showAlert}
-                                    message="Profil rasmini o'chirib tashlamoqchimisiz?"
-                                    onHide={() => {setShowAlert(false)}}
-                                    onDelete={handleDelete}
+                                        show={showAlert}
+                                        message="Profil rasmini o'chirib tashlamoqchimisiz?"
+                                        onHide={() => { setShowAlert(false) }}
+                                        onDelete={handleDelete}
                                     />
                                 )}
                                 <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
