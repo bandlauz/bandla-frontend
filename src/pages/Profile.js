@@ -49,6 +49,7 @@ function Profile() {
         fetchData();
     }, []);
 
+    const [showAlertPic, setShowAlertPic] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const handleDelete = async () => {
@@ -87,13 +88,14 @@ function Profile() {
     }, [handleKeyPress]);
 
     const changePhoto = (event) => {
-        const file = event.target.files[0];
+        const file = event.files[0];
         if (file.size > maxPhotoSize) {
             toast.error("Photo surati hajmi 6 MB dan kam bo'lishi kerak!");
             return;
         }
         setPhoto(file);
         setPhotoUrl(URL.createObjectURL(file));
+        setShowAlertPic(false)
     }
 
     const changeFirstName = (event) => {
@@ -152,6 +154,15 @@ function Profile() {
         return <div>Ma'lumotlar yuklanmoqda...</div>;
     }
 
+    function fileInputChange() {
+        setShowAlertPic(true)
+    }
+
+    function hideAlertPic() {
+        setShowAlertPic(false)
+        fileInput.current.value = ''
+    }
+
     return (
         <>
             <div className="profile-wrapper" style={{ justifyContent: "center" }}>
@@ -187,12 +198,23 @@ function Profile() {
                                 {showAlert && (
                                     <Alert
                                         show={showAlert}
-                                        message="Profil rasmini o'chirib tashlamoqchimisiz?"
                                         onHide={() => { setShowAlert(false) }}
-                                        onDelete={handleDelete}
-                                    />
+                                    >
+                                        <p>Profil rasmini o'chirib tashlamoqchimisiz?</p>
+                                        <button key={'alert_below_button'} className="delete_button" onClick={handleDelete}>O'chirish</button>
+                                    </Alert>
                                 )}
-                                <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={changePhoto} />
+                                <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={fileInputChange} />
+                                {showAlertPic && (
+                                    <Alert
+                                    show={showAlertPic}
+                                    onHide={ hideAlertPic }
+                                    >
+                                        <img className="alert_img" src= {URL.createObjectURL(fileInput.current.files[0])} alt="rasm" />
+                                        <p>Shu rasmni qo'ymoqchimisiz?</p>
+                                        <button key={'alert_below_button'} onClick={() => changePhoto(fileInput.current)}>Saqlash</button>
+                                    </Alert>
+                                )}
                             </div>
                         </Grid>
                         <Grid item>
