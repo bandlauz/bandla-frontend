@@ -1,5 +1,5 @@
-import React from 'react'
-import './css/Alert.css'
+import React from 'react';
+import './css/Alert.css';
 
 function Alert({ show, children, onHide }) {
   return (

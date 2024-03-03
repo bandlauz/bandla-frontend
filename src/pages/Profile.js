@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef } from "react";
 import "./css/Profile.css"
 import "react-toastify/dist/ReactToastify.css"
 import Request from "../util/Request"
@@ -95,7 +95,7 @@ function Profile() {
         }
         setPhoto(file);
         setPhotoUrl(URL.createObjectURL(file));
-        setShowAlertPic(false)
+        setShowAlertPic(false);
     }
 
     const changeFirstName = (event) => {
@@ -155,12 +155,12 @@ function Profile() {
     }
 
     function fileInputChange() {
-        setShowAlertPic(true)
+        setShowAlertPic(true);
     }
 
     function hideAlertPic() {
-        setShowAlertPic(false)
-        fileInput.current.value = ''
+        setShowAlertPic(false);
+        fileInput.current.value = '';
     }
 
     return (
