@@ -20,6 +20,7 @@
   border-radius: 10px;
   background-color: #fff;
   padding: 10px;
+  max-width: 90%;
 }
 
 .alert_content p {
@@ -60,6 +61,7 @@
   justify-content: center;
   margin-bottom: 5px;
   overflow: hidden;
+  max-width: 100%;
 }
 
 .alert_img img {
