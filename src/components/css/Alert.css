@@ -51,7 +51,17 @@
 }
 
 .alert_img {
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   border-radius: 10px;
+  border: 1px solid rgb(0, 109, 199);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.alert_img img {
+  object-fit: cover;
 }

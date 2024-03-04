@@ -6,12 +6,9 @@ function Alert({ show, children, onHide }) {
     <div className={`alert ${show ? 'show' : 'hide'}`}>
       <div className="alert_bg" onClick={onHide}></div>
       <div className="alert_content">
-        {children
-          .filter((item) => item.key !== 'alert_below_button')
-          .map((item) => item)}
+        {children.filter(item => !item.props.buttonkey)}
         <div className="alert_buttons">
-          <button onClick={onHide}>Yopish</button>
-          {children.filter((item) => item.key === 'alert_below_button')[0]}
+          {children.filter(item => item.props.buttonkey)}
         </div>
       </div>
     </div>

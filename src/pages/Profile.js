@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
 import Alert from '../components/Alert'
+import * as IMG from '../util/image.js'
 
 function Profile() {
     const fileInput = useRef(null);
@@ -96,6 +97,8 @@ function Profile() {
         setPhoto(file);
         setPhotoUrl(URL.createObjectURL(file));
         setShowAlertPic(false);
+
+        fileInput.current.value = '';
     }
 
     const changeFirstName = (event) => {
@@ -162,6 +165,11 @@ function Profile() {
         setShowAlertPic(false);
         fileInput.current.value = '';
     }
+    
+    async function setSizeToImg(e) {
+        const imgData = await IMG.getData(fileInput.current.files[0])
+        e.target.style[imgData.size.max] = '100%'
+    }
 
     return (
         <>
@@ -201,7 +209,8 @@ function Profile() {
                                         onHide={() => { setShowAlert(false) }}
                                     >
                                         <p>Profil rasmini o'chirib tashlamoqchimisiz?</p>
-                                        <button key={'alert_below_button'} className="delete_button" onClick={handleDelete}>O'chirish</button>
+                                        <button buttonkey="true" onClick={() => setShowAlert(false)}>Yopish</button>
+                                        <button buttonkey="true" className="delete_button" onClick={handleDelete}>O'chirish</button>
                                     </Alert>
                                 )}
                                 <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={fileInputChange} />
@@ -210,9 +219,12 @@ function Profile() {
                                     show={showAlertPic}
                                     onHide={ hideAlertPic }
                                     >
-                                        <img className="alert_img" src= {URL.createObjectURL(fileInput.current.files[0])} alt="rasm" />
-                                        <p>Shu rasmni qo'ymoqchimisiz?</p>
-                                        <button key={'alert_below_button'} onClick={() => changePhoto(fileInput.current)}>Saqlash</button>
+                                        <div className="alert_img">
+                                            <img src={URL.createObjectURL(fileInput.current.files[0])} alt="rasm" onLoad={ setSizeToImg } />
+                                        </div>
+                                        <p style={{ textAlign: 'center' }}>Shu rasmni qo'ymoqchimisiz?</p>
+                                        <button buttonkey="true" className="delete_button" onClick={ hideAlertPic }>Yopish</button>
+                                        <button buttonkey="true" onClick={() => changePhoto(fileInput.current)}>Saqlash</button>
                                     </Alert>
                                 )}
                             </div>
