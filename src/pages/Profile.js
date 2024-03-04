@@ -11,8 +11,10 @@ import * as IMG from '../util/image.js'
 
 function Profile() {
     const fileInput = useRef(null);
+    const [img, setImg] = useState('');
     const [loading, setLoading] = useState(true);
     const [canSave, setCanSave] = useState(true);
+    const [photo, setPhoto] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -52,23 +54,20 @@ function Profile() {
     const [showAlertPic, setShowAlertPic] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
-    const updatePhoto = async (photoUrl, successMessage, errorMessage) => {
+    const handleDelete = async () => {
+        setShowAlert(false);
         try {
-            await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, { photoUrl: photoUrl }, true, navigateToLogin);
-            setPhotoUrl(photoUrl);
-            toast.success(successMessage);
+            await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, {}, true, navigateToLogin);
+            toast.success("Profil rasmi o'chirildi");
+            setPhotoUrl(null);
+            setPhoto(null);
         } catch (error) {
             if (error.response.data?.errors) {
                 toast.error(error.response.data.errors[0])
             } else {
-                toast.error(errorMessage);
+                toast.error("Profile rasmini o'chirishda xatolik ro'y berdi");
             }
         }
-    }
-
-    const handleDelete = async () => {
-        setShowAlert(false);
-        await updatePhoto(null, "Profil rasmi o'chirildi", "Profile rasmini o'chirishda xatolik ro'y berdi");
     };
 
     const handleKeyPress = useCallback((event) => {
@@ -90,29 +89,17 @@ function Profile() {
         };
     }, [handleKeyPress]);
 
-    const changePhoto = async (event) => {
+    const changePhoto = (event) => {
         const file = event.files[0];
         if (file.size > maxPhotoSize) {
             toast.error("Photo surati hajmi 6 MB dan kam bo'lishi kerak!");
             return;
         }
+        setPhoto(file);
+        setPhotoUrl(URL.createObjectURL(file));
         setShowAlertPic(false);
-        let url;
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
-            const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
-            url = response.data.data.url;
-        } catch (error) {
-            if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
-            } else {
-                toast.error("Photo suratni yuklashda xatolik ro'y berdi");
-            }
-            return;
-        }
 
-        await updatePhoto(url, "Profil rasmi saqlandi", "Profile rasmini saqlashda xatolik ro'y berdi");
+        fileInput.current.value = '';
     }
 
     const changeFirstName = (event) => {
@@ -128,9 +115,29 @@ function Profile() {
         const element = document.getElementById("save");
         element.blur();
 
+        let url = photoUrl;
+        if (photo) {
+            try {
+                const formData = new FormData();
+                formData.append('file', photo);
+                const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
+                setPhotoUrl(response.data.data.url);
+                url = response.data.data.url;
+            } catch (error) {
+                if (error.response.data?.errors) {
+                    toast.error(error.response.data.errors[0])
+                } else {
+                    toast.error("Photo suratni yuklashda xatolik ro'y berdi");
+                }
+                setCanSave(true);
+                return;
+            }
+        }
+
         const body = {
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            photoUrl: url
         }
 
         try {
@@ -154,7 +161,7 @@ function Profile() {
     function fileInputChange() {
         setShowAlertPic(true);
     }
-
+    
     function hideAlertPic() {
         setShowAlertPic(false);
         fileInput.current.value = '';
@@ -200,7 +207,7 @@ function Profile() {
                                 {showAlert && (
                                     <Alert
                                         show={showAlert}
-                                        onHide={() => { setShowAlert(false) }}
+                                        onHide={() => setShowAlert(false)}
                                     >
                                         <p>Profil rasmini o'chirib tashlamoqchimisiz?</p>
                                         <button buttonkey="true" onClick={() => setShowAlert(false)}>Yopish</button>
@@ -210,12 +217,15 @@ function Profile() {
                                 <input ref={fileInput} type="file" accept="image/png, image/jpeg" onChange={fileInputChange} />
                                 {showAlertPic && (
                                     <Alert
-                                        show={showAlertPic}
-                                        onHide={hideAlertPic}
+                                    show={showAlertPic}
+                                    onHide={ hideAlertPic }
                                     >
-                                        <img className="alert_img" src={URL.createObjectURL(fileInput.current.files[0])} alt="rasm" />
-                                        <p>Shu rasmni qo'ymoqchimisiz?</p>
-                                        <button key={'alert_below_button'} onClick={() => changePhoto(fileInput.current)}>Saqlash</button>
+                                        <div className="alert_img">
+                                            <img src={URL.createObjectURL(fileInput.current.files[0])} alt="rasm" onLoad={ setSizeToImg } />
+                                        </div>
+                                        <p style={{ textAlign: 'center' }}>Shu rasmni qo'ymoqchimisiz?</p>
+                                        <button buttonkey="true" className="delete_button" onClick={ hideAlertPic }>Yopish</button>
+                                        <button buttonkey="true" onClick={() => changePhoto(fileInput.current)}>Saqlash</button>
                                     </Alert>
                                 )}
                             </div>
