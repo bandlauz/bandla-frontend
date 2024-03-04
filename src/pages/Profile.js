@@ -168,8 +168,14 @@ function Profile() {
     }
     
     async function setSizeToImg(e) {
-        const imgData = await IMG.getData(fileInput.current.files[0])
-        e.target.style[imgData.size.max] = '100%'
+        const img = e.target
+        const parent = img.parentElement
+
+        const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max
+        const parentMinSize = IMG.minSize(parent.clientWidth, parent.clientHeight)
+
+        if (imgMaxSize === 'square') img.style[parentMinSize] = '100%'
+        if (imgMaxSize !== 'square') img.style[imgMaxSize] = '100%'
     }
 
     return (

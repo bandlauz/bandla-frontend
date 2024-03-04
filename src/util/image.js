@@ -19,7 +19,13 @@ function getData(img) {
 }
 
 function maxSize(width, height) {
+  if (width === height) return 'square'
   return width > height ? 'width' : 'height'
 }
 
-export { getData }
+function minSize(width, height) {
+  if (width === height) return 'square'
+  return width < height ? 'width' : 'height'
+}
+
+export { getData, maxSize, minSize }
