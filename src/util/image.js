@@ -24,7 +24,6 @@ function maxSize(width, height) {
 }
 
 function minSize(width, height) {
-  if (width === height) return 'square'
   return width < height ? 'width' : 'height'
 }
 
