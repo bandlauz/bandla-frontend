@@ -158,7 +158,14 @@ function Profile() {
         return <div>Ma'lumotlar yuklanmoqda...</div>;
     }
 
-    function fileInputChange() {
+    async function fileInputChange() {
+        const imgData = await IMG.getData(fileInput.current.files[0])
+        if (!IMG.checkSize(imgData.size)) {
+            toast.error("Rasm 180px dan kam bo'lmasligi kerak");
+            fileInput.current.value = '';
+            return 
+        }
+
         setShowAlertPic(true);
     }
     
@@ -174,8 +181,14 @@ function Profile() {
         const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max
         const parentMinSize = IMG.minSize(parent.clientWidth, parent.clientHeight)
 
-        if (imgMaxSize === 'square') img.style[parentMinSize] = '100%'
-        if (imgMaxSize !== 'square') img.style[imgMaxSize] = '100%'
+        if (imgMaxSize === 'square') {
+            img.style[parentMinSize] = '100%'
+            parent.style[parentMinSize] = '400px'
+        }
+        if (imgMaxSize !== 'square') {
+            img.style[imgMaxSize] = '100%'
+            parent.style[imgMaxSize] = '400px'
+        }
     }
 
     return (
