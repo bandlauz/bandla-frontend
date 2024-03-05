@@ -17,6 +17,8 @@
     height: 85px;
     cursor: pointer;
     border: 0.5px solid lightgray;
+    font-size: 24px !important;
+    background: linear-gradient(45deg, #1976d2, transparent);
 }
 
 .upload .round {

@@ -5,6 +5,7 @@ import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, 
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from "../components/NavbarSimple"
+import './css/Navbar.css'
 
 function Navbar() {
     const [loggedIn, setLoggedIn] = useState(null);
@@ -89,6 +90,7 @@ function Navbar() {
                                         }}>
                                         <Avatar
                                             src={profileImg}
+                                            className="avatar"
                                             sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
                                     </IconButton>
                                 </Tooltip>
