@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
-import "./css/Profile.css"
-import "react-toastify/dist/ReactToastify.css"
-import Request from "../util/Request"
+import "./css/Profile.css";
+import "react-toastify/dist/ReactToastify.css";
+import Request from "../util/Request";
 import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
-import Alert from '../components/Alert'
-import * as IMG from '../util/Image.js'
+import Alert from '../components/Alert';
+import * as IMG from '../util/Image.js';
 
 function Profile() {
     const fileInput = useRef(null);
