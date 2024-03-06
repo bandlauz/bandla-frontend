@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { Container, Grid, Avatar, TextField, Button } from "@mui/material";
 import Alert from '../components/Alert'
-import * as IMG from '../util/image.js'
+import * as IMG from '../util/Image.js'
 
 function Profile() {
     const fileInput = useRef(null);
@@ -154,13 +154,6 @@ function Profile() {
     }
 
     async function fileInputChange() {
-        const imgData = await IMG.getData(fileInput.current.files[0])
-        if (!IMG.checkSize(imgData.size)) {
-            toast.error("Rasm 180px dan kam bo'lmasligi kerak");
-            fileInput.current.value = '';
-            return;
-        }
-
         setShowAlertPic(true);
     }
 

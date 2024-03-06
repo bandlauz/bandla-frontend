@@ -20,13 +20,6 @@ function getData(img) {
   })
 }
 
-function checkSize(size) {
-  const minSize = 180
-  const { width, height } = size
-
-  return width > minSize && height > minSize
-}
-
 function maxSize(width, height) {
   if (width === height) return 'square'
   return width > height ? 'width' : 'height'
@@ -36,4 +29,4 @@ function minSize(width, height) {
   return width < height ? 'width' : 'height'
 }
 
-export { getData, maxSize, minSize, checkSize }
+export { getData, maxSize, minSize }
