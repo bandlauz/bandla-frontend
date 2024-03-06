@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
-import NavbarSimple from "../components/NavbarSimple"
-import './css/Navbar.css'
+import NavbarSimple from "../components/NavbarSimple";
+import './css/Navbar.css';
 
 function Navbar() {
     const [loggedIn, setLoggedIn] = useState(null);
