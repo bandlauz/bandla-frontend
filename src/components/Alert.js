@@ -15,4 +15,4 @@ function Alert({ show, children, onHide }) {
   )
 }
 
-export default Alert
+export default Alert;
