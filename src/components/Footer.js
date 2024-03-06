@@ -14,10 +14,10 @@ function Footer() {
           Barcha huquqlar himoyalangan.
         </div>
         <div className='icons'>
-          <a className='icon' href='https://www.instagram.com/bandlauz'>
+          <a className='icon' href='https://www.instagram.com/bandlauz' target='_blank'>
             <i className="fa-brands fa-instagram fa-2x"></i>
           </a>
-          <a className='icon' href='https://t.me/bandlauz'>
+          <a className='icon' href='https://t.me/bandlauz' target='_blank'>
             <i className="fa-brands fa-telegram fa-2x"></i>
           </a>
         </div>
