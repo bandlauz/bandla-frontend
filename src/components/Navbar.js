@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
