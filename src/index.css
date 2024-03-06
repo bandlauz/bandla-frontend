@@ -11,6 +11,10 @@ code {
     monospace;
 }
 
+a {
+    color: inherit !important;
+}
+
 @media (max-width: 768px) {
     *,
     *::before,

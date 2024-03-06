@@ -1,38 +1,27 @@
 import React from 'react'
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
 import Divider from '@mui/material/Divider';
+import './css/Footer.css';
 
 function Footer() {
   return (
     <>
       <Divider />
-      <Box p={1}>
-        <Container>
-          <Grid container style={{display: 'flex', alignItems: 'center'}}>
-            <Grid item xs={6} align="left" style={{whiteSpace: 'nowrap'}}>
-              <Typography variant="body2" color="text.secondary">
-                &copy;
-                <Link color="inherit" href="https://bandla.uz/">
-                  Bandla
-                </Link>{" "}{new Date().getFullYear()}{". All rights reserved"}
-              </Typography>
-            </Grid>
-            <Grid item xs={6} align="right">
-              <Link href="https://www.instagram.com/bandlauz" color="inherit">
-                <i className="fa-brands fa-instagram fa-2x"></i>
-              </Link>
-              {" "}
-              <Link href="https://t.me/bandlauz" color="inherit">
-                <i className="fa-brands fa-telegram fa-2x"></i>
-              </Link>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+      <div className='footer'>
+        <div className='ellipsis_txt'>
+          &copy;{' '}
+          <a href='https://bandla.uz/'>Bandla</a>{' '}
+          {new Date().getFullYear()}.
+          Barcha huquqlar himoyalangan.
+        </div>
+        <div className='icons'>
+          <a className='icon' href='https://www.instagram.com/bandlauz'>
+            <i className="fa-brands fa-instagram fa-2x"></i>
+          </a>
+          <a className='icon' href='https://t.me/bandlauz'>
+            <i className="fa-brands fa-telegram fa-2x"></i>
+          </a>
+        </div>
+      </div>
     </>
   )
 }
