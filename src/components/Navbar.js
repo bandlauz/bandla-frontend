@@ -91,6 +91,7 @@ function Navbar() {
                                         <Avatar
                                             src={profileImg}
                                             className="avatar"
+                                            style={profileImg ? { background: 'none' } : {}}
                                             sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
                                     </IconButton>
                                 </Tooltip>

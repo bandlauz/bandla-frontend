@@ -203,6 +203,7 @@ function Profile() {
                                     onClick={() => {
                                         fileInput.current.click();
                                     }}
+                                    style={photoUrl ? { background: 'none' } : {}}
                                 >
                                     B
                                 </Avatar>
