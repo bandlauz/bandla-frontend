@@ -77,3 +77,9 @@
 .alert_img img {
   object-fit: cover;
 }
+
+.alert p,
+.alert span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
