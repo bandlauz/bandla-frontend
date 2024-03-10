@@ -11,7 +11,6 @@ import * as IMG from '../util/Image.js';
 
 function Profile() {
     const fileInput = useRef(null);
-    const [img, setImg] = useState('');
     const [loading, setLoading] = useState(true);
     const [canSave, setCanSave] = useState(true);
     const [photoUrl, setPhotoUrl] = useState('');
@@ -54,7 +53,6 @@ function Profile() {
     const [showAlert, setShowAlert] = useState(false);
 
     const updatePhoto = async (photoUrl, successMessage, errorMessage) => {
-        setShowAlert(false);
         try {
             await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, { photoUrl: photoUrl }, true, navigateToLogin);
             setPhotoUrl(photoUrl);
@@ -98,23 +96,20 @@ function Profile() {
             toast.error("Photo surati hajmi 6 MB dan kam bo'lishi kerak!");
             return;
         }
-        setShowAlertPic(false);
-        let url;
         try {
             const formData = new FormData();
             formData.append('file', file);
             const response = await Request("https://api.bandla.uz/api/file-store", "post", null, formData, true, navigateToLogin);
-            url = response.data.data.url;
+            setShowAlertPic(false);
+
+            await updatePhoto(response.data.data.url, "Profil rasmi saqlandi", "Profile rasmini saqlashda xatolik ro'y berdi");
         } catch (error) {
             if (error.response.data?.errors) {
                 toast.error(error.response.data.errors[0]);
             } else {
                 toast.error("Photo suratni yuklashda xatolik ro'y berdi");
             }
-            return;
         }
-
-        await updatePhoto(url, "Profil rasmi saqlandi", "Profile rasmini saqlashda xatolik ro'y berdi");
     }
 
     const changeFirstName = (event) => {
