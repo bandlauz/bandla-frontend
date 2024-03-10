@@ -6,6 +6,7 @@ import Login from './Login';
 import Logout from './Logout'
 import Footer from '../components/Footer'
 import NavbarContainer from '../components/NavbarContainer';
+import LoginWithTelegram from '../auth/LoginWithTelegram';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/login-telegram" element={<LoginWithTelegram/>} />
                         <Route path="/logout" element={<Logout />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
