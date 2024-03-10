@@ -24,7 +24,7 @@ function Navbar() {
         try {
             const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigateToHome);
             setLoggedIn(true);
-            setProfileImg(myprofile.data.data.photoUrl)
+            setProfileImg(myprofile.data.data.photoUrl);
         } catch (error) {
             setLoggedIn(false);
             console.log(error);
@@ -45,7 +45,7 @@ function Navbar() {
     };
 
     if (loggedIn == null) {
-        return (<NavbarSimple />)
+        return (<NavbarSimple />);
     }
 
     return (
