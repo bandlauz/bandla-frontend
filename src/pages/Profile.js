@@ -54,7 +54,6 @@ function Profile() {
     const [showAlert, setShowAlert] = useState(false);
 
     const updatePhoto = async (photoUrl, successMessage, errorMessage) => {
-        setShowAlert(false);
         try {
             await Request("https://api.bandla.uz/api/profile/my/update-photo", "put", null, { photoUrl: photoUrl }, true, navigateToLogin);
             setPhotoUrl(photoUrl);
