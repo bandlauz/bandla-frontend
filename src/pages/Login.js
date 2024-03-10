@@ -15,7 +15,7 @@ function Login() {
     const [timers, setTimers] = useState({});
     const [buttonClicked, setButtonClicked] = useState(false);
     const [isLoginWithPasswordVisible, setLoginWithPasswordVisible] = useState(false);
-    const fullPhoneNumber = `+998${phoneNumber.replace(/\D/g, '')}`;
+    const fullPhoneNumber = `998${phoneNumber.replace(/\D/g, '')}`;
     const API_URL = "https://api.bandla.uz/auth/is-not-verified/";
     const API_SEND_CODE = "https://api.bandla.uz/auth/verification/send-confirmation-code/";
     let updateInterval;
