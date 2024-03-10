@@ -29,4 +29,4 @@ function minSize(width, height) {
   return width < height ? 'width' : 'height';
 }
 
-export { getData, maxSize, minSize }
+export { getData, maxSize, minSize };

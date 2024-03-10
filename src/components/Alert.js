@@ -12,7 +12,7 @@ function Alert({ show, children, onHide }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Alert;

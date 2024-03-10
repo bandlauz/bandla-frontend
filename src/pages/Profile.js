@@ -39,7 +39,7 @@ function Profile() {
             setLoading(false);
         } catch (error) {
             if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
+                toast.error(error.response.data.errors[0]);
             } else {
                 toast.error("Ma'lumotlarni yuklashda xatolik ro'y berdi");
             }
@@ -61,7 +61,7 @@ function Profile() {
             toast.success(successMessage);
         } catch (error) {
             if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
+                toast.error(error.response.data.errors[0]);
             } else {
                 toast.error(errorMessage);
             }
@@ -107,7 +107,7 @@ function Profile() {
             url = response.data.data.url;
         } catch (error) {
             if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
+                toast.error(error.response.data.errors[0]);
             } else {
                 toast.error("Photo suratni yuklashda xatolik ro'y berdi");
             }
@@ -133,14 +133,14 @@ function Profile() {
         const body = {
             firstName: firstName,
             lastName: lastName
-        }
+        };
 
         try {
             await Request("https://api.bandla.uz/api/profile/my/update", "put", null, body, true, navigateToLogin);
             toast.success("Muvaffaqiyatli saqlandi");
         } catch (error) {
             if (error.response.data?.errors) {
-                toast.error(error.response.data.errors[0])
+                toast.error(error.response.data.errors[0]);
             } else {
                 toast.error("Ma'lumotlarni saqlashda xatolik ro'y berdi");
             }
@@ -163,19 +163,19 @@ function Profile() {
     }
 
     async function setSizeToImg(e) {
-        const img = e.target
-        const parent = img.parentElement
+        const img = e.target;
+        const parent = img.parentElement;
 
-        const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max
-        const parentMinSize = IMG.minSize(parent.clientWidth, parent.clientHeight)
+        const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max;
+        const parentMinSize = IMG.minSize(parent.clientWidth, parent.clientHeight);
 
         if (imgMaxSize === 'square') {
-            img.style[parentMinSize] = '100%'
-            parent.style[parentMinSize] = '400px'
+            img.style[parentMinSize] = '100%';
+            parent.style[parentMinSize] = '400px';
         }
         if (imgMaxSize !== 'square') {
-            img.style[imgMaxSize] = '100%'
-            parent.style[imgMaxSize] = '400px'
+            img.style[imgMaxSize] = '100%';
+            parent.style[imgMaxSize] = '400px';
         }
     }
 
