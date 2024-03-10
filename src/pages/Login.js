@@ -8,7 +8,7 @@ import { useState } from "react";
 import { styled } from '@mui/system';
 import { Card, CardContent, Button, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { Telegram } from '../util/telegram-passport.js';
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
@@ -86,6 +86,36 @@ function Login() {
         }
     };
 
+    const loginWithTelegram = async () => {
+        const response = await Request("https://api.bandla.uz/auth/nonce", "get", null);
+        const nonce = response.data.data;
+        localStorage.setItem("nonce", nonce);
+
+        var auth_params = {
+            bot_id: 6310299701,
+            scope: { data: ['phone_number'], v: 1 },
+            public_key: '-----BEGIN PUBLIC KEY-----\n' +
+                'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsHF6oTC7nlgmC8pMy7t8\n' +
+                'gVEcOhpX1BW9p3Ts93vCygKcCY6wJZmmwBD/ZvSzdKN6Gd7s+qeibokBQwLkRWMj\n' +
+                'jizVV8BW/TrnFDtCG02DWAn1Wq8dXFtfSV5LQV5sCNTfFfTVyrA39G7kjt55mgOk\n' +
+                'J+jSX5TjePRh4vdvk2YqqHYzwr5UJxxBFCETRCDwwjQgYYRxBhPhyNOi5RkaX3BE\n' +
+                'aEIctIzYnq8PUQ1yK220qc2Fv3D1IsvUqle4RGz+E1gESYUEi5DvQjmGPONiGHZu\n' +
+                'CMRgMe5Ypr1sZ2WsR2i38vGicyyfNUmizSNY7LLJowO0cwxZ/IHehK1tmxlUzd+r\n' +
+                'kwIDAQAB\n' +
+                '-----END PUBLIC KEY-----',
+            nonce: nonce,
+            callback_url: 'https://bandla.uz/login-telegram'
+        };
+
+        window.Telegram.Passport.auth(auth_params, function (show) {
+            if (show) {
+                console.log(auth_params)
+            } else {
+                console.log("error")
+            }
+        });
+    }
+
     return (
         <div>
             <ToastContainer
@@ -148,7 +178,7 @@ function Login() {
                                         </Button>
                                     </form>
                                     <Typography>yoki</Typography>
-                                    <Button disableElevation>
+                                    <Button onClick={loginWithTelegram}>
                                         <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
                                     </Button>
                                 </CardContent>
