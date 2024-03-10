@@ -1,18 +1,17 @@
 import * as React from 'react';
 import './css/Login.css';
-import NavbarSimple from '../components/NavbarSimple.js';
 import Request from '../util/Request';
 import Verification from '../auth/Verification';
 import LoginWithPassword from '../auth/LoginWithPassword';
 import InputMask from 'react-input-mask';
 import { useState } from "react";
 import { styled } from '@mui/system';
-import { Card, CardContent, Button, Typography, Alert, AlertTitle } from '@mui/material';
+import { Card, CardContent, Button, Typography } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isVerificationFormVisible, setVerificationFormVisible] = useState(false);
-    const [error, setError] = useState('');
     const [timers, setTimers] = useState({});
     const [buttonClicked, setButtonClicked] = useState(false);
     const [isLoginWithPasswordVisible, setLoginWithPasswordVisible] = useState(false);
@@ -23,7 +22,6 @@ function Login() {
 
     const handlePhoneNumberChange = (event) => {
         setPhoneNumber(event.target.value);
-        setError('');
     };
 
     const isPhoneNumberValid = () => {
@@ -61,7 +59,7 @@ function Login() {
         try {
             setButtonClicked(true);
             if (timers[fullPhoneNumber]) {
-                // setError(`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`);
+                toast.error(`Iltimos ${timers[fullPhoneNumber]} soniya kuting!`);
                 return;
             }
 
@@ -75,9 +73,13 @@ function Login() {
             }
         } catch (error) {
             switch (error?.response?.status) {
-                case 429: startTimer(fullPhoneNumber, error?.response?.data?.data); break;
-                case 400: setError('Произошла ошибка при проверке номера телефона'); break;
-                default: setError('Произошла ошибка');
+                case 429: {
+                    startTimer(fullPhoneNumber, error?.response?.data?.data);
+                    toast.error(`Iltimos ${error?.response?.data?.data} soniya kuting!`);
+                    break;
+                }
+                case 400: toast.error("Noto'gri telefon raqam"); break;
+                default: toast.error("Xatolik ro'y berdi");
             }
         } finally {
             setButtonClicked(false);
@@ -86,16 +88,17 @@ function Login() {
 
     return (
         <div>
-            <NavbarSimple />
-            {timers[fullPhoneNumber] > 0 && (
-                <Alert
-                    className="AlertContainer"
-                    sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', background: '#1f2026', color: 'white' }}
-                    variant="filled" severity="error">
-                    <AlertTitle>{`Пожалуйста, подождите ${timers[fullPhoneNumber]} секунд.`}</AlertTitle>
-                </Alert>
-            )}
-
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light" />
             {
                 isLoginWithPasswordVisible ? (
                     <LoginWithPassword fullPhoneNumber={fullPhoneNumber} />
@@ -118,8 +121,9 @@ function Login() {
                                         alignItems: 'center',
                                         p: '30px'
                                     }}>
-                                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Введите номер
-                                        телефона</Typography>
+                                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                        Telefon raqamingizni kiriting
+                                    </Typography>
                                     <br></br>
                                     <form action="" onSubmit={handleSubmit} style={{ width: '100%' }}>
                                         <div className="phone-container">
@@ -140,17 +144,10 @@ function Login() {
                                         <Button type={"submit"} sx={{ my: '20px' }} className="login-button"
                                             variant="contained" disableElevation
                                             disabled={!isPhoneNumberValid() || buttonClicked}>
-                                            Войти
+                                            Kirish
                                         </Button>
                                     </form>
-                                    {error && (
-                                        <Alert className="AlertContainer" sx={{ marginTop: '30px', position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)' }}
-                                            severity="error">
-                                            <AlertTitle>Ошибка</AlertTitle>
-                                            {error}
-                                        </Alert>
-                                    )}
-                                    <Typography>или войдите через</Typography>
+                                    <Typography>yoki</Typography>
                                     <Button disableElevation>
                                         <i className="fa-brands fa-telegram fa-4x" style={{ color: "#74C0FC" }}></i>
                                     </Button>

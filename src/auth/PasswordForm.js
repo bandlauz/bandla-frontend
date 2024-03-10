@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Request from '../util/Request';
-import Login from '../pages/Login';
 import '../pages/css/Login.css';
 import {
     Card,
@@ -15,15 +14,16 @@ import {
     Alert
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { ToastContainer, toast } from 'react-toastify';
 
 const PasswordForm = ({ temporaryToken }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const [loginVisible, setLoginVisible] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const [registrationSuccess, setRegistrationSuccess] = useState(false);
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
     const validatePassword = () => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (password === '' && passwordError !== '') {
@@ -32,7 +32,7 @@ const PasswordForm = ({ temporaryToken }) => {
         }
 
         if (!passwordRegex.test(password)) {
-            setPasswordError('Пароль должен иметь длину не менее 8 символов, содержать не менее 1 строчной буквы, 1 заглавной буквы и 1 цифры.');
+            setPasswordError("Parol 8 ta belgidan kam bo'lmasligi kerak va kamida 1 ta kichik harf, 1 ta bosh harf va 1 ta raqam qatnashishi zarur");
             return false;
         } else {
             setPasswordError('');
@@ -57,15 +57,16 @@ const PasswordForm = ({ temporaryToken }) => {
                 const response = await Request(
                     'https://api.bandla.uz/auth/verification/complete',
                     'put',
-                    '',
+                    null,
                     {
                         temporaryToken: temporaryToken,
                         password: password
                     }
                 );
                 if (response.status === 200) {
-                    setRegistrationSuccess(true);
-                    setLoginVisible(true);
+                    toast.success("Siz ro'yxatdan o'tdingiz");
+                    await sleep(2000);
+                    window.location.reload();
                 }
             } catch (error) {
                 console.error(error);
@@ -74,99 +75,85 @@ const PasswordForm = ({ temporaryToken }) => {
     };
 
     return (
-        <>
-            {loginVisible ? (
-                <div>
-                    {registrationSuccess && (
-                        <Alert className="AlertContainer" severity="success"
-                            sx={{
-                                marginTop: '30px',
-                                position: 'fixed',
-                                top: 0,
-                                left: '50%',
-                                transform: 'translateX(-50%)'
-                            }}
+        <div className="login-wrapper">
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light" />
+            <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px' }}>
+                <CardContent sx={{ p: '30px' }}>
+                    <Typography
+                        sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Parol</Typography>
+                    <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
+                        <OutlinedInput
+                            sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
+                            id="outlined-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label={null}
+                            onChange={handlePasswordChange} />
+                    </FormControl>
+                    <div>
+                        {passwordError && (
+                            <Typography sx={{
+                                color: '#e50000',
+                                fontSize: '15px',
+                                fontFamily: 'Inter, sans-serif !important',
+                            }}>
+                                {passwordError}
+                            </Typography>
+                        )}
+                    </div>
+                    <Typography sx={{ mt: 3, fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Подтвердите
+                        пароль</Typography>
+                    <FormControl sx={{ my: 1, mt: 1, width: '100%' }} variant="outlined">
+                        <OutlinedInput
+                            sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
+                            id="outlined-adornment-confirm-password"
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label={null}
+                            onChange={handleConfirmPasswordChange} />
+                    </FormControl>
+                    <div style={{ display: 'flex', justifyContent: 'end' }}>
+                        <Button
+                            sx={{ backgroundColor: '#006DC7 !important', color: '#fff', fontSize: '20px', my: 1 }}
+                            onClick={handleButtonClick}
+                            disabled={password !== confirmPassword || password === '' || confirmPassword === ''}
                         >
-                            You have successfully registered, now you can enter the system through login.
-                        </Alert>
-                    )}
-                    <Login setRegistrationSuccess={setRegistrationSuccess} />
-                </div>
-            ) : (
-                <div className="login-wrapper">
-                    <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px', height: '400px' }}>
-                        <CardContent sx={{ p: '30px' }}>
-                            <Typography
-                                sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Пароль</Typography>
-                            <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
-                                <OutlinedInput
-                                    sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
-                                    id="outlined-adornment-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label={null}
-                                    onChange={handlePasswordChange}
-                                // onFocus={handlePasswordFocus}
-                                />
-                            </FormControl>
-                            <div>
-                                {passwordError && (
-                                    <Typography sx={{
-                                        color: '#e50000',
-                                        fontSize: '15px',
-                                        fontFamily: 'Inter, sans-serif !important',
-                                    }}>
-                                        {passwordError}
-                                    </Typography>
-                                )}
-                            </div>
-                            <Typography sx={{ mt: 3, fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Подтвердите
-                                пароль</Typography>
-                            <FormControl sx={{ my: 1, mt: 1, width: '100%' }} variant="outlined">
-                                <OutlinedInput
-                                    sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
-                                    id="outlined-adornment-confirm-password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label={null}
-                                    onChange={handleConfirmPasswordChange}
-                                // onFocus={handlePasswordFocus}
-                                />
-                            </FormControl>
-                            <div style={{ display: 'flex', justifyContent: 'end' }}>
-                                <Button
-                                    sx={{ backgroundColor: '#2BBDE9 !important', color: '#fff', fontSize: '20px', my: 1 }}
-                                    onClick={handleButtonClick}
-                                    disabled={password !== confirmPassword || password === '' || confirmPassword === ''}
-                                >
-                                    OK
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
-            )}
-        </>
+                            OK
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
     );
 };
 

@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
+import NavbarSimple from "../components/NavbarSimple";
+import './css/Navbar.css';
 
 function Navbar() {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(null);
     const [profileImg, setProfileImg] = useState();
     const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
 
@@ -16,13 +18,15 @@ function Navbar() {
 
     const fetchData = async () => {
         if (!localStorage.getItem("accessToken")) {
+            setLoggedIn(false);
             return;
         }
         try {
             const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigateToHome);
             setLoggedIn(true);
-            setProfileImg(myprofile.data.data.photoUrl)
+            setProfileImg(myprofile.data.data.photoUrl);
         } catch (error) {
+            setLoggedIn(false);
             console.log(error);
         }
     }
@@ -39,11 +43,16 @@ function Navbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    if (loggedIn == null) {
+        return (<NavbarSimple />);
+    }
+
     return (
         <Box
             sx={{
-                marginBottom: 1,
-                p: 1
+                paddingTop: 0.5,
+                marginBottom: 1
             }}>
             <Container>
                 <Grid container>
@@ -61,19 +70,28 @@ function Navbar() {
                         {!loggedIn ?
                             <a href="/login" style={{ textDecoration: 'none' }}>
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
-                                    Войти
+                                    Kirish
                                 </Button>
-                            </a> :
+                            </a>
+                            :
                             <React.Fragment>
-                                <Tooltip title="Account settings">
+                                <Tooltip title="Account sozlamari">
                                     <IconButton
                                         onClick={handleClick}
                                         size="small"
                                         aria-controls={open ? 'account-menu' : undefined}
                                         aria-haspopup="true"
-                                        aria-expanded={open ? 'true' : undefined}>
+                                        aria-expanded={open ? 'true' : undefined}
+                                        sx={{
+                                            display: 'inline-block',
+                                            padding: 0,
+                                            minHeight: 0,
+                                            minWidth: 0
+                                        }}>
                                         <Avatar
                                             src={profileImg}
+                                            className="avatar"
+                                            style={profileImg ? { background: 'none' } : {}}
                                             sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
                                     </IconButton>
                                 </Tooltip>
@@ -88,7 +106,7 @@ function Navbar() {
                                         sx: {
                                             overflow: 'visible',
                                             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                                            mt: 1.5,
+                                            mt: 1.4,
                                             '& .MuiAvatar-root': {
                                                 width: 32,
                                                 height: 32,
@@ -124,14 +142,14 @@ function Navbar() {
                                         <ListItemIcon>
                                             <Settings fontSize="small" />
                                         </ListItemIcon>
-                                        Settings
+                                        Sozlamar
                                     </MenuItem>
                                     <a href="/logout" style={{ textDecoration: 'none', color: "red" }}>
                                         <MenuItem onClick={handleClose}>
                                             <ListItemIcon>
                                                 <Logout fontSize="small" style={{ color: "red" }} />
                                             </ListItemIcon>
-                                            Logout
+                                            Chiqish
                                         </MenuItem>
                                     </a>
                                 </Menu>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Box } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import Link from "@mui/material/Link";
@@ -9,8 +9,8 @@ function NavbarSimple() {
     return (
         <Box
             sx={{
-                marginBottom: 1,
-                p: 1
+                paddingTop: 0.5,
+                marginBottom: 1
             }}>
             <Container>
                 <Grid container>
@@ -22,7 +22,7 @@ function NavbarSimple() {
                             />
                         </Link>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={8}>
                     </Grid>
                 </Grid>
             </Container>

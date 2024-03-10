@@ -5,11 +5,13 @@ import Profile from './Profile'
 import Login from './Login';
 import Logout from './Logout'
 import Footer from '../components/Footer'
+import NavbarContainer from '../components/NavbarContainer';
 
 function App() {
     return (
         <div className="page-container">
             <div className="content-wrap">
+                <NavbarContainer />
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />} />

@@ -3,8 +3,6 @@ import '../pages/css/Login.css';
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
 import {
     Card,
     CardContent,
@@ -27,7 +25,6 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
         setPasswordError('');
         setPassword(e.target.value);
     };
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     useEffect(() => {
         const firstInput = document.getElementById('passwordInput');
@@ -50,33 +47,21 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
                 if (response.status === 200) {
                     localStorage.setItem("accessToken", response.data.data.accessToken);
                     localStorage.setItem("refreshToken", response.data.data.refreshToken);
-                    toast.success("Successfully loged");
-                    await sleep(1400)
                     navigate('/');
+                    window.location.reload();
                 }
             } catch (error) {
-                setPasswordError('Неверный пароль!');
+                setPasswordError('Parol xato');
             }
         }
     };
 
     return (
         <div className="login-wrapper">
-            <ToastContainer
-                position="top-center"
-                autoClose={1400}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light" />
             <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px', height: '250px' }}>
                 <CardContent sx={{ p: '30px' }}>
                     <Typography
-                        sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Пароль</Typography>
+                        sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Parol</Typography>
                     <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
                         <OutlinedInput
                             sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
