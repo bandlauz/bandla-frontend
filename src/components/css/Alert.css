@@ -19,7 +19,8 @@
   transform: translate(-50%, -50%);
   border-radius: 10px;
   background-color: #fff;
-  padding: 10px;
+  padding: 8px;
+  max-width: 90%;
 }
 
 .alert_content p {
@@ -48,4 +49,37 @@
 
 .alert .delete_button {
   background-color: red;
+}
+
+.alert_img {
+  border-radius: 10px;
+  border: 1px solid rgb(0, 109, 199);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  overflow: hidden;
+  max-width: 100% !important;
+  max-height: 400px;
+  opacity: 0;
+  animation: opacity0to1 .3s .5s linear forwards;
+}
+
+@keyframes opacity0to1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.alert_img img {
+  object-fit: cover;
+}
+
+.alert p,
+.alert span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

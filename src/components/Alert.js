@@ -1,15 +1,14 @@
 import React from 'react';
-import './css/Alert.css'
+import './css/Alert.css';
 
-function Alert({ show, message, onHide, onDelete }) {
+function Alert({ show, children, onHide }) {
   return (
     <div className={`alert ${show ? 'show' : 'hide'}`}>
       <div className="alert_bg" onClick={onHide}></div>
       <div className="alert_content">
-        <p>{message}</p>
+        {children.filter(item => !item.props.buttonkey)}
         <div className="alert_buttons">
-          <button onClick={onHide}>Yopish</button>
-          <button onClick={onDelete} className="delete_button">O'chirish</button>
+          {children.filter(item => item.props.buttonkey)}
         </div>
       </div>
     </div>
