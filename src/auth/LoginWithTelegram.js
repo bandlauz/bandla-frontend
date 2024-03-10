@@ -17,7 +17,7 @@ function LoginWithTelegram() {
             localStorage.setItem("accessToken", response.data.data.accessToken);
             localStorage.setItem("refreshToken", response.data.data.refreshToken);
             navigate('/');
-            // window.location.reload();
+            window.location.reload();
         } catch (error) {
             if (error.response.data?.errors) {
                 toast.error(error.response.data.errors[0]);
