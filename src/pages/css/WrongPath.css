@@ -1,0 +1,11 @@
+.wrong_path_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
