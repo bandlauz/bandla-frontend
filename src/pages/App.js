@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "./css/App.css";
 import Home from './Home';
-import WrongPath from './WrongPath';
 import Profile from './Profile'
 import Login from './Login';
 import Logout from './Logout'
+import WrongPath from './WrongPath';
 import Footer from '../components/Footer'
 import NavbarContainer from '../components/NavbarContainer';
 import LoginWithTelegram from '../auth/LoginWithTelegram';
