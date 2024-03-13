@@ -13,9 +13,13 @@ function WrongPath() {
         />
       </div>
       <h1>Bosh sahifaga qayting</h1>
-      <Button style={{ backgroundColor: '#1976d2', color: '#fff' }}>Bosh sahifa</Button>
+      <a href="/">
+        <Button style={{ backgroundColor: '#1976d2', color: '#fff' }}>
+          Bosh sahifa
+        </Button>
+      </a>
     </div>
   )
 }
 
-export default WrongPath;
+export default WrongPath
