@@ -6,13 +6,9 @@ function WrongPath() {
   return (
     <div className="wrong_path_area">
       <div className="image-container">
-        <img
-          src={process.env.PUBLIC_URL + '/logo.png'}
-          alt="Bandla image"
-          width="335"
-        />
+        <h1 style={{color: 'red', marginBottom: '5px'}}>Sahifa topilmadi :(</h1>
       </div>
-      <h1>Bosh sahifaga qayting</h1>
+      <h3>Bosh sahifaga qayting</h3>
       <a href="/">
         <Button style={{ backgroundColor: '#1976d2', color: '#fff' }}>
           Bosh sahifa
