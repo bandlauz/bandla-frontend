@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 
 function WrongPath() {
   return (
-    <div className="wrong_path_area">
+    <div className="wrong_path_area content-body">
       <div className="image-container">
         <h1 style={{color: 'red', marginBottom: '5px'}}>Sahifa topilmadi :(</h1>
       </div>
