@@ -14,7 +14,7 @@ function Footer() {
         <Container>
           <Grid container style={{ display: 'flex', alignItems: 'center' }}>
             <Grid item xs={6} align="left" style={{ whiteSpace: 'nowrap' }}>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2">
                 &copy;
                 <Link color="inherit" href="/">
                   Bandla

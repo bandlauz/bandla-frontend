@@ -142,7 +142,7 @@ function Login() {
                         />
                     ) : (
                         <div className="Login login-wrapper">
-                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px' }}>
+                            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px', background: 'inherit', color: 'inherit' }}>
                                 <CardContent
                                     sx={{
                                         display: 'flex',
@@ -167,6 +167,7 @@ function Login() {
                                                 value={phoneNumber}
                                                 onChange={handlePhoneNumberChange}
                                                 sx={{ flex: '1 1 auto', minWidth: 0 }}
+                                                style={{background: 'inherit'}}
                                             >
                                                 {(inputProps) => <InputElement {...inputProps} />}
                                             </InputMask>
@@ -191,11 +192,10 @@ function Login() {
 }
 
 const InputElement = styled('input')(
-    ({ theme }) => `
+    () => `
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
-  color: ${theme.palette.mode === 'dark' ? 'var(--grey-300)' : 'var(--grey-900)'};
   background: none;
   border: none;
   // firefox

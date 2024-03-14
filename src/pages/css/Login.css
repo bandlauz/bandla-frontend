@@ -17,11 +17,12 @@
 .phone-container {
     height: 52px;
     padding: 0 16px;
-    background: #e6e8ed;
     border-radius: 12px;
     transition: all .15s ease-in-out;
     display: flex;
     align-items: center;
+    border: 1px solid var(--border-color-default);
+    transition: none;
 }
 
 .country-code {
@@ -30,7 +31,7 @@
 }
 
 .phone-container:hover {
-    background: #dee0e5;
+    background: var(--bg-hover);
 }
 
 .login-button {

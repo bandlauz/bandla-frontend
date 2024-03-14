@@ -58,7 +58,7 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
 
     return (
         <div className="login-wrapper">
-            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px', height: '250px' }}>
+            <Card sx={{ minWidth: '200px', maxWidth: '500px', borderRadius: '12px', height: '250px', background: 'inherit', color: 'inherit'}}>
                 <CardContent sx={{ p: '30px' }}>
                     <Typography
                         sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif !important' }}>Parol</Typography>
@@ -67,6 +67,7 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
                             sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
                             id="passwordInput"
                             type={showPassword ? 'text' : 'password'}
+                            style={{border: '1px solid var(--border-color-default)'}}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton

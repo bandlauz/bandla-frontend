@@ -105,7 +105,7 @@ function Navbar() {
                                         elevation: 0,
                                         sx: {
                                             overflow: 'visible',
-                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                            filter: 'drop-shadow(0px 2px 8px var(--box-shadow-default))',
                                             mt: 1.4,
                                             '& .MuiAvatar-root': {
                                                 width: 32,
@@ -124,14 +124,17 @@ function Navbar() {
                                                 bgcolor: 'background.paper',
                                                 transform: 'translateY(-50%) rotate(45deg)',
                                                 zIndex: 0,
+                                                background: 'var(--bg-color)',
                                             },
+                                            background: 'var(--bg-color)',
+                                            color: 'inherit',
                                         },
                                     }}
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                                    <a href="/profile" style={{ textDecoration: 'none', color: "black" }}>
+                                    <a href="/profile" style={{ textDecoration: 'none'}}>
                                         <MenuItem onClick={handleClose}>
-                                            <ListItemIcon>
+                                            <ListItemIcon style={{ color: 'inherit'}}>
                                                 <PersonIcon fontSize="small" />
                                             </ListItemIcon>
                                             Profile
@@ -139,7 +142,7 @@ function Navbar() {
                                     </a>
                                     <Divider />
                                     <MenuItem onClick={handleClose}>
-                                        <ListItemIcon>
+                                        <ListItemIcon style={{ color: 'inherit'}}>
                                             <Settings fontSize="small" />
                                         </ListItemIcon>
                                         Sozlamar

@@ -128,7 +128,7 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                 <PasswordForm temporaryToken={temporaryToken} />
             ) : (
                 <div className="login-wrapper">
-                    <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px' }}>
+                    <Card sx={{ minWidth: '200px', width: '600px', borderRadius: '12px', background: 'inherit', color: 'inherit' }}>
                         <CardContent
                             sx={{
                                 p: '30px'
@@ -153,10 +153,10 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                             width: '50px',
                                             height: '50px',
                                             textAlign: 'center',
-                                            backgroundColor: "#f2f4f7",
+                                            background: 'none',
                                             borderRadius: "12px",
                                             marginRight: '4px',
-                                            border: errorMsg ? '1px solid #e50000' : 'none',
+                                            border: errorMsg ? '1px solid #e50000' : '1px solid var(--border-color-default)',
                                             fontFamily: "Inter",
                                             fontSize: "20px"
                                         }}
@@ -189,7 +189,6 @@ const Verification = ({ phoneNumber, API_SEND_CODE, fullPhoneNumber, setVerifica
                                                 cursor: 'pointer',
                                                 fontSize: '19px',
                                                 fontWeight: '550',
-                                                color: '#000'
                                             }}>
                                             <i className="fas fa-redo-alt"></i> Qayta yuborish
                                         </Typography>

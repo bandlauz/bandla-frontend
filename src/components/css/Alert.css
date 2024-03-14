@@ -18,7 +18,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--bg-color);
   padding: 8px;
   max-width: 90%;
 }
