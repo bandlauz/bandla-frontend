@@ -51,6 +51,24 @@
   }
 }
 
+.gradient_txt {
+  background: rgb(75, 71, 156);
+  background: linear-gradient(
+    49deg,
+    rgba(75, 71, 156, 1) 0%,
+    rgb(63, 58, 219) 11%,
+    rgb(46, 46, 171) 21%,
+    rgb(63, 68, 141) 40%,
+    rgba(43, 37, 185, 1) 48%,
+    rgba(6, 78, 167, 1) 57%,
+    rgba(5, 100, 181, 1) 64%,
+    rgba(3, 137, 206, 1) 76%,
+    rgba(0, 48, 255, 1) 95%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .title {
   border-bottom: 1px solid #000;
   max-width: max-content;

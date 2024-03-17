@@ -70,6 +70,7 @@ function About() {
       const next = moveTexts.length - 1 === count % 3 ? 0 : (count % 3) + 1
 
       const span = document.createElement('span')
+      span.classList.add('gradient_txt')
       span.textContent = moveTexts[next]
       moveTextY.current?.appendChild(span)
 
@@ -96,7 +97,7 @@ function About() {
                 width: `${activeTextW}px`,
               }}
             >
-              <span>tez</span>
+              <span className="gradient_txt">tez</span>
             </div>
           </div>
           band qiling!
