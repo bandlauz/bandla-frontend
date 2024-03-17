@@ -100,7 +100,7 @@ function About() {
             <span className="gradient_txt">tez</span>
           </div>
         </div>
-        <span>band qiling!</span>
+        <span className="last_span">band qiling!</span>
       </div>
       <h1 className="title">Biz haqimiqda</h1>
       <p>
