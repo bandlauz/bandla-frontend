@@ -148,14 +148,12 @@ p {
   --person-photo-size: 120px;
 }
 
-@media (min-width: 1200px) {
-  .about_area {
-    max-width: 1200px;
-  }
-}
-
 @media (max-width: 492px) {
   .about_intro .last_span {
     display: none;
+  }
+
+  .person {
+    width: 100%;
   }
 }
