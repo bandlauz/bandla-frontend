@@ -105,15 +105,15 @@ function About() {
       </div>
       <h1 className="title">Biz haqimiqda</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus
-        at lectus ac euismod. Suspendisse pretium id eros non tincidunt.
-        Pellentesque euismod augue et hendrerit lacinia. Nullam magna massa,
-        luctus vel est et, pulvinar commodo justo. Duis vel neque cursus, rutrum
-        ipsum faucibus, maximus lacus. Maecenas ac eros elementum, consequat
-        magna nec, porttitor leo. Nulla facilisi. Sed feugiat malesuada leo, sed
-        auctor lorem molestie nec. Nam ipsum mi, porta id mi a, convallis
-        convallis erat. Fusce nec elementum neque. Aliquam erat volutpat.
+        Bandla chiptalarni bron qilishni soddalashtiradi, bu sizga istalgan
+        joydan joy band qilish imkonini beradi. Foydalanuvchi uchun qulay
+        interfeys bilan biz jarayonni soddalashtiramiz, qulaylik va
+        samaradorlikni ta'minlaymiz. Konsertlar, sport tadbirlari yoki teatr
+        tomoshalari bo'ladimi, Bandla keng ko'lamli tajribalardan uzluksiz
+        foydalanish imkonini beradi. Bizga qo'shiling va bugun oson chiptalarni
+        bron qilishni oching.
       </p>
+      <h1 className="title">Bizning jamoa</h1>
       <div className="people_list">
         {peopleList.map((person, index) => (
           <div className="person" key={index}>
