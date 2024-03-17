@@ -38,6 +38,10 @@ const peopleList = [
         link: 'https://www.linkedin.com/in/akbar-jorayev-89519b269/',
         icon: 'fa-brands fa-linkedin fa-2x',
       },
+      {
+        link: 'https://t.me/akbarjorayevaj',
+        icon: 'fa-brands fa-telegram fa-2x',
+      },
     ],
   },
   {
