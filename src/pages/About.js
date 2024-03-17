@@ -1,11 +1,127 @@
-import * as React from "react";
-import './css/Home.css';
+import * as React from 'react'
+import { useState, useRef, useEffect } from 'react'
+import './css/Home.css'
+import './css/About.css'
+
+const peopleList = [
+  {
+    name: 'Azimjon Nazarov',
+    occupation: 'Bandla asoschisi',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
+    socialAccounts: [
+      {
+        link: 'https://www.instagram.com/nazarov_ctrl/',
+        icon: 'fa-brands fa-instagram fa-2x',
+      },
+      {
+        link: 'https://www.linkedin.com/in/azimjon-nazarov/',
+        icon: 'fa-brands fa-linkedin fa-2x',
+      },
+    ],
+  },
+  {
+    name: 'Akbar Jorayev',
+    occupation: 'Dastur muhandisi',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
+    socialAccounts: [
+      {
+        link: 'https://www.instagram.com/akbarjorayevaj/',
+        icon: 'fa-brands fa-instagram fa-2x',
+      },
+      {
+        link: 'https://www.facebook.com/akbarjorayevAJ/',
+        icon: 'fa-brands fa-facebook fa-2x',
+      },
+      {
+        link: 'https://www.linkedin.com/in/akbar-jorayev-89519b269/',
+        icon: 'fa-brands fa-linkedin fa-2x',
+      },
+    ],
+  },
+]
 
 function About() {
-    return (
-        <>
-            <h1>About us</h1>
-        </>);
+  const moveTextY = useRef(null)
+  const [activeTextW, setActiveTextW] = useState(
+    moveTextY.current?.children[0].clientWidth
+  )
+  const [count, setCount] = useState(0)
+  const moveTexts = ['tez', 'oson', 'qulay']
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const children = moveTextY.current?.children
+      const next = moveTexts.length - 1 === count % 3 ? 0 : (count % 3) + 1
+
+      const span = document.createElement('span')
+      span.textContent = moveTexts[next]
+      moveTextY.current?.appendChild(span)
+
+      children[count]?.classList.add('hide')
+
+      setActiveTextW(span.clientWidth)
+      setCount((cur) => cur + 1)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [activeTextW, count])
+
+  return (
+    <div className="about_area">
+      <div className="about_intro">
+        <h1>
+          Bandla bilan
+          <div className="move_text_y">
+            <div
+              className="move_text_area"
+              ref={moveTextY}
+              style={{
+                transform: `translateY(-${50 * count}px)`,
+                width: `${activeTextW}px`,
+              }}
+            >
+              <span>tez</span>
+            </div>
+          </div>
+          band qiling!
+        </h1>
+      </div>
+      <h1 className="title">Biz haqimiqda</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus
+        at lectus ac euismod. Suspendisse pretium id eros non tincidunt.
+        Pellentesque euismod augue et hendrerit lacinia. Nullam magna massa,
+        luctus vel est et, pulvinar commodo justo. Duis vel neque cursus, rutrum
+        ipsum faucibus, maximus lacus. Maecenas ac eros elementum, consequat
+        magna nec, porttitor leo. Nulla facilisi. Sed feugiat malesuada leo, sed
+        auctor lorem molestie nec. Nam ipsum mi, porta id mi a, convallis
+        convallis erat. Fusce nec elementum neque. Aliquam erat volutpat.
+      </p>
+      <div className="people_list">
+        {peopleList.map((person, index) => (
+          <div className="person" key={index}>
+            <div className="photo">
+              <img src={person.photo} alt="" />
+            </div>
+            <div className="name">{person.name}</div>
+            <div className="occupation">{person.occupation}</div>
+            <p className="person_about">{person.about}</p>
+            <div className="social_accounts">
+              {person.socialAccounts.map((account, index) => {
+                return (
+                  <a href={account.link} target="_blank" rel="noreferrer" key={index}>
+                    <i className={account.icon}></i>
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
-export default About;
+export default About

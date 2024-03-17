@@ -11,6 +11,7 @@ function Navbar() {
     const [loggedIn, setLoggedIn] = useState(null);
     const [profileImg, setProfileImg] = useState();
     const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
+    const { pathname } = window.location
 
     const navigateToHome = () => {
         console.log("Navbar navigate");
@@ -56,14 +57,14 @@ function Navbar() {
             }}>
             <Container>
                 <Grid container>
-                    <Grid item xs={4} align="left">
-                        <Link color="inherit" href="/">
+                    <Grid item xs={4} alignItems="center" style={{display: 'flex' }}>
+                        <Link color="inherit" href="/" style={{marginRight: '10px'}}>
                             <img src={process.env.PUBLIC_URL + "/logo-black.png"}
                                 alt="Bandla image"
                                 height={35}
                             />
                         </Link>
-                        <Link color="inherit" href="https://bandla.uz/about" style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>Biz haqimiqda</Link>
+                        <Link color="inherit" href="/about" style={{ display: 'block', color: `${pathname === '/about' ? '#fff' : 'inherit'}`, textDecoration: 'none', backgroundColor: `${pathname === '/about' ? 'rgb(0,109,199)' : 'inherit'}`, padding: '2px 5px', borderRadius: '5px'}}>Biz haqimiqda</Link>
                     </Grid>
                     <Grid item xs={4}>
                     </Grid>
