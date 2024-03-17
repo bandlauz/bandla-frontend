@@ -78,26 +78,27 @@
 }
 
 .people_list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.people_list > *:not(:last-child) {
-  margin-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .person {
+  padding: 5px;
+  width: 200px;
+}
+
+.person_area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px 10px;
+  border: 1px solid #000;
   border-radius: 10px;
-  width: 100%;
-  border: 1px solid rgb(0, 109, 199);
+  height: 100%;
+  padding: 5px;
 }
 
-.person > *:not(:last-child) {
+.person_area > *:not(:last-child) {
   margin-bottom: 5px;
 }
 
@@ -150,18 +151,6 @@ p {
 @media (min-width: 1200px) {
   .about_area {
     max-width: 1200px;
-  }
-}
-
-@media (max-width: 877px) {
-  .people_list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 521px) {
-  .people_list {
-    grid-template-columns: repeat(1, 1fr);
   }
 }
 
