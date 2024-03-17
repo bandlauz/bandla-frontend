@@ -7,7 +7,8 @@ const peopleList = [
   {
     name: 'Azimjon Nazarov',
     occupation: 'Bandla asoschisi',
-    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    photo:
+      'https://bandla-public.s3.eu-north-1.amazonaws.com/b95a4158-b467-48c0-b7dd-801af38b8a8c',
     about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
     socialAccounts: [
       {
@@ -23,7 +24,8 @@ const peopleList = [
   {
     name: 'Akbar Jorayev',
     occupation: 'Dastur muhandisi',
-    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    photo:
+      'https://bandla-public.s3.eu-north-1.amazonaws.com/4fee6708-891d-4112-9f89-519759b4d0ef',
     about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
     socialAccounts: [
       {
@@ -39,6 +41,18 @@ const peopleList = [
         icon: 'fa-brands fa-linkedin fa-2x',
       },
     ],
+  },
+  {
+    name: 'Abduvahob',
+    occupation: 'Nobody',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
+  },
+  {
+    name: 'Kamron',
+    occupation: 'Nobody',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
+    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
   },
 ]
 
@@ -103,15 +117,20 @@ function About() {
         {peopleList.map((person, index) => (
           <div className="person" key={index}>
             <div className="photo">
-              <img src={person.photo} alt="" />
+              <img src={person.photo} alt="" loading="lazy" />
             </div>
             <div className="name">{person.name}</div>
             <div className="occupation">{person.occupation}</div>
             <p className="person_about">{person.about}</p>
             <div className="social_accounts">
-              {person.socialAccounts.map((account, index) => {
+              {person.socialAccounts?.map((account, index) => {
                 return (
-                  <a href={account.link} target="_blank" rel="noreferrer" key={index}>
+                  <a
+                    href={account.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={index}
+                  >
                     <i className={account.icon}></i>
                   </a>
                 )

@@ -1,8 +1,12 @@
 .about_area {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex-grow: 1;
   padding: 10px 24px;
   padding-top: 0;
+  margin: 0 auto;
 }
 
 .about_intro {
@@ -76,11 +80,12 @@
 }
 
 .photo {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+  width: var(--person-photo-size);
+  height: var(--person-photo-size);
   border-radius: 30px;
   overflow: hidden;
+  pointer-events: none;
+  user-select: none;
 
   & img {
     width: 100%;
@@ -98,7 +103,7 @@
   font-size: 0.8em;
 }
 
-.person_about {
+p {
   text-align: center;
   text-wrap: balance;
 }
@@ -114,4 +119,14 @@
 
 .social_accounts > *:not(:last-child) {
   margin-right: 10px;
+}
+
+:root {
+  --person-photo-size: 120px;
+}
+
+@media (min-width: 1200px) {
+  .about_area {
+    max-width: 1200px;
+  }
 }
