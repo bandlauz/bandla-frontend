@@ -6,10 +6,9 @@ import './css/About.css'
 const peopleList = [
   {
     name: 'Azimjon Nazarov',
-    occupation: 'Bandla asoschisi',
+    occupation: 'Founder',
     photo:
       'https://bandla-public.s3.eu-north-1.amazonaws.com/b95a4158-b467-48c0-b7dd-801af38b8a8c',
-    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
     socialAccounts: [
       {
         link: 'https://www.instagram.com/nazarov_ctrl/',
@@ -23,10 +22,9 @@ const peopleList = [
   },
   {
     name: 'Akbar Jorayev',
-    occupation: 'Dastur muhandisi',
+    occupation: 'Frontend developer',
     photo:
       'https://bandla-public.s3.eu-north-1.amazonaws.com/4fee6708-891d-4112-9f89-519759b4d0ef',
-    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
     socialAccounts: [
       {
         link: 'https://www.instagram.com/akbarjorayevaj/',
@@ -44,15 +42,18 @@ const peopleList = [
   },
   {
     name: 'Abduvahob',
-    occupation: 'Nobody',
+    occupation: 'Frontend developer',
     photo: 'https://i.stack.imgur.com/34AD2.jpg',
-    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
   },
   {
     name: 'Kamron',
-    occupation: 'Nobody',
+    occupation: 'Frontend developer',
     photo: 'https://i.stack.imgur.com/34AD2.jpg',
-    about: `mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et`,
+  },
+  {
+    name: 'Shamsiddin',
+    occupation: 'Backend developer',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
   },
 ]
 
@@ -116,25 +117,26 @@ function About() {
       <div className="people_list">
         {peopleList.map((person, index) => (
           <div className="person" key={index}>
-            <div className="photo">
-              <img src={person.photo} alt="" loading="lazy" />
-            </div>
-            <div className="name">{person.name}</div>
-            <div className="occupation">{person.occupation}</div>
-            <p className="person_about">{person.about}</p>
-            <div className="social_accounts">
-              {person.socialAccounts?.map((account, index) => {
-                return (
-                  <a
-                    href={account.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    key={index}
-                  >
-                    <i className={account.icon}></i>
-                  </a>
-                )
-              })}
+            <div className="person_area">
+              <div className="photo">
+                <img src={person.photo} alt="" loading="lazy" />
+              </div>
+              <div className="name">{person.name}</div>
+              <div className="occupation">{person.occupation}</div>
+              <div className="social_accounts">
+                {person.socialAccounts?.map((account, index) => {
+                  return (
+                    <a
+                      href={account.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      key={index}
+                    >
+                      <i className={account.icon}></i>
+                    </a>
+                  )
+                })}
+              </div>
             </div>
           </div>
         ))}
