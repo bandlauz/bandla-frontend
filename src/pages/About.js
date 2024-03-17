@@ -67,7 +67,7 @@ function About() {
     moveTextY.current?.children[0].clientWidth
   )
   const [count, setCount] = useState(0)
-  const moveTexts = ['tez', 'oson', 'qulay']
+  const moveTexts = ['tez', 'oson', 'qulay', 'xavfsiz']
 
   useEffect(() => {
     const interval = setInterval(() => {
