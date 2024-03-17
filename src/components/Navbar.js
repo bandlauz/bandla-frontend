@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
 import Request from '../util/Request';
 import { useState, useEffect } from "react";
 import { Box, Button, Avatar, Container, Menu, Tooltip, Grid, Link, IconButton, Divider, ListItemIcon, MenuItem } from "@mui/material";
 import { Logout, Settings } from '@mui/icons-material';
 import PersonIcon from '@mui/icons-material/Person';
-import NavbarSimple from "../components/NavbarSimple"
+import NavbarSimple from "../components/NavbarSimple";
+import './css/Navbar.css';
 
 function Navbar() {
     const [loggedIn, setLoggedIn] = useState(null);
@@ -23,7 +24,7 @@ function Navbar() {
         try {
             const myprofile = await Request(MYPROFILE_URL, "get", null, null, true, null, navigateToHome);
             setLoggedIn(true);
-            setProfileImg(myprofile.data.data.photoUrl)
+            setProfileImg(myprofile.data.data.photoUrl);
         } catch (error) {
             setLoggedIn(false);
             console.log(error);
@@ -44,7 +45,7 @@ function Navbar() {
     };
 
     if (loggedIn == null) {
-        return (<NavbarSimple />)
+        return (<NavbarSimple />);
     }
 
     return (
@@ -55,9 +56,12 @@ function Navbar() {
             }}>
             <Container>
                 <Grid container>
-                    <Grid item xs={4} style={{ display: 'flex', alignItems: 'center' }}>
-                        <Link color="inherit" href="https://bandla.uz" style={{ display: 'block', marginRight: 10 }}>
-                            <img src={process.env.PUBLIC_URL + "/logo-black.png"} alt="Bandla image" height={35} />
+                    <Grid item xs={4} align="left">
+                        <Link color="inherit" href="/">
+                            <img src={process.env.PUBLIC_URL + "/logo-black.png"}
+                                alt="Bandla image"
+                                height={35}
+                            />
                         </Link>
                         <Link color="inherit" href="https://bandla.uz/about" style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>Biz haqimiqda</Link>
                     </Grid>
@@ -87,6 +91,8 @@ function Navbar() {
                                         }}>
                                         <Avatar
                                             src={profileImg}
+                                            className="avatar"
+                                            style={profileImg ? { background: 'none' } : {}}
                                             sx={{ width: 35, height: 35, border: '0.1px solid lightgray' }}>B</Avatar>
                                     </IconButton>
                                 </Tooltip>
