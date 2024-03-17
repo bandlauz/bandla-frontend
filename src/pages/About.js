@@ -86,22 +86,21 @@ function About() {
   return (
     <div className="about_area">
       <div className="about_intro">
-        <h1>
-          Bandla bilan
-          <div className="move_text_y">
-            <div
-              className="move_text_area"
-              ref={moveTextY}
-              style={{
-                transform: `translateY(-${50 * count}px)`,
-                width: `${activeTextW}px`,
-              }}
-            >
-              <span className="gradient_txt">tez</span>
-            </div>
+        <span style={{ fontWeight: 'bold' }}>Bandla</span>
+        <span>bilan</span>
+        <div className="move_text_y">
+          <div
+            className="move_text_area"
+            ref={moveTextY}
+            style={{
+              transform: `translateY(-${50 * count}px)`,
+              width: `${activeTextW}px`,
+            }}
+          >
+            <span className="gradient_txt">tez</span>
           </div>
-          band qiling!
-        </h1>
+        </div>
+        <span>band qiling!</span>
       </div>
       <h1 className="title">Biz haqimiqda</h1>
       <p>

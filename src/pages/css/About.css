@@ -5,15 +5,14 @@
   align-items: center;
   flex-grow: 1;
   padding: 10px 24px;
-  padding-top: 0;
-  margin: 0 auto;
 }
 
 .about_intro {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  font-size: 2em;
+  white-space: nowrap;
 
   & h1 {
     display: flex;
@@ -21,8 +20,11 @@
   }
 }
 
+.about_intro > *:not(:last-child) {
+  margin-right: 5px;
+}
+
 .move_text_y {
-  margin: 0 5px;
   overflow: hidden;
   height: 50px;
 }
