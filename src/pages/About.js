@@ -72,7 +72,7 @@ function About() {
   useEffect(() => {
     const interval = setInterval(() => {
       const children = moveTextY.current?.children
-      const next = moveTexts.length - 1 === count % 3 ? 0 : (count % 3) + 1
+      const next = moveTexts.length - 1 === count % moveTexts.length ? 0 : (count % moveTexts.length) + 1
 
       const span = document.createElement('span')
       span.classList.add('gradient_txt')
