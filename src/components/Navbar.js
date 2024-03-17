@@ -64,7 +64,7 @@ function Navbar() {
                                 height={35}
                             />
                         </Link>
-                        <Link color="inherit" href="/about" style={{ display: 'block', color: `${pathname === '/about' ? '#fff' : 'inherit'}`, textDecoration: 'none', backgroundColor: `${pathname === '/about' ? 'rgb(0,109,199)' : 'inherit'}`, padding: '2px 5px', borderRadius: '5px'}}>Biz haqimiqda</Link>
+                        <Link color="inherit" href="/about" style={{ display: 'block', color: `${pathname === '/about' ? '#fff' : 'inherit'}`, textDecoration: 'none', backgroundColor: `${pathname === '/about' ? 'rgb(0,109,199)' : 'inherit'}`, padding: '2px 5px', borderRadius: '5px', whiteSpace: 'nowrap'}}>Biz haqimiqda</Link>
                     </Grid>
                     <Grid item xs={4}>
                     </Grid>

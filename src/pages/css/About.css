@@ -147,15 +147,9 @@ p {
   --person-photo-size: 120px;
 }
 
-@media (max-width: 492px) {
-  .about_intro .last_span {
-    display: none;
-  }
-}
-
-@media (max-width: 521px) {
-  .people_list {
-    grid-template-columns: repeat(1, 1fr);
+@media (min-width: 1200px) {
+  .about_area {
+    max-width: 1200px;
   }
 }
 
@@ -165,8 +159,14 @@ p {
   }
 }
 
-@media (min-width: 1200px) {
-  .about_area {
-    max-width: 1200px;
+@media (max-width: 521px) {
+  .people_list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 492px) {
+  .about_intro .last_span {
+    display: none;
   }
 }
