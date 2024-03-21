@@ -21,7 +21,7 @@ const peopleList = [
     ],
   },
   {
-    name: 'Akbar Jorayev',
+    name: `Akbar Jo'rayev`,
     occupation: 'Frontend developer',
     photo:
       'https://bandla-public.s3.eu-north-1.amazonaws.com/4fee6708-891d-4112-9f89-519759b4d0ef',
