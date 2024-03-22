@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState, useRef, useEffect } from 'react'
-import './css/Home.css'
 import './css/About.css'
 
 const peopleList = [
