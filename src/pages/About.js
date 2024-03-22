@@ -101,12 +101,7 @@ function About() {
       </div>
       <h1 className="title">Biz haqimiqda</h1>
       <p>
-        Bandla bron qilishni soddalashtiradi, bu sizga istalgan joydan joy xa service band qilish imkonini beradi. Foydalanuvchi uchun qulay 
-        interfeys bilan biz jarayonni soddalashtiramiz, qulaylik va 
-        samaradorlikni ta'minlaymiz. Konsertlar, sport tadbirlari yoki teatr 
-        tomoshalari bo'ladimi, Bandla keng ko'lamli  xizmatlardan uzluksiz
-        foydalanish imkonini beradi. Bizga qo'shiling va oson  
-        bron qiling.
+        Bandla bron qilishni soddalashtiradi, bu sizga istalgan joydan joy va service band qilish imkonini beradi. Foydalanuvchi uchun qulay interfeys bilan biz jarayonni soddalashtiramiz va qulaylikni ta'minlaymiz. Konsertlar, sport tadbirlari yoki teatr tomoshalari bo'ladimi, Bandla keng ko'lamli  xizmatlardan uzluksiz foydalanish imkonini beradi. Biz bilan oson bron qiling.
       </p>
       <h1 className="title">Bizning jamoa</h1>
       <div className="people_list">
