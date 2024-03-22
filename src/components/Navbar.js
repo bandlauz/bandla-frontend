@@ -11,7 +11,6 @@ function Navbar() {
     const [loggedIn, setLoggedIn] = useState(null);
     const [profileImg, setProfileImg] = useState();
     const MYPROFILE_URL = "https://api.bandla.uz/api/profile/my";
-    const { pathname } = window.location
 
     const navigateToHome = () => {
         console.log("Navbar navigate");

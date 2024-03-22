@@ -10,10 +10,6 @@
     flex-direction: column;
 }
 
-.content-wrap > * {
-    margin-bottom: 0 !important;
-}
-
 .content-body {
     flex-grow: 1;
 }
