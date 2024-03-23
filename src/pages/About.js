@@ -52,14 +52,18 @@ const peopleList = [
   },
 ]
 
-const maxWidth = document.body.clientWidth - 24 * 2
-function getPerson(index) {
+const winWidth = document.body.clientWidth - 24 * 2
+const minWidth = 492
+
+const peopleAutoScroll = winWidth <= minWidth
+
+function getPerson(index, width) {
   const person = peopleList[index]
   return (
     <div
       className="person"
-      key={new Date().getTime()}
-      style={{ width: `${maxWidth}px` }}
+      key={peopleAutoScroll ? new Date().getTime() : index}
+      style={{ width: `${width}px` }}
     >
       <div className="person_area">
         <div className="photo">
@@ -89,7 +93,9 @@ function getPerson(index) {
 function About() {
   const moveTextY = useRef(null)
   const peopleListEl = useRef(null)
-  const [peopleListMap, setPeopleListMap] = useState(() => [getPerson(0)])
+  const [peopleListMap, setPeopleListMap] = useState(() => [
+    getPerson(0, winWidth),
+  ])
   const [activeTextW, setActiveTextW] = useState(
     moveTextY.current?.children[0].clientWidth
   )
@@ -126,12 +132,12 @@ function About() {
           ? 0
           : (peopleCount % peopleList.length) + 1
 
-      setPeopleListMap([...peopleListMap, getPerson(next)])
+      setPeopleListMap([...peopleListMap, getPerson(next, winWidth)])
       setPeopleCount((cur) => cur + 1)
     }, 4000)
 
     return () => clearInterval(interval)
-  }, [peopleCount])
+  }, [peopleCount, peopleAutoScroll])
 
   return (
     <div className="about_area">
@@ -166,14 +172,17 @@ function About() {
           className="people_list"
           ref={peopleListEl}
           style={{
-            transform: `translateX(-${maxWidth * peopleCount}px)`,
+            transform: `translateX(-${
+              peopleAutoScroll ? winWidth * peopleCount : 0
+            }px)`,
           }}
         >
-          {peopleListMap.map((person) => person)}
+          {peopleAutoScroll && peopleListMap.map((person) => person)}
+          {!peopleAutoScroll && peopleList.map((_, i) => getPerson(i, 200))}
         </div>
       </div>
     </div>
   )
 }
 
-export default About;
+export default About
