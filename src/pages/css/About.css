@@ -77,16 +77,22 @@
   max-width: max-content;
 }
 
+.people_area {
+  width: 100%;
+}
+
 .people_list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  transition: transform 1s linear;
 }
 
 .person {
   padding: 5px;
   width: 200px;
   display: flex;
+  box-sizing: border-box;
 }
 
 .person_area {
@@ -154,6 +160,14 @@
 @media (max-width: 492px) {
   .about_intro .last_span {
     display: none;
+  }
+
+  .people_area {
+    overflow: hidden;
+  }
+
+  .people_list {
+    width: max-content;
   }
 
   .person {

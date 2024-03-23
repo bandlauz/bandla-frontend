@@ -52,18 +52,58 @@ const peopleList = [
   },
 ]
 
+const maxWidth = document.body.clientWidth - 24 * 2
+function getPerson(index) {
+  const person = peopleList[index]
+  return (
+    <div
+      className="person"
+      key={new Date().getTime()}
+      style={{ width: `${maxWidth}px` }}
+    >
+      <div className="person_area">
+        <div className="photo">
+          <img src={person.photo} alt="" loading="lazy" />
+        </div>
+        <div className="name">{person.name}</div>
+        <div className="occupation">{person.occupation}</div>
+        <div className="social_accounts">
+          {person.socialAccounts?.map((account, index) => {
+            return (
+              <a
+                href={account.link}
+                target="_blank"
+                rel="noreferrer"
+                key={index}
+              >
+                <i className={account.icon}></i>
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function About() {
   const moveTextY = useRef(null)
+  const peopleListEl = useRef(null)
+  const [peopleListMap, setPeopleListMap] = useState(() => [getPerson(0)])
   const [activeTextW, setActiveTextW] = useState(
     moveTextY.current?.children[0].clientWidth
   )
   const [count, setCount] = useState(0)
+  const [peopleCount, setPeopleCount] = useState(0)
   const moveTexts = ['tez', 'oson']
 
   useEffect(() => {
     const interval = setInterval(() => {
       const children = moveTextY.current?.children
-      const next = moveTexts.length - 1 === count % moveTexts.length ? 0 : (count % moveTexts.length) + 1
+      const next =
+        moveTexts.length - 1 === count % moveTexts.length
+          ? 0
+          : (count % moveTexts.length) + 1
 
       const span = document.createElement('span')
       span.classList.add('gradient_txt')
@@ -78,6 +118,20 @@ function About() {
 
     return () => clearInterval(interval)
   }, [activeTextW, count])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const next =
+        peopleList.length - 1 === peopleCount % peopleList.length
+          ? 0
+          : (peopleCount % peopleList.length) + 1
+
+      setPeopleListMap([...peopleListMap, getPerson(next)])
+      setPeopleCount((cur) => cur + 1)
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [peopleCount])
 
   return (
     <div className="about_area">
@@ -99,35 +153,24 @@ function About() {
         <span className="last_span">band qiling!</span>
       </div>
       <p>
-        Bandla bron qilishni soddalashtiradi, bu sizga istalgan joydan joy va service band qilish imkonini beradi. Foydalanuvchi uchun qulay interfeys bilan biz jarayonni soddalashtiramiz va qulaylikni ta'minlaymiz. Konsertlar, sport tadbirlari yoki teatr tomoshalari bo'ladimi, Bandla keng ko'lamli  xizmatlardan uzluksiz foydalanish imkonini beradi. Biz bilan oson bron qiling.
+        Bandla bron qilishni soddalashtiradi, bu sizga istalgan joydan joy va
+        service band qilish imkonini beradi. Foydalanuvchi uchun qulay interfeys
+        bilan biz jarayonni soddalashtiramiz va qulaylikni ta'minlaymiz.
+        Konsertlar, sport tadbirlari yoki teatr tomoshalari bo'ladimi, Bandla
+        keng ko'lamli xizmatlardan uzluksiz foydalanish imkonini beradi. Biz
+        bilan oson bron qiling.
       </p>
       <h1 className="title">Bizning jamoa</h1>
-      <div className="people_list">
-        {peopleList.map((person, index) => (
-          <div className="person" key={index}>
-            <div className="person_area">
-              <div className="photo">
-                <img src={person.photo} alt="" loading="lazy" />
-              </div>
-              <div className="name">{person.name}</div>
-              <div className="occupation">{person.occupation}</div>
-              <div className="social_accounts">
-                {person.socialAccounts?.map((account, index) => {
-                  return (
-                    <a
-                      href={account.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      key={index}
-                    >
-                      <i className={account.icon}></i>
-                    </a>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        ))}
+      <div className="people_area">
+        <div
+          className="people_list"
+          ref={peopleListEl}
+          style={{
+            transform: `translateX(-${maxWidth * peopleCount}px)`,
+          }}
+        >
+          {peopleListMap.map((person) => person)}
+        </div>
       </div>
     </div>
   )
