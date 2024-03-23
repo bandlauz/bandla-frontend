@@ -30,7 +30,7 @@ const peopleList = [
         icon: 'fa-brands fa-instagram fa-2x',
       },
       {
-        link: 'https://www.linkedin.com/in/akbar-jorayev-89519b269/',
+        link: 'https://www.linkedin.com/in/akbarjorayevaj/',
         icon: 'fa-brands fa-linkedin fa-2x',
       },
     ],
