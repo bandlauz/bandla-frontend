@@ -67,7 +67,7 @@ function Navbar() {
                     <Grid item xs={4}>
                     </Grid>
                     <Grid item xs={4} style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Link color="inherit" href="/about" style={{ textDecoration: 'none', marginRight: '10px' }}>Biz haqimiqda</Link>
+                        <Link color="inherit" href="/about" style={{ textDecoration: 'none', marginRight: '10px', textWrap: 'nowrap' }}>Biz haqimiqda</Link>
                         {!loggedIn ?
                             <a href="/login" style={{ textDecoration: 'none' }}>
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
