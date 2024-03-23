@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { useState, useRef, useEffect } from 'react'
-import './css/About.css'
+import * as React from 'react';
+import { useState, useRef, useEffect } from 'react';
+import './css/About.css';
 
 const peopleList = [
   {
@@ -50,15 +50,15 @@ const peopleList = [
     occupation: 'Backend developer',
     photo: 'https://i.stack.imgur.com/34AD2.jpg',
   },
-]
+];
 
-const winWidth = document.body.clientWidth - 24 * 2
-const minWidth = 492
+const winWidth = document.body.clientWidth - 24 * 2;
+const minWidth = 492;
 
-const peopleAutoScroll = winWidth <= minWidth
+const peopleAutoScroll = winWidth <= minWidth;
 
 function getPerson(index, width) {
-  const person = peopleList[index]
+  const person = peopleList[index];
   return (
     <div
       className="person"
@@ -91,38 +91,38 @@ function getPerson(index, width) {
 }
 
 function About() {
-  const moveTextY = useRef(null)
-  const peopleListEl = useRef(null)
+  const moveTextY = useRef(null);
+  const peopleListEl = useRef(null);
   const [peopleListMap, setPeopleListMap] = useState(() => [
     getPerson(0, winWidth),
-  ])
+  ]);
   const [activeTextW, setActiveTextW] = useState(
     moveTextY.current?.children[0].clientWidth
-  )
-  const [count, setCount] = useState(0)
-  const [peopleCount, setPeopleCount] = useState(0)
-  const moveTexts = ['tez', 'oson']
+  );
+  const [count, setCount] = useState(0);
+  const [peopleCount, setPeopleCount] = useState(0);
+  const moveTexts = ['tez', 'oson'];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const children = moveTextY.current?.children
+      const children = moveTextY.current?.children;
       const next =
         moveTexts.length - 1 === count % moveTexts.length
           ? 0
           : (count % moveTexts.length) + 1
 
-      const span = document.createElement('span')
-      span.classList.add('gradient_txt')
-      span.textContent = moveTexts[next]
-      moveTextY.current?.appendChild(span)
+      const span = document.createElement('span');
+      span.classList.add('gradient_txt');
+      span.textContent = moveTexts[next];
+      moveTextY.current?.appendChild(span);
 
-      children[count]?.classList.add('hide')
+      children[count]?.classList.add('hide');
 
-      setActiveTextW(span.clientWidth)
-      setCount((cur) => cur + 1)
-    }, 3000)
+      setActiveTextW(span.clientWidth);
+      setCount((cur) => cur + 1);
+    }, 3000);
 
-    return () => clearInterval(interval)
+    return () => clearInterval(interval);
   }, [activeTextW, count])
 
   useEffect(() => {
@@ -132,12 +132,12 @@ function About() {
           ? 0
           : (peopleCount % peopleList.length) + 1
 
-      setPeopleListMap([...peopleListMap, getPerson(next, winWidth)])
-      setPeopleCount((cur) => cur + 1)
+      setPeopleListMap([...peopleListMap, getPerson(next, winWidth)]);
+      setPeopleCount((cur) => cur + 1);
     }, 4000)
 
-    return () => clearInterval(interval)
-  }, [peopleCount, peopleAutoScroll])
+    return () => clearInterval(interval);
+  }, [peopleCount, peopleAutoScroll]);
 
   return (
     <div className="about_area">
