@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
+import { isPhone } from '../util/Device';
 import './css/About.css';
 
 const peopleList = [
@@ -53,9 +54,7 @@ const peopleList = [
 ];
 
 const winWidth = document.body.clientWidth - 24 * 2;
-const minWidth = 492;
-
-const peopleAutoScroll = winWidth <= minWidth;
+const peopleAutoScroll = isPhone();
 
 function getPerson(index, width) {
   const person = peopleList[index];
@@ -82,12 +81,12 @@ function getPerson(index, width) {
               >
                 <i className={account.icon}></i>
               </a>
-            )
+            );
           })}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function About() {
@@ -104,12 +103,16 @@ function About() {
   const moveTexts = ['tez', 'oson'];
 
   useEffect(() => {
+    peopleListEl.current?.parentElement.classList.add('phone');
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       const children = moveTextY.current?.children;
       const next =
         moveTexts.length - 1 === count % moveTexts.length
           ? 0
-          : (count % moveTexts.length) + 1
+          : (count % moveTexts.length) + 1;
 
       const span = document.createElement('span');
       span.classList.add('gradient_txt');
@@ -123,18 +126,18 @@ function About() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [activeTextW, count])
+  }, [activeTextW, count]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       const next =
         peopleList.length - 1 === peopleCount % peopleList.length
           ? 0
-          : (peopleCount % peopleList.length) + 1
+          : (peopleCount % peopleList.length) + 1;
 
       setPeopleListMap([...peopleListMap, getPerson(next, winWidth)]);
       setPeopleCount((cur) => cur + 1);
-    }, 4000)
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [peopleCount, peopleAutoScroll]);
@@ -182,7 +185,7 @@ function About() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default About;

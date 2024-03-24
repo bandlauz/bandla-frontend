@@ -153,6 +153,18 @@
   margin-right: 10px;
 }
 
+.people_area.phone {
+  overflow: hidden;
+
+  & .people_list {
+    width: max-content;
+  }
+
+  & .person {
+    width: 50%;
+  }
+}
+
 :root {
   --person-photo-size: 120px;
 }
@@ -160,17 +172,5 @@
 @media (max-width: 492px) {
   .about_intro .last_span {
     display: none;
-  }
-
-  .people_area {
-    overflow: hidden;
-  }
-
-  .people_list {
-    width: max-content;
-  }
-
-  .person {
-    width: 100%;
   }
 }
