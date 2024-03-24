@@ -53,15 +53,28 @@ const peopleList = [
   },
 ];
 
-const winWidth = document.body.clientWidth - 24 * 2;
-const peopleAutoScroll = isPhone();
+const peopleAreaW = document.body.clientWidth - 24 * 2;
+const amountOfPeople = getAmountOfPeople();
+const winWidth = isPhone() ? peopleAreaW : peopleAreaW / amountOfPeople;
+
+function getAmountOfPeople() {
+  if (isPhone()) return 1;
+
+  const amount = Math.floor(peopleAreaW / 200);
+
+  return Math.min(peopleList.length, amount);
+}
+
+function getNextIndex(index, array) {
+  return (index + 1) % array.length;
+}
 
 function getPerson(index, width) {
   const person = peopleList[index];
   return (
     <div
       className="person"
-      key={peopleAutoScroll ? new Date().getTime() : index}
+      key={new Date().getTime() * (index + 1)}
       style={{ width: `${width}px` }}
     >
       <div className="person_area">
@@ -92,14 +105,14 @@ function getPerson(index, width) {
 function About() {
   const moveTextY = useRef(null);
   const peopleListEl = useRef(null);
-  const [peopleListMap, setPeopleListMap] = useState(() => [
-    getPerson(0, winWidth),
-  ]);
+  const [peopleCount, setPeopleCount] = useState(amountOfPeople - 1);
+  const [peopleListMap, setPeopleListMap] = useState(() =>
+    Array.from({ length: peopleCount + 1 }, (_, i) => getPerson(i, winWidth))
+  );
   const [activeTextW, setActiveTextW] = useState(
     moveTextY.current?.children[0].clientWidth
   );
   const [count, setCount] = useState(0);
-  const [peopleCount, setPeopleCount] = useState(0);
   const moveTexts = ['tez', 'oson'];
 
   useEffect(() => {
@@ -109,10 +122,7 @@ function About() {
   useEffect(() => {
     const interval = setInterval(() => {
       const children = moveTextY.current?.children;
-      const next =
-        moveTexts.length - 1 === count % moveTexts.length
-          ? 0
-          : (count % moveTexts.length) + 1;
+      const next = getNextIndex(count, moveTexts);
 
       const span = document.createElement('span');
       span.classList.add('gradient_txt');
@@ -130,17 +140,14 @@ function About() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const next =
-        peopleList.length - 1 === peopleCount % peopleList.length
-          ? 0
-          : (peopleCount % peopleList.length) + 1;
+      const next = getNextIndex(peopleCount, peopleList);
 
       setPeopleListMap([...peopleListMap, getPerson(next, winWidth)]);
       setPeopleCount((cur) => cur + 1);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [peopleCount, peopleAutoScroll]);
+  }, [peopleCount]);
 
   return (
     <div className="about_area">
@@ -176,12 +183,11 @@ function About() {
           ref={peopleListEl}
           style={{
             transform: `translateX(-${
-              peopleAutoScroll ? winWidth * peopleCount : 0
+              winWidth * (peopleCount - amountOfPeople)
             }px)`,
           }}
         >
-          {peopleAutoScroll && peopleListMap.map((person) => person)}
-          {!peopleAutoScroll && peopleList.map((_, i) => getPerson(i, 200))}
+          {peopleListMap.map((person) => person)}
         </div>
       </div>
     </div>
