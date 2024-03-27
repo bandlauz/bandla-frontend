@@ -59,7 +59,7 @@ const winWidth = peopleAreaW / amountOfPeople;
 function getAmountOfPeople() {
   const amount = Math.floor(peopleAreaW / 200);
 
-  return Math.max(Math.min(peopleList.length, amount), 1);
+  return Math.min(peopleList.length - 1, amount);
 }
 
 function getNextIndex(index, array) {
