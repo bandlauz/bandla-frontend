@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import { isPhone } from '../util/Device';
 import './css/About.css';
 
 const peopleList = [
@@ -55,14 +54,12 @@ const peopleList = [
 
 const peopleAreaW = document.body.clientWidth - 24 * 2;
 const amountOfPeople = getAmountOfPeople();
-const winWidth = isPhone() ? peopleAreaW : peopleAreaW / amountOfPeople;
+const winWidth = peopleAreaW / amountOfPeople;
 
 function getAmountOfPeople() {
-  if (isPhone()) return 1;
-
   const amount = Math.floor(peopleAreaW / 200);
 
-  return Math.min(peopleList.length, amount);
+  return Math.max(Math.min(peopleList.length, amount), 1);
 }
 
 function getNextIndex(index, array) {
@@ -77,7 +74,7 @@ function getPerson(index, width) {
       key={new Date().getTime() * (index + 1)}
       style={{ width: `${width}px` }}
     >
-      <div className="person_area">
+      <div className="person_info_area">
         <div className="photo">
           <img src={person.photo} alt="" loading="lazy" />
         </div>
@@ -105,7 +102,7 @@ function getPerson(index, width) {
 function About() {
   const moveTextY = useRef(null);
   const peopleListEl = useRef(null);
-  const [peopleCount, setPeopleCount] = useState(amountOfPeople - 1);
+  const [peopleCount, setPeopleCount] = useState(amountOfPeople);
   const [peopleListMap, setPeopleListMap] = useState(() =>
     Array.from({ length: peopleCount + 1 }, (_, i) => getPerson(i, winWidth))
   );
@@ -114,10 +111,6 @@ function About() {
   );
   const [count, setCount] = useState(0);
   const moveTexts = ['tez', 'oson'];
-
-  useEffect(() => {
-    peopleListEl.current?.parentElement.classList.add('phone');
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -177,7 +170,7 @@ function About() {
         bilan oson bron qiling.
       </p>
       <h1 className="title">Bizning jamoa</h1>
-      <div className="people_area">
+      <div className="people_area phone">
         <div
           className="people_list"
           ref={peopleListEl}
