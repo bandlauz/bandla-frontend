@@ -56,7 +56,7 @@ function Navbar() {
             }}>
             <Container>
                 <Grid container>
-                    <Grid item xs={4} align="left">
+                    <Grid item xs={4}>
                         <Link color="inherit" href="/">
                             <img src={process.env.PUBLIC_URL + "/logo-black.png"}
                                 alt="Bandla image"
@@ -66,7 +66,8 @@ function Navbar() {
                     </Grid>
                     <Grid item xs={4}>
                     </Grid>
-                    <Grid item xs={4} align="right">
+                    <Grid item xs={4} style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Link color="inherit" href="/about" style={{ textDecoration: 'none', marginRight: '10px', textWrap: 'nowrap' }}>Biz haqimiqda</Link>
                         {!loggedIn ?
                             <a href="/login" style={{ textDecoration: 'none' }}>
                                 <Button variant="contained" style={{ backgroundColor: 'rgb(0,109,199)' }}>
