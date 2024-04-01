@@ -9,15 +9,15 @@ function getData(img) {
           height: image.naturalHeight,
           max: maxSize(image.naturalWidth, image.naturalHeight),
         },
-      })
-    }
+      });
+    };
 
     image.onerror = function (error) {
       reject(error);
-    }
+    };
 
     image.src = URL.createObjectURL(img);
-  })
+  });
 }
 
 function maxSize(width, height) {
