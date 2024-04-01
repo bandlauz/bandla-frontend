@@ -52,27 +52,22 @@ const peopleList = [
   },
 ];
 
-const peopleAreaW = document.body.clientWidth - 24 * 2;
-const amountOfPeople = getAmountOfPeople();
-const winWidth = peopleAreaW / amountOfPeople;
-
-function getAmountOfPeople() {
-  const amount = Math.floor(peopleAreaW / 200);
-
-  return Math.min(peopleList.length - 1, amount);
-}
+const minPersonWidth = 200;
+const amountOfPeople = Math.floor(
+  (minPersonWidth * peopleList.length) / minPersonWidth
+);
 
 function getNextIndex(index, array) {
   return (index + 1) % array.length;
 }
 
-function getPerson(index, width) {
-  const person = peopleList[index];
+function getPerson(index) {
+  const person = peopleList[getNextIndex(index - 1, peopleList)];
   return (
     <div
       className="person"
       key={new Date().getTime() * (index + 1)}
-      style={{ width: `${width}px` }}
+      style={{ width: `${minPersonWidth}px` }}
     >
       <div className="person_info_area">
         <div className="photo">
@@ -104,7 +99,7 @@ function About() {
   const peopleListEl = useRef(null);
   const [peopleCount, setPeopleCount] = useState(amountOfPeople);
   const [peopleListMap, setPeopleListMap] = useState(() =>
-    Array.from({ length: peopleCount + 1 }, (_, i) => getPerson(i, winWidth))
+    Array.from({ length: peopleCount + 1 }, (_, i) => getPerson(i))
   );
   const [activeTextW, setActiveTextW] = useState(
     moveTextY.current?.children[0].clientWidth
@@ -133,14 +128,24 @@ function About() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const next = getNextIndex(peopleCount, peopleList);
-
-      setPeopleListMap([...peopleListMap, getPerson(next, winWidth)]);
+      setPeopleListMap([...peopleListMap, getPerson(peopleCount + 1)]);
       setPeopleCount((cur) => cur + 1);
     }, 4000);
 
     return () => clearInterval(interval);
   }, [peopleCount]);
+
+  useEffect(() => {
+    const peopleCon = peopleListEl.current?.parentElement;
+    const expectedWidth =
+      peopleCon.clientWidth - (peopleCon.clientWidth % minPersonWidth);
+    const newWidth = Math.min(
+      expectedWidth,
+      minPersonWidth * peopleList.length
+    );
+
+    peopleCon.style.width = `${newWidth}px`;
+  }, []);
 
   return (
     <div className="about_area">
@@ -176,7 +181,7 @@ function About() {
           ref={peopleListEl}
           style={{
             transform: `translateX(-${
-              winWidth * (peopleCount - amountOfPeople)
+              minPersonWidth * (peopleCount - amountOfPeople)
             }px)`,
           }}
         >
