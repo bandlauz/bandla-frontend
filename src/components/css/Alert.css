@@ -62,7 +62,7 @@
   max-width: 100% !important;
   max-height: 400px;
   opacity: 0;
-  animation: opacity0to1 .3s .5s linear forwards;
+  animation: opacity0to1 0.3s 0.5s linear forwards;
 }
 
 @keyframes opacity0to1 {

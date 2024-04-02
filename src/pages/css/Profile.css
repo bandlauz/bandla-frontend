@@ -1,51 +1,51 @@
 .profile-wrapper {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 75vh;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
 }
 
 .upload {
-    width: 100px;
-    position: relative;
-    margin: auto;
+  width: 100px;
+  position: relative;
+  margin: auto;
 }
 
 .upload .avatar {
-    width: 85px;
-    height: 85px;
-    cursor: pointer;
-    border: 0.5px solid lightgray;
-    font-size: 24px !important;
-    background: linear-gradient(45deg, #1976d2, transparent);
+  width: 85px;
+  height: 85px;
+  cursor: pointer;
+  border: 0.5px solid lightgray;
+  font-size: 24px !important;
+  background: linear-gradient(45deg, #1976d2, transparent);
 }
 
 .upload .round {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: rgb(0, 109, 199);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 2px solid lightgray;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgb(0, 109, 199);
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid lightgray;
 }
 
-.upload input[type="file"] {
-    position: absolute;
-    transform: scale(2);
-    opacity: 0;
-    display: none;
+.upload input[type='file'] {
+  position: absolute;
+  transform: scale(2);
+  opacity: 0;
+  display: none;
 }
 
-input[type=file]::-webkit-file-upload-button {
-    cursor: pointer;
+input[type='file']::-webkit-file-upload-button {
+  cursor: pointer;
 }

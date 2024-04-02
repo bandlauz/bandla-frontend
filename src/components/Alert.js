@@ -6,9 +6,9 @@ function Alert({ show, children, onHide }) {
     <div className={`alert ${show ? 'show' : 'hide'}`}>
       <div className="alert_bg" onClick={onHide}></div>
       <div className="alert_content">
-        {children.filter(item => !item.props.buttonkey)}
+        {children.filter((item) => !item.props.buttonkey)}
         <div className="alert_buttons">
-          {children.filter(item => item.props.buttonkey)}
+          {children.filter((item) => item.props.buttonkey)}
         </div>
       </div>
     </div>

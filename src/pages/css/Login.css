@@ -1,56 +1,55 @@
-*{
-    font-family: Inter, serif;
+* {
+  font-family: Inter, serif;
 }
 :root {
-    --grey-50: #F3F6F9;
-    --grey-100: #E5EAF2;
-    --grey-200: #DAE2ED;
-    --grey-300: #C7D0DD;
-    --grey-400: #B0B8C4;
-    --grey-500: #9DA8B7;
-    --grey-600: #6B7A90;
-    --grey-700: #434D5B;
-    --grey-800: #303740;
-    --grey-900: #1C2025;
+  --grey-50: #f3f6f9;
+  --grey-100: #e5eaf2;
+  --grey-200: #dae2ed;
+  --grey-300: #c7d0dd;
+  --grey-400: #b0b8c4;
+  --grey-500: #9da8b7;
+  --grey-600: #6b7a90;
+  --grey-700: #434d5b;
+  --grey-800: #303740;
+  --grey-900: #1c2025;
 }
 
 .phone-container {
-    height: 52px;
-    padding: 0 16px;
-    background: #e6e8ed;
-    border-radius: 12px;
-    transition: all .15s ease-in-out;
-    display: flex;
-    align-items: center;
+  height: 52px;
+  padding: 0 16px;
+  background: #e6e8ed;
+  border-radius: 12px;
+  transition: all 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
 }
 
 .country-code {
-    margin-right: 8px;
-    font-size: 1.5rem;
+  margin-right: 8px;
+  font-size: 1.5rem;
 }
 
 .phone-container:hover {
-    background: #dee0e5;
+  background: #dee0e5;
 }
 
 .login-button {
-    width: 100%;
-    border-radius: 12px !important;
-    background-color: #006DC7 !important;
-    font-weight: 600 !important;
+  width: 100%;
+  border-radius: 12px !important;
+  background-color: #006dc7 !important;
+  font-weight: 600 !important;
 }
 
 .login-wrapper {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 75vh;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75vh;
 }
 
 @media (max-width: 600px) {
-    .AlertContainer {
-        width: calc(100% - 70px);
-    }
-
+  .AlertContainer {
+    width: calc(100% - 70px);
+  }
 }
