@@ -183,8 +183,9 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          <Input type="text" label="Ism" />
+          <Input type="text" label="Kompaniya nomi" />
           <Input type="text" label="Manzil" />
+          <button>Tasdiqlash</button>
         </div>
       </div>
     </>

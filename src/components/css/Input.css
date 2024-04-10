@@ -6,11 +6,8 @@
   border-radius: var(--bd-ra-small);
   padding: var(--pd-small);
   padding-left: 0;
-  overflow: hidden;
-  width: 100%;
+  margin-top: 10px;
   border: 1px solid #000;
-  min-width: 300px;
-  max-width: 400px;
 }
 
 .input_area:hover {
@@ -39,13 +36,13 @@
   transition: all 0.2s ease-in-out;
 }
 
-.input_area:focus-within label {
-  opacity: 0.6;
-}
-
+.input_area:focus-within label,
 .input_area label.active {
-  left: calc(3 * var(--pd-small));
-  opacity: 0;
+  opacity: 0.6;
+  left: var(--pd-small-very);
+  top: 0;
+  transform: translateY(-100%);
+  font-size: 0.8em;
 }
 
 input {
@@ -59,7 +56,6 @@ input {
 
 .input_area button {
   height: 25px;
-  aspect-ratio: 1/1;
   padding: 0 var(--pd-small-very);
   background-color: transparent;
   border: none;
