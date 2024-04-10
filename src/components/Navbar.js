@@ -16,6 +16,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { Logout, Settings } from '@mui/icons-material';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from '../components/NavbarSimple';
 import './css/Navbar.css';
@@ -199,6 +200,12 @@ function Navbar() {
                       <Settings fontSize="small" />
                     </ListItemIcon>
                     Sozlamar
+                  </MenuItem>
+                  <MenuItem onClick={() => (window.location.href = '/company')}>
+                    <ListItemIcon>
+                      <CorporateFareIcon fontSize="small" />
+                    </ListItemIcon>
+                    Kompaniya
                   </MenuItem>
                   <a
                     href="/logout"
