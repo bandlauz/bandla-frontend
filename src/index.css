@@ -1,20 +1,18 @@
 body {
-    margin: 0;
-    font-family: Inter,
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: Inter,  sans-serif,
-    monospace;
+  font-family: Inter, sans-serif, monospace;
 }
 
 @media (max-width: 768px) {
-    *,
-    *::before,
-    *::after {
-        cursor: none;
-    }   
+  *,
+  *::before,
+  *::after {
+    cursor: none;
+  }
 }
