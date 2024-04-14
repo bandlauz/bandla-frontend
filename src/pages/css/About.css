@@ -139,6 +139,7 @@
 .about_area p {
   text-align: center;
   text-wrap: balance;
+  max-width: 1200px;
 }
 
 .social_accounts {
