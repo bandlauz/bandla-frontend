@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import './css/Company.css';
 
 export default function Company() {
+  const companyName = useRef();
+  const companyAddress = useRef();
   const fileInput = useRef(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
@@ -20,45 +22,11 @@ export default function Company() {
 
   const handleDelete = async () => {
     setShowAlert(false);
-    await updatePhoto(
-      null,
-      "Profil rasmi o'chirildi",
-      "Profile rasmini o'chirishda xatolik ro'y berdi"
-    );
   };
 
   const navigateToLogin = () => {
     window.location.href = 'login';
   };
-
-  const updatePhoto = async (photoUrl, successMessage, errorMessage) => {
-    try {
-      await Request(
-        'https://api.bandla.uz/api/profile/my/update-photo',
-        'put',
-        null,
-        { photoUrl: photoUrl },
-        true,
-        navigateToLogin
-      );
-      setPhotoUrl(photoUrl);
-      toast.success(successMessage);
-    } catch (error) {
-      if (error.response.data?.errors) {
-        toast.error(error.response.data.errors[0]);
-      } else {
-        toast.error(errorMessage);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetch(FINDURL)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
 
   async function fileInputChange() {
     setShowAlertPic(true);
@@ -86,13 +54,9 @@ export default function Company() {
         true,
         navigateToLogin
       );
-      setShowAlertPic(false);
 
-      await updatePhoto(
-        response.data.data.url,
-        'Profil rasmi saqlandi',
-        "Profile rasmini saqlashda xatolik ro'y berdi"
-      );
+      setShowAlertPic(false);
+      setPhotoUrl(response.data.data.url);
     } catch (error) {
       if (error.response.data?.errors) {
         toast.error(error.response.data.errors[0]);
@@ -117,6 +81,28 @@ export default function Company() {
       img.style[imgMaxSize] = '100%';
       parent.style[imgMaxSize] = '400px';
     }
+  }
+
+  async function createCompany() {
+    const companyData = {
+      name: companyName.current.value,
+      address: companyAddress.current.value,
+      photoUrl,
+    };
+
+    const something = await Request(
+      'https://api.bandla.uz/api/user-panel/company/create',
+      'post',
+      null,
+      companyData,
+      true,
+      navigateToLogin
+    );
+  }
+
+  function changePhotoClick() {
+    changePhoto(fileInput.current);
+    hideAlertPic();
   }
 
   return (
@@ -183,19 +169,16 @@ export default function Company() {
               >
                 Yopish
               </button>
-              <button
-                buttonkey="true"
-                onClick={() => changePhoto(fileInput.current)}
-              >
+              <button buttonkey="true" onClick={changePhotoClick}>
                 Saqlash
               </button>
             </Alert>
           )}
         </div>
         <div className="inputs">
-          <Input type="text" label="Kompaniya nomi" />
-          <Input type="text" label="Manzil" />
-          <button>Tasdiqlash</button>
+          <Input ref={companyName} type="text" label="Kompaniya nomi" />
+          <Input ref={companyAddress} type="text" label="Manzil" />
+          <button onClick={createCompany}>Tasdiqlash</button>
         </div>
       </div>
     </>
