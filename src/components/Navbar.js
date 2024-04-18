@@ -111,7 +111,7 @@ function Navbar() {
               Biz haqimiqda
             </Link>
             {!loggedIn ? (
-              <div
+              <MenuItem
                 onClick={() => handleClose('/login')}
                 style={{ textDecoration: 'none' }}
               >
@@ -121,7 +121,7 @@ function Navbar() {
                 >
                   Kirish
                 </Button>
-              </div>
+              </MenuItem>
             ) : (
               <React.Fragment>
                 <Tooltip title="Account sozlamari">
@@ -187,7 +187,7 @@ function Navbar() {
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                  <div
+                  <MenuItem
                     onClick={() => handleClose('/profile')}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
@@ -197,7 +197,7 @@ function Navbar() {
                       </ListItemIcon>
                       Profile
                     </MenuItem>
-                  </div>
+                  </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon>
@@ -211,7 +211,7 @@ function Navbar() {
                     </ListItemIcon>
                     Kompaniya
                   </MenuItem>
-                  <div
+                  <MenuItem
                     onClick={() => handleClose('/logout')}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
@@ -221,7 +221,7 @@ function Navbar() {
                       </ListItemIcon>
                       Chiqish
                     </MenuItem>
-                  </div>
+                  </MenuItem>
                 </Menu>
               </React.Fragment>
             )}
