@@ -62,8 +62,9 @@ function Navbar() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (path) => {
     setAnchorEl(null);
+    window.location.href = path;
   };
 
   if (loggedIn == null) {
@@ -80,7 +81,7 @@ function Navbar() {
       <Container>
         <Grid container>
           <Grid item xs={4}>
-            <Link color="inherit" href="/">
+            <Link color="inherit" onClick={() => handleClose('/')}>
               <img
                 src={process.env.PUBLIC_URL + '/logo-black.png'}
                 alt="Bandla image"
@@ -100,7 +101,7 @@ function Navbar() {
           >
             <Link
               color="inherit"
-              href="/about"
+              onClick={() => handleClose('/about')}
               style={{
                 textDecoration: 'none',
                 marginRight: '10px',
@@ -110,14 +111,17 @@ function Navbar() {
               Biz haqimiqda
             </Link>
             {!loggedIn ? (
-              <a href="/login" style={{ textDecoration: 'none' }}>
+              <div
+                onClick={() => handleClose('/login')}
+                style={{ textDecoration: 'none' }}
+              >
                 <Button
                   variant="contained"
                   style={{ backgroundColor: 'rgb(0,109,199)' }}
                 >
                   Kirish
                 </Button>
-              </a>
+              </div>
             ) : (
               <React.Fragment>
                 <Tooltip title="Account sozlamari">
@@ -183,8 +187,8 @@ function Navbar() {
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                  <a
-                    href="/profile"
+                  <div
+                    onClick={() => handleClose('/profile')}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
                     <MenuItem onClick={handleClose}>
@@ -193,7 +197,7 @@ function Navbar() {
                       </ListItemIcon>
                       Profile
                     </MenuItem>
-                  </a>
+                  </div>
                   <Divider />
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon>
@@ -201,14 +205,14 @@ function Navbar() {
                     </ListItemIcon>
                     Sozlamar
                   </MenuItem>
-                  <MenuItem onClick={() => (window.location.href = '/company')}>
+                  <MenuItem onClick={() => handleClose('/company')}>
                     <ListItemIcon>
                       <CorporateFareIcon fontSize="small" />
                     </ListItemIcon>
                     Kompaniya
                   </MenuItem>
-                  <a
-                    href="/logout"
+                  <div
+                    onClick={() => handleClose('/logout')}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
                     <MenuItem onClick={handleClose}>
@@ -217,7 +221,7 @@ function Navbar() {
                       </ListItemIcon>
                       Chiqish
                     </MenuItem>
-                  </a>
+                  </div>
                 </Menu>
               </React.Fragment>
             )}
