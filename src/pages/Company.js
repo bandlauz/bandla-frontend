@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Input from '../components/Input';
 import { Avatar } from '@mui/material';
 import Alert from '../components/Alert';
 import Request from '../util/Request';
 import * as IMG from '../util/Image.js';
-
 import { toast } from 'react-toastify';
-
 import './css/Company.css';
 
 export default function Company() {
@@ -17,8 +15,6 @@ export default function Company() {
   const [showAlertPic, setShowAlertPic] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const maxPhotoSize = 1024 * 1024 * 6; //KB
-  const FINDURL =
-    'https://api.bandla.uz/swagger-ui/index.html#/Company%20controller/find';
 
   const handleDelete = async () => {
     setShowAlert(false);
