@@ -64,7 +64,7 @@ function Navbar() {
   };
   const handleClose = (path) => {
     setAnchorEl(null);
-    window.location.href = path;
+    if (typeof path === 'string') window.location.href = path;
   };
 
   if (loggedIn == null) {
@@ -191,10 +191,10 @@ function Navbar() {
                     onClick={() => handleClose('/profile')}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
-                      <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                      </ListItemIcon>
-                      Profile
+                    <ListItemIcon>
+                      <PersonIcon fontSize="small" />
+                    </ListItemIcon>
+                    Profile
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
@@ -213,10 +213,10 @@ function Navbar() {
                     onClick={() => handleClose('/logout')}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
-                      <ListItemIcon>
-                        <Logout fontSize="small" style={{ color: 'red' }} />
-                      </ListItemIcon>
-                      Chiqish
+                    <ListItemIcon>
+                      <Logout fontSize="small" style={{ color: 'red' }} />
+                    </ListItemIcon>
+                    Chiqish
                   </MenuItem>
                 </Menu>
               </React.Fragment>
