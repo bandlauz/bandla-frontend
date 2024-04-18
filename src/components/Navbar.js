@@ -191,12 +191,10 @@ function Navbar() {
                     onClick={() => handleClose('/profile')}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
-                    <MenuItem onClick={handleClose}>
                       <ListItemIcon>
                         <PersonIcon fontSize="small" />
                       </ListItemIcon>
                       Profile
-                    </MenuItem>
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
@@ -215,12 +213,10 @@ function Navbar() {
                     onClick={() => handleClose('/logout')}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
-                    <MenuItem onClick={handleClose}>
                       <ListItemIcon>
                         <Logout fontSize="small" style={{ color: 'red' }} />
                       </ListItemIcon>
                       Chiqish
-                    </MenuItem>
                   </MenuItem>
                 </Menu>
               </React.Fragment>
