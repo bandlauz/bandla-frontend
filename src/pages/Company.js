@@ -86,14 +86,22 @@ export default function Company() {
       photoUrl,
     };
 
-    const something = await Request(
-      'https://api.bandla.uz/api/user-panel/company/create',
-      'post',
-      null,
-      companyData,
-      true,
-      navigateToLogin
-    );
+    try {
+      const data = await Request(
+        'https://api.bandla.uz/api/user-panel/company/create',
+        'post',
+        null,
+        companyData,
+        true,
+        navigateToLogin
+      );
+    } catch (error) {
+      if (error.response.data?.errors) {
+        toast.error(error.response.data.errors[0]);
+      } else {
+        toast.error("Kompaniya yaratishda xatolik ro'y berdi");
+      }
+    }
   }
 
   function changePhotoClick() {
