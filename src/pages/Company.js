@@ -95,6 +95,8 @@ export default function Company() {
         true,
         navigateToLogin
       );
+
+      toast.success('Kompaniya yaratildi');
     } catch (error) {
       if (error.response.data?.errors) {
         toast.error(error.response.data.errors[0]);
