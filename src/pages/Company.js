@@ -31,6 +31,7 @@ export default function Company() {
         );
 
         setCompany(response);
+        setPhotoUrl(response.data.data.photoUrl)
       } catch (error) {
         if (error.response.data?.errors) {
           toast.error(error.response.data.errors[0]);
