@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Input from '../components/Input';
 import { Avatar } from '@mui/material';
 import Alert from '../components/Alert';
@@ -14,7 +14,33 @@ export default function Company() {
   const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [company, setCompany] = useState({});
   const maxPhotoSize = 1024 * 1024 * 6; //KB
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await Request(
+          'https://api.bandla.uz/api/user-panel/company/find',
+          'get',
+          null,
+          null,
+          true,
+          null,
+          navigateToLogin
+        );
+
+        setCompany(response);
+      } catch (error) {
+        if (error.response.data?.errors) {
+          toast.error(error.response.data.errors[0]);
+        } else {
+          toast.error("Kompaniya yuklashda xatolik ro'y berdi");
+        }
+      }
+    }
+    getData();
+  }, []);
 
   const handleDelete = async () => {
     setShowAlert(false);
@@ -87,7 +113,7 @@ export default function Company() {
     };
 
     try {
-      const data = await Request(
+      const response = await Request(
         'https://api.bandla.uz/api/user-panel/company/create',
         'post',
         null,
@@ -182,8 +208,28 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          <Input ref={companyName} type="text" label="Kompaniya nomi" />
-          <Input ref={companyAddress} type="text" label="Manzil" />
+          {company?.data?.data.name && (
+            <Input
+              ref={companyName}
+              type="text"
+              label="Kompaniya nomi"
+              value={company?.data?.data.name}
+            />
+          )}
+          {!company?.data?.data.name && (
+            <Input ref={companyName} type="text" label="Kompaniya nomi" />
+          )}
+          {company?.data?.data.address && (
+            <Input
+              ref={companyAddress}
+              type="text"
+              label="Manzil"
+              value={company?.data?.data.address}
+            />
+          )}
+          {!company?.data?.data.address && (
+            <Input ref={companyAddress} type="text" label="Manzil" />
+          )}
           <button onClick={createCompany}>Tasdiqlash</button>
         </div>
       </div>
