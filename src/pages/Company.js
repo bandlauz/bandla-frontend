@@ -208,8 +208,10 @@ export default function Company() {
           {!company?.data?.data.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          {company?.data?.data.status !== 'CREATED' && <button onClick={createCompany}>Tasdiqlash</button>}
-          {company?.data?.data.status === 'CREATED' && <button onClick={createCompany}>Created</button>}
+          {company?.data?.data.status !== 'CREATED' && (
+            <button onClick={createCompany}>Tasdiqlash</button>
+          )}
+          {company?.data?.data.status === 'CREATED' && <button>Created</button>}
         </div>
       </div>
     </>
