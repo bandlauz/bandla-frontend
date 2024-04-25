@@ -56,7 +56,6 @@ input {
 
 .input_area:has(input[disabled]),
 .input_area:has(input[disabled]):hover {
-  opacity: 0.7;
   background: none !important;
 }
 
