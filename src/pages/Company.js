@@ -138,7 +138,6 @@ export default function Company() {
     hideAlertPic();
   }
 
-  console.log(company?.data?.data.status);
   return (
     <>
       <div className="company_con">
