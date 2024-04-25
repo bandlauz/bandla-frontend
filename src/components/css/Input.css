@@ -54,6 +54,12 @@ input {
   outline: none;
 }
 
+.input_area:has(input[disabled]),
+.input_area:has(input[disabled]):hover {
+  opacity: 0.7;
+  background: none !important;
+}
+
 .input_area button {
   height: 25px;
   padding: 0 var(--pd-small-very);
