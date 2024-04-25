@@ -138,6 +138,8 @@ export default function Company() {
     hideAlertPic();
   }
 
+  const companyCreated = company?.data?.data.status === 'CREATED';
+
   return (
     <>
       <div className="company_con">
@@ -208,10 +210,10 @@ export default function Company() {
           {!company?.data?.data.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          {company?.data?.data.status !== 'CREATED' && (
+          {!companyCreated && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
-          {company?.data?.data.status === 'CREATED' && <button>Created</button>}
+          {companyCreated && <button>Created</button>}
         </div>
       </div>
     </>
