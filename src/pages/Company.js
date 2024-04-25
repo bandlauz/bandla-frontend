@@ -13,7 +13,6 @@ export default function Company() {
   const fileInput = useRef(null);
   const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [company, setCompany] = useState({});
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
@@ -42,10 +41,6 @@ export default function Company() {
     }
     getData();
   }, []);
-
-  const handleDelete = async () => {
-    setShowAlert(false);
-  };
 
   const navigateToLogin = () => {
     window.location.href = 'login';
