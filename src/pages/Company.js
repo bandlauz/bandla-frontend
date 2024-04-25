@@ -215,6 +215,7 @@ export default function Company() {
               type="text"
               label="Kompaniya nomi"
               value={company?.data?.data.name}
+              disabled
             />
           )}
           {!company?.data?.data.name && (
@@ -226,6 +227,7 @@ export default function Company() {
               type="text"
               label="Manzil"
               value={company?.data?.data.address}
+              disabled
             />
           )}
           {!company?.data?.data.address && (
