@@ -31,7 +31,7 @@ export default function Company() {
         );
 
         setCompany(response);
-        setPhotoUrl(response.data.data.photoUrl)
+        setPhotoUrl(response.data.data.photoUrl);
       } catch (error) {
         if (error.response.data?.errors) {
           toast.error(error.response.data.errors[0]);
@@ -233,7 +233,7 @@ export default function Company() {
           {!company?.data?.data.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          <button onClick={createCompany}>Tasdiqlash</button>
+          {!company && <button onClick={createCompany}>Tasdiqlash</button>}
         </div>
       </div>
     </>
