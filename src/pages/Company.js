@@ -138,13 +138,11 @@ export default function Company() {
     hideAlertPic();
   }
 
+  console.log(company?.data?.data.status);
   return (
     <>
       <div className="company_con">
-        <h1>
-          <span>Kompaniya</span> {company && <span>ma'lumotlari</span>}
-          {!company && <span>yaratish</span>}
-        </h1>
+        <h1>Kompaniya ma'lumotlari</h1>
         <div className="upload">
           <Avatar
             className="avatar"
@@ -211,7 +209,8 @@ export default function Company() {
           {!company?.data?.data.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          {!company && <button onClick={createCompany}>Tasdiqlash</button>}
+          {company?.data?.data.status !== 'CREATED' && <button onClick={createCompany}>Tasdiqlash</button>}
+          {company?.data?.data.status === 'CREATED' && <button onClick={createCompany}>Created</button>}
         </div>
       </div>
     </>
