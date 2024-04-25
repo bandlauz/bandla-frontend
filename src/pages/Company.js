@@ -141,7 +141,10 @@ export default function Company() {
   return (
     <>
       <div className="company_con">
-        <h1>Kompaniya ma'lumotlari</h1>
+        <h1>
+          <span>Kompaniya</span> {company && <span>ma'lumotlari</span>}
+          {!company && <span>yaratish</span>}
+        </h1>
         <div className="upload">
           <Avatar
             className="avatar"
