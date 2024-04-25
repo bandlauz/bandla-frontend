@@ -150,38 +150,13 @@ export default function Company() {
             className="avatar"
             src={photoUrl}
             onClick={() => {
+              if (company) return;
               fileInput.current.click();
             }}
             style={photoUrl ? { background: 'none' } : {}}
           >
             B
           </Avatar>
-          {photoUrl && (
-            <div
-              className="round"
-              style={{ backgroundColor: 'red' }}
-              onClick={() => {
-                setShowAlert(true);
-              }}
-            >
-              <i className="fa-solid fa-trash" style={{ color: '#fff' }}></i>
-            </div>
-          )}
-          {showAlert && (
-            <Alert show={showAlert} onHide={() => setShowAlert(false)}>
-              <p>Profil rasmini o'chirib tashlamoqchimisiz?</p>
-              <button buttonkey="true" onClick={() => setShowAlert(false)}>
-                Yopish
-              </button>
-              <button
-                buttonkey="true"
-                className="delete_button"
-                onClick={handleDelete}
-              >
-                O'chirish
-              </button>
-            </Alert>
-          )}
           <input
             ref={fileInput}
             type="file"
