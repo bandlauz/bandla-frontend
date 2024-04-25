@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import Input from '../components/Input';
 import { Avatar } from '@mui/material';
+import { toast } from 'react-toastify';
+import Input from '../components/Input';
 import Alert from '../components/Alert';
 import Request from '../util/Request';
 import * as IMG from '../util/Image.js';
-import { toast } from 'react-toastify';
 import './css/Company.css';
 
 export default function Company() {
