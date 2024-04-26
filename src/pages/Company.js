@@ -144,7 +144,7 @@ export default function Company() {
             className="avatar"
             src={photoUrl}
             onClick={() => {
-              if (company) return;
+              if (companyCreated) return;
               fileInput.current.click();
             }}
             style={photoUrl ? { background: 'none' } : {}}
