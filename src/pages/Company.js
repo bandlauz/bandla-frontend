@@ -185,13 +185,13 @@ export default function Company() {
             <Input
               ref={companyName}
               type="text"
-              label="Kompaniya nomi"
+              label="Nomi"
               value={company?.data?.data.name}
               disabled
             />
           )}
           {!company?.data?.data.name && (
-            <Input ref={companyName} type="text" label="Kompaniya nomi" />
+            <Input ref={companyName} type="text" label="Nomi" />
           )}
           {company?.data?.data.address && (
             <Input
