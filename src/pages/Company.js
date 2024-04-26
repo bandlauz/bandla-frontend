@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Avatar } from '@mui/material';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
 import Request from '../util/Request';
@@ -120,8 +120,8 @@ export default function Company() {
 
       toast.success('Kompaniya yaratildi');
     } catch (error) {
-      if (error.response.data?.errors) {
-        toast.error(error.response.data.errors[0]);
+      if (error?.response?.data?.errors) {
+        toast.error(error?.response?.data?.errors[0]);
       } else {
         toast.error("Kompaniya yaratishda xatolik ro'y berdi");
       }
@@ -138,6 +138,18 @@ export default function Company() {
   return (
     <>
       <div className="company_con">
+        <ToastContainer
+          position="top-center"
+          autoClose={1400}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <h1>Kompaniya ma'lumotlari</h1>
         <div className="upload">
           <Avatar
