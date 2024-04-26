@@ -32,7 +32,7 @@ export default function Company() {
         setCompany(response);
         setPhotoUrl(response.data.data.photoUrl);
       } catch (error) {
-        if (error.response.data?.errors) {
+        if (error.response?.data?.errors) {
           toast.error(error.response.data.errors[0]);
         } else {
           toast.error("Kompaniya yuklashda xatolik ro'y berdi");
@@ -133,7 +133,7 @@ export default function Company() {
     hideAlertPic();
   }
 
-  const companyCreated = company?.data?.data.status === 'CREATED';
+  const companyCreated = company?.data?.data?.status === 'CREATED';
 
   return (
     <>
@@ -181,28 +181,28 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {company?.data?.data.name && (
+          {company?.data?.data?.name && (
             <Input
               ref={companyName}
               type="text"
               label="Nomi"
-              value={company?.data?.data.name}
+              value={company?.data?.data?.name}
               disabled
             />
           )}
-          {!company?.data?.data.name && (
+          {!company?.data?.data?.name && (
             <Input ref={companyName} type="text" label="Nomi" />
           )}
-          {company?.data?.data.address && (
+          {company?.data?.data?.address && (
             <Input
               ref={companyAddress}
               type="text"
               label="Manzil"
-              value={company?.data?.data.address}
+              value={company?.data?.data?.address}
               disabled
             />
           )}
-          {!company?.data?.data.address && (
+          {!company?.data?.data?.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
           {!companyCreated && (
