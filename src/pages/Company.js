@@ -11,10 +11,8 @@ export default function Company() {
   const companyName = useRef();
   const companyAddress = useRef();
   const fileInput = useRef(null);
-  const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
-  const [company, setCompany] = useState({});
-  const [status, setStatus] = useState(false);
+  const [company, setCompany] = useState({ res: {}, img: '', status: '' });
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
   useEffect(() => {
@@ -30,9 +28,11 @@ export default function Company() {
           navigateToLogin
         );
 
-        setStatus(response?.data?.data?.status === 'CREATED');
-        setCompany(response);
-        setPhotoUrl(response.data.data.photoUrl);
+        setCompany({
+          res: response,
+          status: response?.data?.data?.status === 'CREATED',
+          img: response.data.data.photoUrl,
+        });
       } catch (error) {
         if (error.response?.data?.errors) {
           toast.error(error.response.data.errors[0]);
@@ -76,7 +76,7 @@ export default function Company() {
       );
 
       setShowAlertPic(false);
-      setPhotoUrl(response.data.data.url);
+      setCompany({ ...company, img: response.data.data.url });
     } catch (error) {
       if (error.response.data?.errors) {
         toast.error(error.response.data.errors[0]);
@@ -107,7 +107,7 @@ export default function Company() {
     const companyData = {
       name: companyName.current.value,
       address: companyAddress.current.value,
-      photoUrl,
+      photoUrl: company?.img,
     };
 
     try {
@@ -120,8 +120,11 @@ export default function Company() {
         navigateToLogin
       );
 
-      setStatus(response?.data?.data?.status === 'CREATED');
-      setCompany(response);
+      setCompany({
+        ...company,
+        status: response?.data?.data?.status === 'CREATED',
+        res: response,
+      });
 
       toast.success('Kompaniya yaratildi');
     } catch (error) {
@@ -157,12 +160,12 @@ export default function Company() {
         <div className="upload">
           <Avatar
             className="avatar"
-            src={photoUrl}
+            src={company?.img}
             onClick={() => {
-              if (status) return;
+              if (company?.status) return;
               fileInput.current.click();
             }}
-            style={photoUrl ? { background: 'none' } : {}}
+            style={company?.img ? { background: 'none' } : {}}
           >
             B
           </Avatar>
@@ -196,28 +199,34 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {status && (
+          {company?.status && (
             <Input
               ref={companyName}
               type="text"
               label="Nomi"
-              value={company?.data?.data?.name}
+              value={company.res?.data?.data?.name}
               disabled
             />
           )}
-          {!status && <Input ref={companyName} type="text" label="Nomi" />}
-          {status && (
+          {!company?.status && (
+            <Input ref={companyName} type="text" label="Nomi" />
+          )}
+          {company?.status && (
             <Input
               ref={companyAddress}
               type="text"
               label="Manzil"
-              value={company?.data?.data?.address}
+              value={company.res?.data?.data?.address}
               disabled
             />
           )}
-          {!status && <Input ref={companyAddress} type="text" label="Manzil" />}
-          {!status && <button onClick={createCompany}>Tasdiqlash</button>}
-          {status && <button>Created</button>}
+          {!company?.status && (
+            <Input ref={companyAddress} type="text" label="Manzil" />
+          )}
+          {!company?.status && (
+            <button onClick={createCompany}>Tasdiqlash</button>
+          )}
+          {company?.status && <button>Created</button>}
         </div>
       </div>
     </>
