@@ -14,6 +14,7 @@ export default function Company() {
   const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
   const [company, setCompany] = useState({});
+  const [created, setCreated] = useState(false);
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function Company() {
           navigateToLogin
         );
 
+        setCreated(response?.data?.data?.status === 'CREATED');
         setCompany(response);
         setPhotoUrl(response.data.data.photoUrl);
       } catch (error) {
@@ -133,8 +135,6 @@ export default function Company() {
     hideAlertPic();
   }
 
-  const companyCreated = company?.data?.data?.status === 'CREATED';
-
   return (
     <>
       <div className="company_con">
@@ -156,7 +156,7 @@ export default function Company() {
             className="avatar"
             src={photoUrl}
             onClick={() => {
-              if (companyCreated) return;
+              if (created) return;
               fileInput.current.click();
             }}
             style={photoUrl ? { background: 'none' } : {}}
@@ -217,10 +217,8 @@ export default function Company() {
           {!company?.data?.data?.address && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          {!companyCreated && (
-            <button onClick={createCompany}>Tasdiqlash</button>
-          )}
-          {companyCreated && <button>Created</button>}
+          {!created && <button onClick={createCompany}>Tasdiqlash</button>}
+          {created && <button>Created</button>}
         </div>
       </div>
     </>
