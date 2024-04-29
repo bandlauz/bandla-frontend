@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-
 import './css/Input.css';
 
 const Input = React.forwardRef(
