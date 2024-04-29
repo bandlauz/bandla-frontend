@@ -120,6 +120,8 @@ export default function Company() {
         navigateToLogin
       );
 
+      setCreated(response?.data?.data?.status === 'CREATED');
+
       toast.success('Kompaniya yaratildi');
     } catch (error) {
       if (error?.response?.data?.errors) {
@@ -193,7 +195,7 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {company?.data?.data?.name && (
+          {created && (
             <Input
               ref={companyName}
               type="text"
@@ -202,10 +204,8 @@ export default function Company() {
               disabled
             />
           )}
-          {!company?.data?.data?.name && (
-            <Input ref={companyName} type="text" label="Nomi" />
-          )}
-          {company?.data?.data?.address && (
+          {!created && <Input ref={companyName} type="text" label="Nomi" />}
+          {created && (
             <Input
               ref={companyAddress}
               type="text"
@@ -214,7 +214,7 @@ export default function Company() {
               disabled
             />
           )}
-          {!company?.data?.data?.address && (
+          {!created && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
           {!created && <button onClick={createCompany}>Tasdiqlash</button>}
