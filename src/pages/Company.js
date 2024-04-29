@@ -14,7 +14,7 @@ export default function Company() {
   const [photoUrl, setPhotoUrl] = useState('');
   const [showAlertPic, setShowAlertPic] = useState(false);
   const [company, setCompany] = useState({});
-  const [created, setCreated] = useState(false);
+  const [status, setStatus] = useState(false);
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Company() {
           navigateToLogin
         );
 
-        setCreated(response?.data?.data?.status === 'CREATED');
+        setStatus(response?.data?.data?.status === 'CREATED');
         setCompany(response);
         setPhotoUrl(response.data.data.photoUrl);
       } catch (error) {
@@ -120,7 +120,7 @@ export default function Company() {
         navigateToLogin
       );
 
-      setCreated(response?.data?.data?.status === 'CREATED');
+      setStatus(response?.data?.data?.status === 'CREATED');
       setCompany(response);
 
       toast.success('Kompaniya yaratildi');
@@ -159,7 +159,7 @@ export default function Company() {
             className="avatar"
             src={photoUrl}
             onClick={() => {
-              if (created) return;
+              if (status) return;
               fileInput.current.click();
             }}
             style={photoUrl ? { background: 'none' } : {}}
@@ -196,7 +196,7 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {created && (
+          {status && (
             <Input
               ref={companyName}
               type="text"
@@ -205,8 +205,8 @@ export default function Company() {
               disabled
             />
           )}
-          {!created && <Input ref={companyName} type="text" label="Nomi" />}
-          {created && (
+          {!status && <Input ref={companyName} type="text" label="Nomi" />}
+          {status && (
             <Input
               ref={companyAddress}
               type="text"
@@ -215,11 +215,9 @@ export default function Company() {
               disabled
             />
           )}
-          {!created && (
-            <Input ref={companyAddress} type="text" label="Manzil" />
-          )}
-          {!created && <button onClick={createCompany}>Tasdiqlash</button>}
-          {created && <button>Created</button>}
+          {!status && <Input ref={companyAddress} type="text" label="Manzil" />}
+          {!status && <button onClick={createCompany}>Tasdiqlash</button>}
+          {status && <button>Created</button>}
         </div>
       </div>
     </>
