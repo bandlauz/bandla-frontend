@@ -121,6 +121,7 @@ export default function Company() {
       );
 
       setCreated(response?.data?.data?.status === 'CREATED');
+      setCompany(response);
 
       toast.success('Kompaniya yaratildi');
     } catch (error) {
