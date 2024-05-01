@@ -11,7 +11,6 @@ function LoginWithTelegram() {
 
   const login = async () => {
     let nonce = localStorage.getItem('nonce');
-    console.log(nonce);
     try {
       const response = await Request(
         'https://api.bandla.uz/auth/login-with-telegram',
