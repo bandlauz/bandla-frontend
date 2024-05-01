@@ -118,13 +118,7 @@ function Login() {
       callback_url: 'https://bandla.uz/login-telegram',
     };
 
-    window.Telegram.Passport.auth(auth_params, function (show) {
-      if (show) {
-        console.log(auth_params);
-      } else {
-        console.log('error');
-      }
-    });
+    window.Telegram.Passport.auth(auth_params, function (show) {});
   };
 
   return (

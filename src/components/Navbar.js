@@ -25,9 +25,7 @@ function Navbar() {
   const [profileImg, setProfileImg] = useState();
   const MYPROFILE_URL = 'https://api.bandla.uz/api/profile/my';
 
-  const navigateToHome = () => {
-    console.log('Navbar navigate');
-  };
+  const navigateToHome = () => {};
 
   const fetchData = async () => {
     if (!localStorage.getItem('accessToken')) {
@@ -48,7 +46,6 @@ function Navbar() {
       setProfileImg(myprofile.data.data.photoUrl);
     } catch (error) {
       setLoggedIn(false);
-      console.log(error);
     }
   };
 
