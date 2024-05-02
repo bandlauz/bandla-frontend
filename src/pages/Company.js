@@ -116,7 +116,7 @@ export default function Company() {
         navigateToLogin
       );
 
-      setCompany(response);
+      setCompany(response.data.data);
 
       toast.success('Kompaniya yaratildi');
     } catch (error) {
