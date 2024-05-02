@@ -28,7 +28,7 @@ export default function Company() {
           navigateToLogin
         );
 
-        setCompany(response);
+        setCompany(response.data.data);
       } catch (error) {
         if (error.response?.data?.errors) {
           toast.error(error.response.data.errors[0]);
