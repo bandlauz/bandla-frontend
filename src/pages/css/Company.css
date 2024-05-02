@@ -17,12 +17,12 @@
   width: 100%;
   background-color: #354fd0;
   color: #fff;
-  
-  &:hover {
+
+  &:hover:not(.created_btn) {
     background-color: #586fe0;
   }
 
-  &:active {
+  &:active:not(.created_btn) {
     background-color: #2d42ac;
   }
 }

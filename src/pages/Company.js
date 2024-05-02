@@ -220,7 +220,9 @@ export default function Company() {
           {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
-          {company?.status && <button>{company?.status}</button>}
+          {company?.status && (
+            <button className="created_btn">{company?.status}</button>
+          )}
         </div>
       </div>
     </>
