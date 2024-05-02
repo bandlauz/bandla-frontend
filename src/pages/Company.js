@@ -103,7 +103,7 @@ export default function Company() {
     const companyData = {
       name: companyName.current.value,
       address: companyAddress.current.value,
-      photoUrl: company?.data?.data?.url,
+      photoUrl: company?.url,
     };
 
     try {
@@ -152,19 +152,13 @@ export default function Company() {
         <div className="upload">
           <Avatar
             className="avatar"
-            src={
-              company?.data?.data?.status
-                ? company?.data?.data?.photoUrl
-                : company?.data?.data?.url
-            }
+            src={company?.status ? company?.photoUrl : company?.url}
             onClick={() => {
-              if (company?.data?.data?.status) return;
+              if (company?.status) return;
               fileInput.current.click();
             }}
             style={
-              company?.data?.data?.photoUrl || company?.data?.data?.url
-                ? { background: 'none' }
-                : {}
+              company?.photoUrl || company?.url ? { background: 'none' } : {}
             }
           >
             B
@@ -199,34 +193,34 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {company?.data?.data?.status && (
+          {company?.status && (
             <Input
               ref={companyName}
               type="text"
               label="Nomi"
-              value={company?.data?.data?.name}
+              value={company?.name}
               disabled
             />
           )}
-          {!company?.data?.data?.status && (
+          {!company?.status && (
             <Input ref={companyName} type="text" label="Nomi" />
           )}
-          {company?.data?.data?.status && (
+          {company?.status && (
             <Input
               ref={companyAddress}
               type="text"
               label="Manzil"
-              value={company?.data?.data?.address}
+              value={company?.address}
               disabled
             />
           )}
-          {!company?.data?.data?.status && (
+          {!company?.status && (
             <Input ref={companyAddress} type="text" label="Manzil" />
           )}
-          {!company?.data?.data?.status && (
+          {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
-          {company?.data?.data?.status && <button>{company?.data?.data?.status}</button>}
+          {company?.status && <button>{company?.status}</button>}
         </div>
       </div>
     </>
