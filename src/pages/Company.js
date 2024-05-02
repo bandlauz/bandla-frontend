@@ -73,6 +73,7 @@ export default function Company() {
 
       setShowAlertPic(false);
       setCompany(response.data.data);
+      company.url = response.data.data.url;
     } catch (error) {
       if (error.response.data?.errors) {
         toast.error(error.response.data.errors[0]);
