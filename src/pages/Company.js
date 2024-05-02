@@ -226,7 +226,7 @@ export default function Company() {
           {!company?.data?.data?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
-          {company?.data?.data?.status && <button>Created</button>}
+          {company?.data?.data?.status && <button>{company?.data?.data?.status}</button>}
         </div>
       </div>
     </>
