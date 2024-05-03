@@ -157,11 +157,12 @@ export default function Company() {
               if (company?.status) return;
               fileInput.current.click();
             }}
-            style={
-              company?.photoUrl || company?.url
-                ? { background: 'none', cursor: 'default' }
-                : {}
-            }
+            style={{
+              ...(company?.photoUrl || company?.url
+                ? { background: 'none' }
+                : {}),
+              ...(company?.id  ? { cursor: 'default' } : {}),
+            }}
           >
             B
           </Avatar>
