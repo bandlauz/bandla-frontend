@@ -158,7 +158,9 @@ export default function Company() {
               fileInput.current.click();
             }}
             style={
-              company?.photoUrl || company?.url ? { background: 'none' } : {}
+              company?.photoUrl || company?.url
+                ? { background: 'none', cursor: 'default' }
+                : {}
             }
           >
             B
