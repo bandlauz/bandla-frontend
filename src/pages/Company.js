@@ -193,30 +193,24 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {company?.status && (
-            <Input
-              ref={companyName}
-              type="text"
-              label="Nomi"
-              value={company?.name}
-              disabled
-            />
-          )}
-          {!company?.status && (
-            <Input ref={companyName} type="text" label="Nomi" />
-          )}
-          {company?.status && (
-            <Input
-              ref={companyAddress}
-              type="text"
-              label="Manzil"
-              value={company?.address}
-              disabled
-            />
-          )}
-          {!company?.status && (
-            <Input ref={companyAddress} type="text" label="Manzil" />
-          )}
+          <Input
+            ref={companyName}
+            type="text"
+            label="Nomi"
+            {...(company?.id && {
+              value: company?.name,
+              disabled: true,
+            })}
+          />
+          <Input
+            ref={companyAddress}
+            type="text"
+            label="Manzil"
+            {...(company?.id && {
+              value: company?.address,
+              disabled: true,
+            })}
+          />
           {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
