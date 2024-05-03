@@ -201,8 +201,8 @@ export default function Company() {
             label="Nomi"
             {...(company?.id && {
               value: company?.name,
-              disabled: true,
             })}
+            disabled={!!company?.id}
           />
           <Input
             ref={companyAddress}
@@ -210,8 +210,8 @@ export default function Company() {
             label="Manzil"
             {...(company?.id && {
               value: company?.address,
-              disabled: true,
             })}
+            disabled={!!company?.id}
           />
           {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
