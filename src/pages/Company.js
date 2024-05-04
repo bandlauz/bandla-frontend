@@ -40,6 +40,22 @@ export default function Company() {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (company?.name) {
+      companyName.current.value = company?.name;
+      activeInputLabel(companyName.current);
+    }
+    if (company?.address) {
+      companyAddress.current.value = company?.address;
+      activeInputLabel(companyAddress.current);
+    }
+  }, [company?.id]);
+
+  function activeInputLabel(input) {
+    const label = input.parentElement.querySelector('label');
+    label.classList.add('active');
+  }
+
   const navigateToLogin = () => {
     window.location.href = 'login';
   };
@@ -196,30 +212,18 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          {company?.id && (
-            <>
-              <Input
-                ref={companyName}
-                type="text"
-                label="Nomi"
-                value={company?.name}
-                disabled
-              />
-              <Input
-                ref={companyAddress}
-                type="text"
-                label="Manzil"
-                value={company?.address}
-                disabled
-              />
-            </>
-          )}
-          {!company?.id && (
-            <>
-              <Input ref={companyName} type="text" label="Nomi" />
-              <Input ref={companyAddress} type="text" label="Manzil" />
-            </>
-          )}
+          <Input
+            ref={companyName}
+            type="text"
+            label="Nomi"
+            disabled={!!company?.id}
+          />
+          <Input
+            ref={companyAddress}
+            type="text"
+            label="Manzil"
+            disabled={!!company?.id}
+          />
           {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
