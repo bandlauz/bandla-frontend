@@ -161,7 +161,7 @@ export default function Company() {
               ...(company?.photoUrl || company?.url
                 ? { background: 'none' }
                 : {}),
-              ...(company?.id  ? { cursor: 'default' } : {}),
+              ...(company?.id ? { cursor: 'default' } : {}),
             }}
           >
             B
@@ -196,24 +196,30 @@ export default function Company() {
           )}
         </div>
         <div className="inputs">
-          <Input
-            ref={companyName}
-            type="text"
-            label="Nomi"
-            {...(company?.id && {
-              value: company?.name,
-            })}
-            disabled={!!company?.id}
-          />
-          <Input
-            ref={companyAddress}
-            type="text"
-            label="Manzil"
-            {...(company?.id && {
-              value: company?.address,
-            })}
-            disabled={!!company?.id}
-          />
+          {company?.id && (
+            <>
+              <Input
+                ref={companyName}
+                type="text"
+                label="Nomi"
+                value={company?.name}
+                disabled
+              />
+              <Input
+                ref={companyAddress}
+                type="text"
+                label="Manzil"
+                value={company?.address}
+                disabled
+              />
+            </>
+          )}
+          {!company?.id && (
+            <>
+              <Input ref={companyName} type="text" label="Nomi" />
+              <Input ref={companyAddress} type="text" label="Manzil" />
+            </>
+          )}
           {!company?.status && (
             <button onClick={createCompany}>Tasdiqlash</button>
           )}
