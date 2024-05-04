@@ -12,7 +12,7 @@ export default function Company() {
   const companyAddress = useRef();
   const fileInput = useRef(null);
   const [showAlertPic, setShowAlertPic] = useState(false);
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState({ name: '', address: '' });
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
   useEffect(() => {
