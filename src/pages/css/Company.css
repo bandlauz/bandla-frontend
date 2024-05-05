@@ -1,0 +1,28 @@
+.company_con,
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.company_con .inputs > button {
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: #354fd0;
+  color: #fff;
+
+  &:hover:not(.created_btn) {
+    background-color: #586fe0;
+  }
+
+  &:active:not(.created_btn) {
+    background-color: #2d42ac;
+  }
+}

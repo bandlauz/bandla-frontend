@@ -1,0 +1,105 @@
+.input_area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg);
+  border-radius: var(--bd-ra-small);
+  padding: var(--pd-small);
+  padding-left: 0;
+  margin-top: 10px;
+  border: 1px solid #000;
+}
+
+.input_area:hover {
+  background-color: var(--bg-hover);
+}
+
+.input_area:focus-within {
+  background-color: var(--bg-active);
+}
+
+.input_area:has(.error) {
+  border-color: var(--error-color);
+}
+
+.input_area:has(.error) input {
+  caret-color: var(--error-color);
+}
+
+.input_area label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  left: var(--pd-small);
+  transform: translateY(-50%);
+  opacity: 0.4;
+  transition: all 0.2s ease-in-out;
+}
+
+.input_area:focus-within label,
+.input_area label.active {
+  opacity: 0.6;
+  left: var(--pd-small-very);
+  top: 0;
+  transform: translateY(-100%);
+  font-size: 0.8em;
+}
+
+input {
+  padding: var(--pd-small-very) 0;
+  padding-left: var(--pd-small);
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.input_area:has(input[disabled]),
+.input_area:has(input[disabled]):hover {
+  background: none !important;
+}
+
+.input_area button {
+  height: 25px;
+  padding: 0 var(--pd-small-very);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--bd-ra-small);
+  opacity: 0;
+  scale: 0;
+  transition: scale 0.3s ease;
+
+  & * {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    background-color: var(--bg-hover);
+  }
+
+  &:active {
+    background-color: var(--bg-active-button);
+  }
+}
+
+.input_area:focus-within button,
+.input_area:focus-within:hover button {
+  scale: 1;
+  opacity: 1;
+}
+
+.input_area button span {
+  font-size: 0.8em;
+}
+
+:root {
+  --bg: #fff;
+  --bg-hover: #d0d0d0;
+  --bg-active: #a9a9a9;
+  --bg-active-button: #8c8c8c;
+  --error-color: #d74141;
+  --bd-ra-small: 5px;
+  --pd-small: 6px;
+  --pd-small-very: 3px;
+}
