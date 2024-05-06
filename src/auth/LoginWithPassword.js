@@ -103,6 +103,7 @@ const LoginWithPassword = ({ fullPhoneNumber }) => {
               }}
               label={null}
               onChange={handlePasswordChange}
+              inputProps={{ maxLength: 20 }}
             />
           </FormControl>
           {passwordError && (

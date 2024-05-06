@@ -134,6 +134,7 @@ const PasswordForm = ({ temporaryToken }) => {
               }
               label={null}
               onChange={handlePasswordChange}
+              inputProps={{ maxLength: 20 }}
             />
           </FormControl>
           <div className="conditions">
@@ -177,6 +178,7 @@ const PasswordForm = ({ temporaryToken }) => {
               }
               label={null}
               onChange={handleConfirmPasswordChange}
+              inputProps={{ maxLength: 20 }}
             />
           </FormControl>
           <div style={{ display: 'flex', justifyContent: 'end' }}>
