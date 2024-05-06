@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Request from '../util/Request';
 import '../pages/css/Login.css';
+import './PasswordForm.css';
 import {
   Card,
   CardContent,
@@ -19,41 +20,46 @@ const PasswordForm = ({ temporaryToken }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [validPassword, setValidPassword] = useState({
+    number: false,
+    capitalLetter: false,
+    smallLetter: false,
+    length: false,
+  });
+  const [checkedPassword, setCheckedPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const validatePassword = () => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (password === '' && passwordError !== '') {
-      setPasswordError('');
-      return true;
-    }
-
-    if (!passwordRegex.test(password)) {
-      setPasswordError(
-        "Parol 8 ta belgidan kam bo'lmasligi kerak va kamida 1 ta kichik harf, 1 ta bosh harf va 1 ta raqam qatnashishi zarur"
-      );
-      return false;
-    } else {
-      setPasswordError('');
-      return true;
-    }
-  };
-
   const handlePasswordChange = (e) => {
-    setPasswordError('');
-    setPassword(e.target.value);
+    const password = e.target.value;
+    setPassword(password);
+
+    const containsNumber = /\d/.test(password);
+    const containsCapitalLetter = /[A-Z]/.test(password);
+    const containsSmallLetter = /[a-z]/.test(password);
+    const hasMinimumLength = password.length >= 8;
+
+    setValidPassword({
+      number: containsNumber,
+      capitalLetter: containsCapitalLetter,
+      smallLetter: containsSmallLetter,
+      length: hasMinimumLength,
+    });
+
+    setCheckedPassword(
+      containsNumber &&
+        containsCapitalLetter &&
+        containsSmallLetter &&
+        hasMinimumLength
+    );
   };
 
   const handleConfirmPasswordChange = (e) => {
-    setPasswordError('');
     setConfirmPassword(e.target.value);
   };
 
   const handleButtonClick = async () => {
     if (
-      validatePassword() &&
       password === confirmPassword &&
       password !== '' &&
       confirmPassword !== ''
@@ -98,7 +104,6 @@ const PasswordForm = ({ temporaryToken }) => {
           minWidth: '200px',
           width: '600px',
           borderRadius: '12px',
-          height: '400px',
         }}
       >
         <CardContent sx={{ p: '30px' }}>
@@ -130,18 +135,19 @@ const PasswordForm = ({ temporaryToken }) => {
               onChange={handlePasswordChange}
             />
           </FormControl>
-          <div>
-            {passwordError && (
-              <Typography
-                sx={{
-                  color: '#e50000',
-                  fontSize: '15px',
-                  fontFamily: 'Inter, sans-serif !important',
-                }}
-              >
-                {passwordError}
-              </Typography>
-            )}
+          <div className="conditions">
+            <div className={`${validPassword.number ? 'checked' : ''}`}>
+              1 ta raqam
+            </div>
+            <div className={`${validPassword.capitalLetter ? 'checked' : ''}`}>
+              1 ta bosh harf
+            </div>
+            <div className={`${validPassword.smallLetter ? 'checked' : ''}`}>
+              1 ta kichik harf
+            </div>
+            <div className={`${validPassword.length ? 'checked' : ''}`}>
+              8 ta belgidan ko'p
+            </div>
           </div>
           <Typography
             sx={{
@@ -182,6 +188,7 @@ const PasswordForm = ({ temporaryToken }) => {
               }}
               onClick={handleButtonClick}
               disabled={
+                !checkedPassword ||
                 password !== confirmPassword ||
                 password === '' ||
                 confirmPassword === ''
