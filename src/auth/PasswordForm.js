@@ -120,6 +120,7 @@ const PasswordForm = ({ temporaryToken }) => {
               sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
+              autoFocus
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
