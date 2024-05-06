@@ -157,6 +157,7 @@ const PasswordForm = ({ temporaryToken }) => {
               sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
               id="outlined-adornment-confirm-password"
               type={showPassword ? 'text' : 'password'}
+              onPaste={(e) => e.preventDefault()}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
