@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Request from '../util/Request';
 import '../pages/css/Login.css';
-import './PasswordForm.css';
+import './css/PasswordForm.css';
 import {
   Card,
   CardContent,
