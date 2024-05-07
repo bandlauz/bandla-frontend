@@ -121,7 +121,7 @@ function Navbar() {
               </MenuItem>
             ) : (
               <React.Fragment>
-                <Tooltip title="Account sozlamari">
+                <Tooltip title="Hisobim sozlamari">
                   <IconButton
                     onClick={handleClick}
                     size="small"
@@ -191,7 +191,7 @@ function Navbar() {
                     <ListItemIcon>
                       <PersonIcon fontSize="small" />
                     </ListItemIcon>
-                    Profile
+                    Profil
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
