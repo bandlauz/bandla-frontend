@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Request from '../util/Request';
 import '../pages/css/Login.css';
 import './css/PasswordForm.css';
@@ -15,8 +15,11 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ToastContainer, toast } from 'react-toastify';
+import { strongPassword } from '../util/generate';
 
 const PasswordForm = ({ temporaryToken }) => {
+  const passwordInput = useRef();
+  const passwordConfirmInput = useRef();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -85,6 +88,15 @@ const PasswordForm = ({ temporaryToken }) => {
     }
   };
 
+  function setStrongPassword() {
+    const strongPass = strongPassword();
+    const passwordInputCurrent = passwordInput.current.querySelector('input');
+    const passwordConfirmInputCurrent =
+      passwordConfirmInput.current.querySelector('input');
+
+    passwordInputCurrent.value = passwordConfirmInputCurrent.value = strongPass;
+  }
+
   return (
     <div className="login-wrapper">
       <ToastContainer
@@ -121,6 +133,7 @@ const PasswordForm = ({ temporaryToken }) => {
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
               autoFocus
+              ref={passwordInput}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -137,6 +150,7 @@ const PasswordForm = ({ temporaryToken }) => {
               inputProps={{ maxLength: 20 }}
             />
           </FormControl>
+          <button onClick={setStrongPassword}>Strong password</button>
           <div className="conditions">
             <div className={`${validPassword.number ? 'checked' : ''}`}>
               1 ta raqam
@@ -167,6 +181,7 @@ const PasswordForm = ({ temporaryToken }) => {
               type={showPassword ? 'text' : 'password'}
               onPaste={(e) => e.preventDefault()}
               onDrop={(e) => e.preventDefault()}
+              ref={passwordConfirmInput}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
