@@ -36,7 +36,10 @@ const PasswordForm = ({ temporaryToken }) => {
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     setPassword(password);
+    checkPassword(password);
+  };
 
+  function checkPassword(password) {
     const containsNumber = /\d/.test(password);
     const containsCapitalLetter = /[A-Z]/.test(password);
     const containsSmallLetter = /[a-z]/.test(password);
@@ -55,7 +58,7 @@ const PasswordForm = ({ temporaryToken }) => {
         containsSmallLetter &&
         hasMinimumLength
     );
-  };
+  }
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
@@ -95,6 +98,10 @@ const PasswordForm = ({ temporaryToken }) => {
       passwordConfirmInput.current.querySelector('input');
 
     passwordInputCurrent.value = passwordConfirmInputCurrent.value = strongPass;
+
+    setPassword(strongPass);
+    setConfirmPassword(strongPass);
+    checkPassword(strongPass);
   }
 
   return (
@@ -125,7 +132,19 @@ const PasswordForm = ({ temporaryToken }) => {
               fontFamily: 'Inter, sans-serif !important',
             }}
           >
-            Parol
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>Parol</div>
+              <Button
+                sx={{
+                  backgroundColor: '#006DC7 !important',
+                  color: '#fff',
+                  lineHeight: '1',
+                }}
+                onClick={setStrongPassword}
+              >
+                Kuchli parol
+              </Button>
+            </div>
           </Typography>
           <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
@@ -150,7 +169,6 @@ const PasswordForm = ({ temporaryToken }) => {
               inputProps={{ maxLength: 20 }}
             />
           </FormControl>
-          <button onClick={setStrongPassword}>Strong password</button>
           <div className="conditions">
             <div className={`${validPassword.number ? 'checked' : ''}`}>
               1 ta raqam
