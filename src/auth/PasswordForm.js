@@ -150,13 +150,15 @@ const PasswordForm = ({ temporaryToken }) => {
               fontFamily: 'Inter, sans-serif !important',
             }}
           >
-            Подтвердите пароль
+            Parolni tasdiqlang
           </Typography>
           <FormControl sx={{ my: 1, mt: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
               sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
               id="outlined-adornment-confirm-password"
               type={showPassword ? 'text' : 'password'}
+              onPaste={(e) => e.preventDefault()}
+              onDrop={(e) => e.preventDefault()}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
