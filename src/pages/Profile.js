@@ -237,7 +237,8 @@ function Profile() {
                   }}
                   style={photoUrl ? { background: 'none' } : {}}
                 >
-                  B
+                  {firstName && firstName[0]}
+                  {!firstName && 'B'}
                 </Avatar>
                 {photoUrl && (
                   <div
