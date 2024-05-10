@@ -24,6 +24,7 @@ import './css/Navbar.css';
 function Navbar() {
   const [loggedIn, setLoggedIn] = useState(null);
   const [profileImg, setProfileImg] = useState();
+  const [avatarLtr, setAvatarLtr] = useState('B');
   const MYPROFILE_URL = 'https://api.bandla.uz/api/profile/my';
 
   const navigateToHome = () => {};
@@ -45,6 +46,7 @@ function Navbar() {
       );
       setLoggedIn(true);
       setProfileImg(myprofile.data.data.photoUrl);
+      setAvatarLtr(myprofile.data.data.firstName[0]);
     } catch (error) {
       setLoggedIn(false);
     }
@@ -145,7 +147,7 @@ function Navbar() {
                         border: '0.1px solid lightgray',
                       }}
                     >
-                      B
+                      {avatarLtr}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
