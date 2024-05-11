@@ -121,6 +121,12 @@ function Login() {
     window.Telegram.Passport.auth(auth_params, function (show) {});
   };
 
+  function deviceIsComputer() {
+    const mobileRegex =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return !mobileRegex.test(navigator.userAgent);
+  }
+
   return (
     <div>
       <ToastContainer
@@ -189,13 +195,17 @@ function Login() {
                   Kirish
                 </Button>
               </form>
-              <Typography>yoki</Typography>
-              <Button onClick={loginWithTelegram}>
-                <i
-                  className="fa-brands fa-telegram fa-4x"
-                  style={{ color: '#74C0FC' }}
-                ></i>
-              </Button>
+              {deviceIsComputer() && (
+                <>
+                  <Typography>yoki</Typography>
+                  <Button onClick={loginWithTelegram}>
+                    <i
+                      className="fa-brands fa-telegram fa-4x"
+                      style={{ color: '#74C0FC' }}
+                    ></i>
+                  </Button>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
