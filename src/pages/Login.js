@@ -22,7 +22,6 @@ function Login() {
   const API_SEND_CODE =
     'https://api.bandla.uz/auth/verification/send-confirmation-code/';
   let updateInterval;
-  const isComputer = deviceIsComputer();
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
@@ -190,7 +189,7 @@ function Login() {
                   Kirish
                 </Button>
               </form>
-              {isComputer && (
+              {deviceIsComputer() && (
                 <>
                   <Typography>yoki</Typography>
                   <Button onClick={loginWithTelegram}>
