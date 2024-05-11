@@ -22,6 +22,7 @@ function Login() {
   const API_SEND_CODE =
     'https://api.bandla.uz/auth/verification/send-confirmation-code/';
   let updateInterval;
+  const isComputer = deviceIsComputer();
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
@@ -189,13 +190,17 @@ function Login() {
                   Kirish
                 </Button>
               </form>
-              <Typography>yoki</Typography>
-              <Button onClick={loginWithTelegram}>
-                <i
-                  className="fa-brands fa-telegram fa-4x"
-                  style={{ color: '#74C0FC' }}
-                ></i>
-              </Button>
+              {isComputer && (
+                <>
+                  <Typography>yoki</Typography>
+                  <Button onClick={loginWithTelegram}>
+                    <i
+                      className="fa-brands fa-telegram fa-4x"
+                      style={{ color: '#74C0FC' }}
+                    ></i>
+                  </Button>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -222,3 +227,9 @@ const InputElement = styled('input')(
 );
 
 export default Login;
+
+function deviceIsComputer() {
+  const devicesPlatform =
+    /(Win32|Win64|Windows|MacIntel|MacPPC|Mac68K|Macintosh|Linux)/i;
+  return devicesPlatform.test(navigator.platform);
+}
