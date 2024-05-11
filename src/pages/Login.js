@@ -121,6 +121,12 @@ function Login() {
     window.Telegram.Passport.auth(auth_params, function (show) {});
   };
 
+  function deviceIsComputer() {
+    const devicesPlatform =
+      /(Win32|Win64|Windows|MacIntel|MacPPC|Mac68K|Macintosh|Linux)/i;
+    return devicesPlatform.test(navigator.platform);
+  }
+
   return (
     <div>
       <ToastContainer
@@ -226,9 +232,3 @@ const InputElement = styled('input')(
 );
 
 export default Login;
-
-function deviceIsComputer() {
-  const devicesPlatform =
-    /(Win32|Win64|Windows|MacIntel|MacPPC|Mac68K|Macintosh|Linux)/i;
-  return devicesPlatform.test(navigator.platform);
-}
