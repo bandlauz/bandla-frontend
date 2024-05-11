@@ -19,12 +19,14 @@ import { Logout, Settings } from '@mui/icons-material';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from '../components/NavbarSimple';
+import Alert from './Alert';
 import './css/Navbar.css';
 
 function Navbar() {
   const [loggedIn, setLoggedIn] = useState(null);
   const [profileImg, setProfileImg] = useState();
   const [avatarLtr, setAvatarLtr] = useState('B');
+  const [logingout, setLogingout] = useState(false);
   const MYPROFILE_URL = 'https://api.bandla.uz/api/profile/my';
 
   const navigateToHome = () => {};
@@ -209,7 +211,7 @@ function Navbar() {
                     Kompaniya
                   </MenuItem>
                   <MenuItem
-                    onClick={() => handleClose('/logout')}
+                    onClick={() => setLogingout(true)}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
                     <ListItemIcon>
@@ -224,6 +226,21 @@ function Navbar() {
         </Grid>
       </Container>
       <Divider />
+      {logingout && (
+        <Alert show={logingout} onHide={() => setLogingout(false)}>
+          <p>Akkauntdan chiqmoqchimisiz?</p>
+          <button buttonkey="true" onClick={() => setLogingout(false)}>
+            Yopish
+          </button>
+          <button
+            buttonkey="true"
+            className="delete_button"
+            onClick={() => handleClose('/logout')}
+          >
+            Chiqish
+          </button>
+        </Alert>
+      )}
     </Box>
   );
 }
