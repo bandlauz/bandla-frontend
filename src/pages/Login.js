@@ -122,9 +122,9 @@ function Login() {
   };
 
   function deviceIsComputer() {
-    const devicesPlatform =
-      /(Win32|Win64|Windows|MacIntel|MacPPC|Mac68K|Macintosh|Linux)/i;
-    return devicesPlatform.test(navigator.platform);
+    const mobileRegex =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return !mobileRegex.test(navigator.userAgent);
   }
 
   return (
