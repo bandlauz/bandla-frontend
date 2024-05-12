@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Avatar } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
 import Request from '../util/Request';
