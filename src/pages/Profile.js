@@ -274,7 +274,10 @@ function Profile() {
                     onHide={() => setShowAvatarPreview(false)}
                     bgNone={true}
                   >
-                    <div className="alert_img">
+                    <div
+                      className="alert_img"
+                      onClick={() => setShowAvatarPreview(false)}
+                    >
                       <img
                         src={photoUrl || ''}
                         alt="rasm"
