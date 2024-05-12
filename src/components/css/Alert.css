@@ -10,6 +10,7 @@
 .alert_bg {
   height: 100%;
   background-color: #000a;
+  backdrop-filter: blur(2px);
 }
 
 .alert_content {
