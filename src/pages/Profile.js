@@ -40,8 +40,8 @@ function Profile() {
       );
       const data = response.data.data;
 
-      setFirstName(data.firstName);
-      setLastName(data.lastName);
+      setFirstName(data.firstName || '');
+      setLastName(data.lastName || '');
       setPhotoUrl(data.photoUrl);
       setPhoneNumber(data.phoneNumber);
       setLoading(false);
