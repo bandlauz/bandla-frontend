@@ -23,8 +23,8 @@ function Login() {
     'https://api.bandla.uz/auth/verification/send-confirmation-code/';
   let updateInterval;
 
-  const handlePhoneNumberChange = (event) => {
-    let formattedPhoneNumber = event.target.value.replace(/\D/g, '');
+  const handlePhoneNumberChange = (e) => {
+    let formattedPhoneNumber = e.target.value.replace(/\D/g, '');
 
     if (formattedPhoneNumber.length > 2 && formattedPhoneNumber.length <= 5) {
       formattedPhoneNumber =
