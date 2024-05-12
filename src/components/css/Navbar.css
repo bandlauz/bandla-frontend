@@ -1,3 +1,8 @@
+.avatar_con {
+  display: flex;
+  align-items: center;
+}
+
 .avatar {
   font-size: 12px !important;
   background: linear-gradient(45deg, #1976d2, transparent);
