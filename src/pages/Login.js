@@ -32,10 +32,7 @@ function Login() {
     let i = 0;
     for (const length of sections) {
       if (formattedPhoneNumber.length > length) {
-        formattedPhoneNumber =
-          formattedPhoneNumber.substring(0, length) +
-          separators[i] +
-          formattedPhoneNumber.substring(length);
+        formattedPhoneNumber = formattedPhoneNumber.substring(0, length) + separators[i] + formattedPhoneNumber.substring(length);
         i++;
       }
     }
