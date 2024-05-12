@@ -16,18 +16,20 @@ import {
   MenuItem,
 } from '@mui/material';
 import { Logout, Settings } from '@mui/icons-material';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import PersonIcon from '@mui/icons-material/Person';
 import NavbarSimple from '../components/NavbarSimple';
+import Alert from './Alert';
 import './css/Navbar.css';
 
 function Navbar() {
   const [loggedIn, setLoggedIn] = useState(null);
   const [profileImg, setProfileImg] = useState();
+  const [avatarLtr, setAvatarLtr] = useState('B');
+  const [logingout, setLogingout] = useState(false);
   const MYPROFILE_URL = 'https://api.bandla.uz/api/profile/my';
 
-  const navigateToHome = () => {
-    console.log('Navbar navigate');
-  };
+  const navigateToHome = () => {};
 
   const fetchData = async () => {
     if (!localStorage.getItem('accessToken')) {
@@ -46,9 +48,9 @@ function Navbar() {
       );
       setLoggedIn(true);
       setProfileImg(myprofile.data.data.photoUrl);
+      setAvatarLtr(myprofile.data.data.firstName[0]);
     } catch (error) {
       setLoggedIn(false);
-      console.log(error);
     }
   };
 
@@ -61,8 +63,9 @@ function Navbar() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (path) => {
     setAnchorEl(null);
+    if (typeof path === 'string') window.location.href = path;
   };
 
   if (loggedIn == null) {
@@ -79,7 +82,7 @@ function Navbar() {
       <Container>
         <Grid container>
           <Grid item xs={4}>
-            <Link color="inherit" href="/">
+            <Link color="inherit" onClick={() => handleClose('/')}>
               <img
                 src={process.env.PUBLIC_URL + '/logo-black.png'}
                 alt="Bandla image"
@@ -99,7 +102,7 @@ function Navbar() {
           >
             <Link
               color="inherit"
-              href="/about"
+              onClick={() => handleClose('/about')}
               style={{
                 textDecoration: 'none',
                 marginRight: '10px',
@@ -109,17 +112,20 @@ function Navbar() {
               Biz haqimiqda
             </Link>
             {!loggedIn ? (
-              <a href="/login" style={{ textDecoration: 'none' }}>
+              <MenuItem
+                onClick={() => handleClose('/login')}
+                style={{ textDecoration: 'none' }}
+              >
                 <Button
                   variant="contained"
                   style={{ backgroundColor: 'rgb(0,109,199)' }}
                 >
                   Kirish
                 </Button>
-              </a>
+              </MenuItem>
             ) : (
               <React.Fragment>
-                <Tooltip title="Account sozlamari">
+                <Tooltip title="Hisobim sozlamari">
                   <IconButton
                     onClick={handleClick}
                     size="small"
@@ -143,7 +149,7 @@ function Navbar() {
                         border: '0.1px solid lightgray',
                       }}
                     >
-                      B
+                      {avatarLtr}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
@@ -182,17 +188,15 @@ function Navbar() {
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                  <a
-                    href="/profile"
+                  <MenuItem
+                    onClick={() => handleClose('/profile')}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
-                    <MenuItem onClick={handleClose}>
-                      <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                      </ListItemIcon>
-                      Profile
-                    </MenuItem>
-                  </a>
+                    <ListItemIcon>
+                      <PersonIcon fontSize="small" />
+                    </ListItemIcon>
+                    Profil
+                  </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon>
@@ -200,17 +204,21 @@ function Navbar() {
                     </ListItemIcon>
                     Sozlamar
                   </MenuItem>
-                  <a
-                    href="/logout"
+                  <MenuItem onClick={() => handleClose('/company')}>
+                    <ListItemIcon>
+                      <CorporateFareIcon fontSize="small" />
+                    </ListItemIcon>
+                    Kompaniya
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => setLogingout(true)}
                     style={{ textDecoration: 'none', color: 'red' }}
                   >
-                    <MenuItem onClick={handleClose}>
-                      <ListItemIcon>
-                        <Logout fontSize="small" style={{ color: 'red' }} />
-                      </ListItemIcon>
-                      Chiqish
-                    </MenuItem>
-                  </a>
+                    <ListItemIcon>
+                      <Logout fontSize="small" style={{ color: 'red' }} />
+                    </ListItemIcon>
+                    Chiqish
+                  </MenuItem>
                 </Menu>
               </React.Fragment>
             )}
@@ -218,6 +226,21 @@ function Navbar() {
         </Grid>
       </Container>
       <Divider />
+      {logingout && (
+        <Alert show={logingout} onHide={() => setLogingout(false)}>
+          <p>Akkauntdan chiqmoqchimisiz?</p>
+          <button buttonkey="true" onClick={() => setLogingout(false)}>
+            Yopish
+          </button>
+          <button
+            buttonkey="true"
+            className="delete_button"
+            onClick={() => handleClose('/logout')}
+          >
+            Chiqish
+          </button>
+        </Alert>
+      )}
     </Box>
   );
 }

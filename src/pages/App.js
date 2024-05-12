@@ -1,14 +1,17 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './css/App.css';
-import Home from './Home';
-import Profile from './Profile';
-import Login from './Login';
-import Logout from './Logout';
-import About from './About';
-import WrongPath from './WrongPath';
 import Footer from '../components/Footer';
 import NavbarContainer from '../components/NavbarContainer';
-import LoginWithTelegram from '../auth/LoginWithTelegram';
+import './css/App.css';
+
+const Home = React.lazy(() => import('./Home'));
+const Login = React.lazy(() => import('./Login'));
+const LoginWithTelegram = React.lazy(() => import('../auth/LoginWithTelegram'));
+const Logout = React.lazy(() => import('./Logout'));
+const Profile = React.lazy(() => import('./Profile'));
+const About = React.lazy(() => import('./About'));
+const Company = React.lazy(() => import('./Company'));
+const WrongPath = React.lazy(() => import('./WrongPath'));
 
 function App() {
   return (
@@ -22,8 +25,9 @@ function App() {
             <Route path="/login-telegram" element={<LoginWithTelegram />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<WrongPath />} />
             <Route path="/about" element={<About />} />
+            <Route path="/company" element={<Company />} />
+            <Route path="*" element={<WrongPath />} />
           </Routes>
         </BrowserRouter>
       </div>

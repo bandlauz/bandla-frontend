@@ -4,6 +4,7 @@ import Request from '../util/Request';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginWithTelegram() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,7 +12,6 @@ function LoginWithTelegram() {
 
   const login = async () => {
     let nonce = localStorage.getItem('nonce');
-    console.log(nonce);
     try {
       const response = await Request(
         'https://api.bandla.uz/auth/login-with-telegram',

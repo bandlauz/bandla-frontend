@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Request from '../util/Request';
 import '../pages/css/Login.css';
+import './css/PasswordForm.css';
 import {
   Card,
   CardContent,
@@ -14,46 +15,58 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { strongPassword } from '../util/generate';
 
 const PasswordForm = ({ temporaryToken }) => {
+  const passwordInput = useRef();
+  const passwordConfirmInput = useRef();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [validPassword, setValidPassword] = useState({
+    number: false,
+    capitalLetter: false,
+    smallLetter: false,
+    length: false,
+  });
+  const [checkedPassword, setCheckedPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const validatePassword = () => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (password === '' && passwordError !== '') {
-      setPasswordError('');
-      return true;
-    }
-
-    if (!passwordRegex.test(password)) {
-      setPasswordError(
-        "Parol 8 ta belgidan kam bo'lmasligi kerak va kamida 1 ta kichik harf, 1 ta bosh harf va 1 ta raqam qatnashishi zarur"
-      );
-      return false;
-    } else {
-      setPasswordError('');
-      return true;
-    }
-  };
-
   const handlePasswordChange = (e) => {
-    setPasswordError('');
-    setPassword(e.target.value);
+    const password = e.target.value;
+    setPassword(password);
+    checkPassword(password);
   };
+
+  function checkPassword(password) {
+    const containsNumber = /\d/.test(password);
+    const containsCapitalLetter = /[A-Z]/.test(password);
+    const containsSmallLetter = /[a-z]/.test(password);
+    const hasMinimumLength = password.length >= 8;
+
+    setValidPassword({
+      number: containsNumber,
+      capitalLetter: containsCapitalLetter,
+      smallLetter: containsSmallLetter,
+      length: hasMinimumLength,
+    });
+
+    setCheckedPassword(
+      containsNumber &&
+        containsCapitalLetter &&
+        containsSmallLetter &&
+        hasMinimumLength
+    );
+  }
 
   const handleConfirmPasswordChange = (e) => {
-    setPasswordError('');
     setConfirmPassword(e.target.value);
   };
 
   const handleButtonClick = async () => {
     if (
-      validatePassword() &&
       password === confirmPassword &&
       password !== '' &&
       confirmPassword !== ''
@@ -79,6 +92,19 @@ const PasswordForm = ({ temporaryToken }) => {
     }
   };
 
+  function setStrongPassword() {
+    const strongPass = strongPassword();
+    const passwordInputCurrent = passwordInput.current.querySelector('input');
+    const passwordConfirmInputCurrent =
+      passwordConfirmInput.current.querySelector('input');
+
+    passwordInputCurrent.value = passwordConfirmInputCurrent.value = strongPass;
+
+    setPassword(strongPass);
+    setConfirmPassword(strongPass);
+    checkPassword(strongPass);
+  }
+
   return (
     <div className="login-wrapper">
       <ToastContainer
@@ -98,7 +124,6 @@ const PasswordForm = ({ temporaryToken }) => {
           minWidth: '200px',
           width: '600px',
           borderRadius: '12px',
-          height: '400px',
         }}
       >
         <CardContent sx={{ p: '30px' }}>
@@ -108,13 +133,27 @@ const PasswordForm = ({ temporaryToken }) => {
               fontFamily: 'Inter, sans-serif !important',
             }}
           >
-            Parol
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>Parol</div>
+              <Button
+                sx={{
+                  backgroundColor: '#006DC7 !important',
+                  color: '#fff',
+                  lineHeight: '1',
+                }}
+                onClick={setStrongPassword}
+              >
+                Kuchli parol
+              </Button>
+            </div>
           </Typography>
           <FormControl sx={{ my: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
               sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
+              autoFocus
+              ref={passwordInput}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -128,20 +167,22 @@ const PasswordForm = ({ temporaryToken }) => {
               }
               label={null}
               onChange={handlePasswordChange}
+              inputProps={{ maxLength: 20 }}
             />
           </FormControl>
-          <div>
-            {passwordError && (
-              <Typography
-                sx={{
-                  color: '#e50000',
-                  fontSize: '15px',
-                  fontFamily: 'Inter, sans-serif !important',
-                }}
-              >
-                {passwordError}
-              </Typography>
-            )}
+          <div className="conditions">
+            <div className={`${validPassword.number ? 'checked' : ''}`}>
+              1 ta raqam
+            </div>
+            <div className={`${validPassword.capitalLetter ? 'checked' : ''}`}>
+              1 ta bosh harf
+            </div>
+            <div className={`${validPassword.smallLetter ? 'checked' : ''}`}>
+              1 ta kichik harf
+            </div>
+            <div className={`${validPassword.length ? 'checked' : ''}`}>
+              8 ta belgidan ko'p
+            </div>
           </div>
           <Typography
             sx={{
@@ -150,13 +191,16 @@ const PasswordForm = ({ temporaryToken }) => {
               fontFamily: 'Inter, sans-serif !important',
             }}
           >
-            Подтвердите пароль
+            Parolni tasdiqlang
           </Typography>
           <FormControl sx={{ my: 1, mt: 1, width: '100%' }} variant="outlined">
             <OutlinedInput
               sx={{ fontSize: '20px', fontFamily: 'Inter, sans-serif' }}
               id="outlined-adornment-confirm-password"
               type={showPassword ? 'text' : 'password'}
+              onPaste={(e) => e.preventDefault()}
+              onDrop={(e) => e.preventDefault()}
+              ref={passwordConfirmInput}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -170,6 +214,7 @@ const PasswordForm = ({ temporaryToken }) => {
               }
               label={null}
               onChange={handleConfirmPasswordChange}
+              inputProps={{ maxLength: 20 }}
             />
           </FormControl>
           <div style={{ display: 'flex', justifyContent: 'end' }}>
@@ -182,6 +227,7 @@ const PasswordForm = ({ temporaryToken }) => {
               }}
               onClick={handleButtonClick}
               disabled={
+                !checkedPassword ||
                 password !== confirmPassword ||
                 password === '' ||
                 confirmPassword === ''

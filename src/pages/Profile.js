@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import './css/Profile.css';
-import 'react-toastify/dist/ReactToastify.css';
 import Request from '../util/Request';
 import { useState, useEffect, useCallback } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { Container, Grid, Avatar, TextField, Button } from '@mui/material';
 import Alert from '../components/Alert';
@@ -17,6 +17,8 @@ function Profile() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [avatarPreviewTimer, setAvatarPreviewTimer] = useState(false);
+  const [showAvatarPreview, setShowAvatarPreview] = useState(false);
   const list = ['firstName', 'lastName', 'save'];
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
@@ -210,6 +212,10 @@ function Profile() {
     }
   }
 
+  function avatarPreview() {
+    if (photoUrl) setShowAvatarPreview(true);
+  }
+
   return (
     <>
       <div className="profile-wrapper" style={{ justifyContent: 'center' }}>
@@ -236,8 +242,17 @@ function Profile() {
                     fileInput.current.click();
                   }}
                   style={photoUrl ? { background: 'none' } : {}}
+                  onMouseDown={() => {
+                    clearTimeout(avatarPreviewTimer);
+                    setAvatarPreviewTimer(setTimeout(avatarPreview, 700));
+                  }}
+                  onMouseUp={() => {
+                    clearTimeout(avatarPreviewTimer);
+                    setAvatarPreviewTimer(false);
+                  }}
                 >
-                  B
+                  {firstName && firstName[0]}
+                  {!firstName && 'B'}
                 </Avatar>
                 {photoUrl && (
                   <div
@@ -252,6 +267,25 @@ function Profile() {
                       style={{ color: '#fff' }}
                     ></i>
                   </div>
+                )}
+                {showAvatarPreview && (
+                  <Alert
+                    show={showAvatarPreview}
+                    onHide={() => setShowAvatarPreview(false)}
+                    bgNone={true}
+                  >
+                    <div
+                      className="alert_img"
+                      onClick={() => setShowAvatarPreview(false)}
+                    >
+                      <img
+                        src={photoUrl || ''}
+                        alt="rasm"
+                        onLoad={setSizeToImg}
+                      />
+                    </div>
+                    <div></div>
+                  </Alert>
                 )}
                 {showAlert && (
                   <Alert show={showAlert} onHide={() => setShowAlert(false)}>
@@ -281,7 +315,9 @@ function Profile() {
                   <Alert show={showAlertPic} onHide={hideAlertPic}>
                     <div className="alert_img">
                       <img
-                        src={URL.createObjectURL(fileInput.current.files[0])}
+                        src={
+                          URL.createObjectURL(fileInput.current.files[0]) || ''
+                        }
                         alt="rasm"
                         onLoad={setSizeToImg}
                       />

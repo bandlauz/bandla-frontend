@@ -10,6 +10,7 @@
 .alert_bg {
   height: 100%;
   background-color: #000a;
+  backdrop-filter: blur(2px);
 }
 
 .alert_content {
@@ -21,6 +22,10 @@
   background-color: #fff;
   padding: 8px;
   max-width: 90%;
+}
+
+.alert_content.bg_none {
+  background-color: transparent !important;
 }
 
 .alert_content p {
@@ -52,7 +57,7 @@
 }
 
 .alert_img {
-  border-radius: 10px;
+  border-radius: 50%;
   border: 1px solid rgb(0, 109, 199);
   display: flex;
   align-items: center;
@@ -61,6 +66,7 @@
   overflow: hidden;
   max-width: 100% !important;
   max-height: 400px;
+  aspect-ratio: 1;
   opacity: 0;
   animation: opacity0to1 0.3s 0.5s linear forwards;
 }
@@ -76,6 +82,7 @@
 
 .alert_img img {
   object-fit: cover;
+  height: 100%;
 }
 
 .alert p,

@@ -16,7 +16,7 @@ function getData(img) {
       reject(error);
     };
 
-    image.src = URL.createObjectURL(img);
+    if (img) image.src = URL.createObjectURL(img) || '';
   });
 }
 
