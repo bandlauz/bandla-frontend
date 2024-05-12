@@ -282,7 +282,7 @@ function Profile() {
                   <Alert show={showAlertPic} onHide={hideAlertPic}>
                     <div className="alert_img">
                       <img
-                        src={URL.createObjectURL(fileInput.current.files[0])}
+                        src={URL.createObjectURL(fileInput.current.files[0]) || ''}
                         alt="rasm"
                         onLoad={setSizeToImg}
                       />
