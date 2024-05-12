@@ -4,6 +4,7 @@ import Request from '../util/Request';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginWithTelegram() {
   const [searchParams, setSearchParams] = useSearchParams();

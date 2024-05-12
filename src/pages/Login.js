@@ -6,6 +6,7 @@ import LoginWithPassword from '../auth/LoginWithPassword';
 import { useState } from 'react';
 import { Card, CardContent, Button, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Telegram } from '../util/telegram-passport.js';
 
 function Login() {
