@@ -244,7 +244,7 @@ function Profile() {
                   style={photoUrl ? { background: 'none' } : {}}
                   onMouseDown={() => {
                     clearTimeout(avatarPreviewTimer);
-                    setAvatarPreviewTimer(setTimeout(avatarPreview, 1000));
+                    setAvatarPreviewTimer(setTimeout(avatarPreview, 700));
                   }}
                   onMouseUp={() => {
                     clearTimeout(avatarPreviewTimer);
