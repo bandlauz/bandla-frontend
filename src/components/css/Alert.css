@@ -24,6 +24,10 @@
   max-width: 90%;
 }
 
+.alert_content.bg_none {
+  background-color: transparent !important;
+}
+
 .alert_content p {
   text-wrap: nowrap;
   text-align: left;
