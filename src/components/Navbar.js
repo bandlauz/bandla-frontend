@@ -48,7 +48,8 @@ function Navbar() {
       );
       setLoggedIn(true);
       setProfileImg(myprofile.data.data.photoUrl);
-      setAvatarLtr(myprofile.data.data.firstName[0]);
+      if (myprofile.data.data.firstName)
+        setAvatarLtr(myprofile.data.data.firstName[0]);
     } catch (error) {
       setLoggedIn(false);
     }
