@@ -26,33 +26,21 @@ function Login() {
   const handlePhoneNumberChange = (e) => {
     let formattedPhoneNumber = e.target.value.replace(/\D/g, '');
 
-    if (formattedPhoneNumber.length > 2 && formattedPhoneNumber.length <= 5) {
-      formattedPhoneNumber =
-        formattedPhoneNumber.substring(0, 2) +
-        ' ' +
-        formattedPhoneNumber.substring(2);
-    } else if (
-      formattedPhoneNumber.length > 5 &&
-      formattedPhoneNumber.length <= 7
-    ) {
-      formattedPhoneNumber =
-        formattedPhoneNumber.substring(0, 2) +
-        ' ' +
-        formattedPhoneNumber.substring(2, 5) +
-        '-' +
-        formattedPhoneNumber.substring(5);
-    } else if (formattedPhoneNumber.length > 7) {
-      formattedPhoneNumber =
-        formattedPhoneNumber.substring(0, 2) +
-        ' ' +
-        formattedPhoneNumber.substring(2, 5) +
-        '-' +
-        formattedPhoneNumber.substring(5, 7) +
-        '-' +
-        formattedPhoneNumber.substring(7);
+    const sections = [2, 6, 9];
+    const separators = [' ', '-', '-'];
+
+    let i = 0;
+    for (const length of sections) {
+      if (formattedPhoneNumber.length > length) {
+        formattedPhoneNumber =
+          formattedPhoneNumber.substring(0, length) +
+          separators[i] +
+          formattedPhoneNumber.substring(length);
+        i++;
+      }
     }
 
-    setPhoneNumber(formattedPhoneNumber);
+    setPhoneNumber(formattedPhoneNumber.substring(0, 12));
   };
 
   const isPhoneNumberValid = () => {
