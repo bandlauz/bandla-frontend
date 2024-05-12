@@ -1,1 +1,1 @@
-## bandla-frontend
+## Bandla Frontend
