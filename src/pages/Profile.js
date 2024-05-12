@@ -17,6 +17,8 @@ function Profile() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [avatarPreviewTimer, setAvatarPreviewTimer] = useState(false);
+  const [showAvatarPreview, setShowAvatarPreview] = useState(false);
   const list = ['firstName', 'lastName', 'save'];
   const maxPhotoSize = 1024 * 1024 * 6; //KB
 
@@ -210,6 +212,10 @@ function Profile() {
     }
   }
 
+  function avatarPreview() {
+    if (photoUrl) setShowAvatarPreview(true);
+  }
+
   return (
     <>
       <div className="profile-wrapper" style={{ justifyContent: 'center' }}>
@@ -236,6 +242,14 @@ function Profile() {
                     fileInput.current.click();
                   }}
                   style={photoUrl ? { background: 'none' } : {}}
+                  onMouseDown={() => {
+                    clearTimeout(avatarPreviewTimer);
+                    setAvatarPreviewTimer(setTimeout(avatarPreview, 1000));
+                  }}
+                  onMouseUp={() => {
+                    clearTimeout(avatarPreviewTimer);
+                    setAvatarPreviewTimer(false);
+                  }}
                 >
                   {firstName && firstName[0]}
                   {!firstName && 'B'}
@@ -253,6 +267,22 @@ function Profile() {
                       style={{ color: '#fff' }}
                     ></i>
                   </div>
+                )}
+                {showAvatarPreview && (
+                  <Alert
+                    show={showAvatarPreview}
+                    onHide={() => setShowAvatarPreview(false)}
+                    bgNone={true}
+                  >
+                    <div className="alert_img">
+                      <img
+                        src={photoUrl || ''}
+                        alt="rasm"
+                        onLoad={setSizeToImg}
+                      />
+                    </div>
+                    <div></div>
+                  </Alert>
                 )}
                 {showAlert && (
                   <Alert show={showAlert} onHide={() => setShowAlert(false)}>
@@ -282,7 +312,9 @@ function Profile() {
                   <Alert show={showAlertPic} onHide={hideAlertPic}>
                     <div className="alert_img">
                       <img
-                        src={URL.createObjectURL(fileInput.current.files[0]) || ''}
+                        src={
+                          URL.createObjectURL(fileInput.current.files[0]) || ''
+                        }
                         alt="rasm"
                         onLoad={setSizeToImg}
                       />
