@@ -194,7 +194,7 @@ function Login() {
                     placeholder="99 999-99-99"
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
-                    type="number"
+                    type="tel"
                     style={{
                       flex: '1 1 auto',
                       height: '100%',
