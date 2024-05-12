@@ -358,6 +358,7 @@ function Profile() {
                 value={firstName}
                 size="small"
                 onChange={changeFirstName}
+                autoFocus={!firstName}
               />
             </Grid>
             <Grid item>
