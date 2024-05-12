@@ -3,12 +3,11 @@ import './css/Login.css';
 import Request from '../util/Request';
 import Verification from '../auth/Verification';
 import LoginWithPassword from '../auth/LoginWithPassword';
-import InputMask from 'react-input-mask';
 import { useState } from 'react';
-import { styled } from '@mui/system';
 import { Card, CardContent, Button, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import { Telegram } from '../util/telegram-passport.js';
+
 function Login() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isVerificationFormVisible, setVerificationFormVisible] =
@@ -23,8 +22,21 @@ function Login() {
     'https://api.bandla.uz/auth/verification/send-confirmation-code/';
   let updateInterval;
 
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
+  const handlePhoneNumberChange = (e) => {
+    let formattedPhoneNumber = e.target.value.replace(/\D/g, '');
+
+    const sections = [2, 6, 9];
+    const separators = [' ', '-', '-'];
+
+    let i = 0;
+    for (const length of sections) {
+      if (formattedPhoneNumber.length > length) {
+        formattedPhoneNumber = formattedPhoneNumber.substring(0, length) + separators[i] + formattedPhoneNumber.substring(length);
+        i++;
+      }
+    }
+
+    setPhoneNumber(formattedPhoneNumber.substring(0, 12));
   };
 
   const isPhoneNumberValid = () => {
@@ -170,19 +182,26 @@ function Login() {
               <br></br>
               <form action="" onSubmit={handleSubmit} style={{ width: '100%' }}>
                 <div className="phone-container">
-                  <span className="country-code">+998</span>
-                  <InputMask
-                    type="tel"
-                    mask="99 999-99-99"
-                    maskChar=""
-                    placeholder="00 000-00-00"
-                    alwaysShowMask={true}
+                  <span
+                    style={{
+                      fontSize: '1.5em',
+                    }}
+                  >
+                    +998
+                  </span>
+                  <input
+                    placeholder="99 999-99-99"
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
-                    sx={{ flex: '1 1 auto', minWidth: 0 }}
-                  >
-                    {(inputProps) => <InputElement {...inputProps} />}
-                  </InputMask>
+                    type="text"
+                    style={{
+                      flex: '1 1 auto',
+                      height: '100%',
+                      fontSize: '1.5em',
+                    }}
+                    maxLength={12}
+                    autoFocus
+                  />
                 </div>
                 <Button
                   type={'submit'}
@@ -213,22 +232,5 @@ function Login() {
     </div>
   );
 }
-
-const InputElement = styled('input')(
-  ({ theme }) => `
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: ${
-    theme.palette.mode === 'dark' ? 'var(--grey-300)' : 'var(--grey-900)'
-  };
-  background: none;
-  border: none;
-  // firefox
-  &:focus-visible {
-    outline: 0;
-  }
-`
-);
 
 export default Login;
