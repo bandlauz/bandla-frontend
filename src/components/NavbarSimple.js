@@ -15,7 +15,7 @@ function NavbarSimple() {
     >
       <Container>
         <Grid container>
-          <Grid item xs={4} align="left" justifyContent='center'>
+          <Grid item xs={4} align="left">
             <Link color="inherit" href="/">
               <img
                 src={process.env.PUBLIC_URL + '/logo-black.png'}
