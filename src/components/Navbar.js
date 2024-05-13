@@ -113,7 +113,7 @@ function Navbar() {
               Biz haqimiqda
             </Link>
             {!loggedIn ? (
-              <MenuItem
+              <Link
                 onClick={() => handleClose('/login')}
                 style={{ textDecoration: 'none' }}
               >
@@ -123,7 +123,7 @@ function Navbar() {
                 >
                   Kirish
                 </Button>
-              </MenuItem>
+              </Link>
             ) : (
               <React.Fragment>
                 <Tooltip title="Hisobim sozlamari">
