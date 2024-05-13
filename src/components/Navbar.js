@@ -82,7 +82,7 @@ function Navbar() {
     >
       <Container>
         <Grid container>
-          <Grid item xs={4} className="avatar_con">
+          <Grid item xs={4}>
             <Link color="inherit" onClick={() => handleClose('/')}>
               <img
                 src={process.env.PUBLIC_URL + '/logo-black.png'}
