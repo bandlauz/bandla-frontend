@@ -200,7 +200,7 @@ function Profile() {
     const parent = img.parentElement;
 
     const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max;
-    const parentMinSize = IMG.maxSize(parent.clientWidth, parent.clientHeight);
+    const parentMaxSize = IMG.maxSize(parent.clientWidth, parent.clientHeight);
 
     if (imgMaxSize === 'square') {
       img.style[parentMinSize] = '100%';
