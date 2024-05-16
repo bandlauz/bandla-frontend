@@ -39,19 +39,19 @@ const peopleList = [
     name: 'Abduvahob',
     occupation: 'Frontend developer',
     photo:
-      'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+      'https://i.stack.imgur.com/34AD2.jpg',
   },
   {
     name: 'Kamron',
     occupation: 'Frontend developer',
     photo:
-      'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+      'https://i.stack.imgur.com/34AD2.jpg',
   },
   {
     name: 'Shamsiddin',
     occupation: 'Backend developer',
     photo:
-      'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+      'https://i.stack.imgur.com/34AD2.jpg',
   },
 ];
 
