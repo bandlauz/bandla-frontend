@@ -203,8 +203,8 @@ function Profile() {
     const parentMaxSize = IMG.maxSize(parent.clientWidth, parent.clientHeight);
 
     if (imgMaxSize === 'square') {
-      img.style[parentMinSize] = '100%';
-      parent.style[parentMinSize] = '400px';
+      img.style[parentMaxSize] = '100%';
+      parent.style[parentMaxSize] = '400px';
     }
     if (imgMaxSize !== 'square') {
       img.style[imgMaxSize] = '100%';
