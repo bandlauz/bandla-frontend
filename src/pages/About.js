@@ -38,20 +38,17 @@ const peopleList = [
   {
     name: 'Abduvahob',
     occupation: 'Frontend developer',
-    photo:
-      'https://i.stack.imgur.com/34AD2.jpg',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
   },
   {
     name: 'Kamron',
     occupation: 'Frontend developer',
-    photo:
-      'https://i.stack.imgur.com/34AD2.jpg',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
   },
   {
     name: 'Shamsiddin',
     occupation: 'Backend developer',
-    photo:
-      'https://i.stack.imgur.com/34AD2.jpg',
+    photo: 'https://i.stack.imgur.com/34AD2.jpg',
   },
 ];
 
