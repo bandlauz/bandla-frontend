@@ -20,7 +20,7 @@ function Footer() {
                   Bandla
                 </Link>{' '}
                 {new Date().getFullYear()}
-                {'. Barcha huquqlar himoyalangan'}
+                {'. All rights reserved'}
               </Typography>
             </Grid>
             <Grid item xs={6} align="right">

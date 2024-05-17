@@ -1,3 +1,8 @@
+html,
+body {
+  font-size: 14px;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;

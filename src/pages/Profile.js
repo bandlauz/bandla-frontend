@@ -40,8 +40,8 @@ function Profile() {
       );
       const data = response.data.data;
 
-      setFirstName(data.firstName);
-      setLastName(data.lastName);
+      setFirstName(data.firstName || '');
+      setLastName(data.lastName || '');
       setPhotoUrl(data.photoUrl);
       setPhoneNumber(data.phoneNumber);
       setLoading(false);
@@ -200,11 +200,11 @@ function Profile() {
     const parent = img.parentElement;
 
     const imgMaxSize = (await IMG.getData(fileInput.current.files[0])).size.max;
-    const parentMinSize = IMG.minSize(parent.clientWidth, parent.clientHeight);
+    const parentMaxSize = IMG.maxSize(parent.clientWidth, parent.clientHeight);
 
     if (imgMaxSize === 'square') {
-      img.style[parentMinSize] = '100%';
-      parent.style[parentMinSize] = '400px';
+      img.style[parentMaxSize] = '100%';
+      parent.style[parentMaxSize] = '400px';
     }
     if (imgMaxSize !== 'square') {
       img.style[imgMaxSize] = '100%';
@@ -358,6 +358,7 @@ function Profile() {
                 value={firstName}
                 size="small"
                 onChange={changeFirstName}
+                autoFocus={!firstName}
               />
             </Grid>
             <Grid item>
