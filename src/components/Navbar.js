@@ -108,6 +108,7 @@ function Navbar() {
                 textDecoration: 'none',
                 marginRight: '10px',
                 textWrap: 'nowrap',
+                cursor: 'pointer',
               }}
             >
               Biz haqimiqda
