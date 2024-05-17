@@ -1,5 +1,9 @@
 @import url('./Profile.css');
 
+.company_con h1 {
+  text-align: center;
+}
+
 .company_con,
 .inputs {
   display: flex;

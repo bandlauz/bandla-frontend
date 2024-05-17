@@ -48,7 +48,8 @@ function Navbar() {
       );
       setLoggedIn(true);
       setProfileImg(myprofile.data.data.photoUrl);
-      setAvatarLtr(myprofile.data.data.firstName[0]);
+      if (myprofile.data.data.firstName)
+        setAvatarLtr(myprofile.data.data.firstName[0]);
     } catch (error) {
       setLoggedIn(false);
     }
@@ -107,12 +108,13 @@ function Navbar() {
                 textDecoration: 'none',
                 marginRight: '10px',
                 textWrap: 'nowrap',
+                cursor: 'pointer',
               }}
             >
               Biz haqimiqda
             </Link>
             {!loggedIn ? (
-              <MenuItem
+              <Link
                 onClick={() => handleClose('/login')}
                 style={{ textDecoration: 'none' }}
               >
@@ -122,7 +124,7 @@ function Navbar() {
                 >
                   Kirish
                 </Button>
-              </MenuItem>
+              </Link>
             ) : (
               <React.Fragment>
                 <Tooltip title="Hisobim sozlamari">

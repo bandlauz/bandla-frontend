@@ -218,6 +218,7 @@ export default function Company() {
             type="text"
             label="Nomi"
             disabled={!!company?.id}
+            autoFocus
           />
           <Input
             ref={companyAddress}
